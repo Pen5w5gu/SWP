@@ -12,12 +12,14 @@
 <script>
     function validateEmail() {
         var emailInput = document.getElementById("emailInput").value;
-        var emailRegex = /^.{2}@fe\.edu\.vn$/;
+//        var emailRegex = /.+@fe\.edu\.vn$/;
+        var emailRegex = /.+@gmail\.com$/;
+        
 
         if (emailRegex.test(emailInput)) {
-            alert("Email is valid");
+            return true;
         } else {
-            alert("Invalid email format. Please use __@fe.edu.vn");
+            alert("Invalid email format. Please use @fe.edu.vn");
             return false; // Prevent form submission
         }
     }
@@ -31,7 +33,7 @@
             <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>      
         </div>
         <span>or register your new account</span>
-        <form action="confirmcaptcha" method="GET" onsubmit="return validateEmail()">
+        <form action="regisaccount" method="GET" onsubmit="return validateEmail()">
             <div class="user-box">
                 <input type="text" id="emailInput" name="email" required="">
                 <label>Email</label>
@@ -54,11 +56,11 @@
 
             <div class="button-submit">
                 <button type="submit">Submit</button>
-         
             </div>
+            <h3 style="color:red">${notification}</h3>
         </form>
         <div class="form-switch" id="formSwitch">
-            Have an account? <a href="login.html"> Sign up here</a>
+            Have an account? <a href="login.jsp"> Sign up here</a>
         </div>
     </div>
 </body>

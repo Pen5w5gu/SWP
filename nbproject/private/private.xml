@@ -3,14 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/PRJ/swp/web/login.jsp</file>
-            <file>file:/D:/PRJ/swp/web/WEB-INF/web.xml</file>
-            <file>file:/D:/PRJ/swp/web/register.jsp</file>
-            <file>file:/D:/PRJ/swp/src/java/Dao/DBContext.java</file>
-            <file>file:/D:/PRJ/swp/web/css/styleRegister.css</file>
-            <file>file:/D:/PRJ/swp/src/java/control/LoginServlet.java</file>
-            <file>file:/D:/PRJ/swp/src/java/Dao/AccountDAO.java</file>
-            <file>file:/D:/PRJ/swp/src/java/model/User.java</file>
+            <file>file:/E:/Code/SWP391/swp/web/login.jsp</file>
+            <file>file:/E:/Code/SWP391/swp/src/java/control/Account/LoginServlet.java</file>
+            <file>file:/E:/Code/SWP391/swp/web/Taskpage.jsp</file>
+            <file>file:/E:/Code/SWP391/swp/web/Homepagelecture.jsp</file>
+            <file>file:/E:/Code/SWP391/swp/web/Homepagestudent2.jsp</file>
+            <file>file:/E:/Code/SWP391/swp/web/Homepagestudent.jsp</file>
         </group>
     </open-files>
 </project-private>

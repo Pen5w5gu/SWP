@@ -16,8 +16,12 @@
 <body>
 
     <div class="login-box">
+        
+      
+        
+        
         <h2>Login</h2>
-        <form action="login" >
+        <form action="login" method="POST">
             <div class="social-container">
                 <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
                 <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
@@ -27,8 +31,8 @@
             <span>or use your account</span>
 
             <div class="user-box">
-                <input type="text" name="name" required="">
-                <label>User name</label>
+                <input type="text" name="email" required="">
+                <label>Mail</label>
             </div>
             <div class="user-box">
                 <input type="password" name="password" required="">
@@ -40,7 +44,7 @@
             </div>
 
             <div class="button-forgot">
-                <a href="forgetPassword.html">Forget your password ?</a>
+                <a href="forget.jsp">Forget your password ?</a>
             </div>
 
            

@@ -2,11 +2,91 @@
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <servlet>
         <servlet-name>LoginServlet</servlet-name>
-        <servlet-class>control.LoginServlet</servlet-class>
+        <servlet-class>control.Account.LoginServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ConfirmCaptcha</servlet-name>
+        <servlet-class>control.Account.ConfirmCaptchaServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RegisAccount</servlet-name>
+        <servlet-class>control.Account.RegisAccountServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ForgotPassword</servlet-name>
+        <servlet-class>control.Account.ForgotPasswordServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ChangePass_Login</servlet-name>
+        <servlet-class>control.Account.ChangePass_LoginServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Confim_Forget</servlet-name>
+        <servlet-class>control.Account.Confim_ForgetServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ShowProflieServlet</servlet-name>
+        <servlet-class>control.Account.ShowProflieServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewClassServlet</servlet-name>
+        <servlet-class>control.Account.Lecture.ViewClassServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LogoutServlet</servlet-name>
+        <servlet-class>control.Account.LogoutServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ShowProjectClassSeverlet</servlet-name>
+        <servlet-class>control.Account.Lecture.ShowProjectClassSeverlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ShowProjectStudent</servlet-name>
+        <servlet-class>control.Account.Student.ShowProjectStudent</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/login</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ConfirmCaptcha</servlet-name>
+        <url-pattern>/confirmcaptcha</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RegisAccount</servlet-name>
+        <url-pattern>/regisaccount</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ForgotPassword</servlet-name>
+        <url-pattern>/forgotpassword</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ChangePass_Login</servlet-name>
+        <url-pattern>/changepassword</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Confim_Forget</servlet-name>
+        <url-pattern>/confimforget</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ShowProflieServlet</servlet-name>
+        <url-pattern>/profile</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewClassServlet</servlet-name>
+        <url-pattern>/lectureview</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LogoutServlet</servlet-name>
+        <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ShowProjectClassSeverlet</servlet-name>
+        <url-pattern>/showproject</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ShowProjectStudent</servlet-name>
+        <url-pattern>/showprojectstudent</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
