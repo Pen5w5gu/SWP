@@ -7,13 +7,12 @@
                     <html lang="en">
 
                     <head>
-
                         <meta charset="utf-8">
                         <meta http-equiv="X-UA-Compatible" content="IE=edge">
                         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
                         <meta name="description" content="">
                         <meta name="author" content="">
-
+                        <title>Project Management</title>
 
 
                         <!-- Custom fonts for this template-->
@@ -251,7 +250,7 @@
                                                     <span class="mr-2 d-none d-lg-inline text-gray-600 small">Xin chào,
                                                         ${session.getUsername()}</span>
                                                     <img class="img-profile rounded-circle"
-                                                        src="img/undraw_profile.svg">
+                                                        alt src="img/undraw_profile.svg">
                                                 </a>
                                                 <!-- Dropdown - User Information -->
                                                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"

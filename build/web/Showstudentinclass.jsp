@@ -12,7 +12,7 @@
                 <meta name="description" content="">
                 <meta name="author" content="">
 
-                <title>SB Admin 2 - Tables</title>
+                <title>Project Management</title>
 
                 <!-- Custom fonts for this template -->
                 <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -239,7 +239,7 @@
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <span class="mr-2 d-none d-lg-inline text-gray-600 small">Xin chào,
                                                 ${session.getUsername()}</span>
-                                            <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
+                                            <img alt class="img-profile rounded-circle" src="img/undraw_profile.svg">
                                         </a>
                                         <!-- Dropdown - User Information -->
                                         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
