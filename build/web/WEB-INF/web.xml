@@ -44,6 +44,14 @@
         <servlet-name>ShowProjectStudent</servlet-name>
         <servlet-class>control.Account.Student.ShowProjectStudent</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>StudentProfileServlet</servlet-name>
+        <servlet-class>control.Account.Student.StudentProfileServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ShowProfile</servlet-name>
+        <servlet-class>control.Account.ShowProfile</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -87,6 +95,14 @@
     <servlet-mapping>
         <servlet-name>ShowProjectStudent</servlet-name>
         <url-pattern>/showprojectstudent</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StudentProfileServlet</servlet-name>
+        <url-pattern>/student-profile</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ShowProfile</servlet-name>
+        <url-pattern>/ShowProfile</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -221,9 +221,6 @@
                     <p>${user.username}</p>
                     <p>${user.email}</p>
                     <p>${user.role_project}</p>
-                    
-                    
-                    <!-- Add more user details as needed -->
                 </div>
             </c:forEach>
         </div>

@@ -88,13 +88,13 @@ public class LoginServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
         String email = request.getParameter("email");
         String password = request.getParameter("password");
 
-// Use a more secure method to obtain the secret key (e.g., KeyGenerator)
+        // Use a more secure method to obtain the secret key (e.g., KeyGenerator)
         SecretKey secretKey = generateSecretKey();
 
         AccountDAO dao = new AccountDAO();
@@ -113,23 +113,11 @@ public class LoginServlet extends HttpServlet {
             } else {
                 if (dao.checkStatus(email) == 1) {
                     User user = dao.getUser(email);
-                    if (user.getId_role() == 1) {
+                    session.setAttribute("session", user); // Lưu thông tin người dùng vào session
 
-                        Cookie loginCookie = new Cookie("username", email);
-                        loginCookie.setMaxAge(3600); // Set the maximum age of the cookie in seconds
-                        response.addCookie(loginCookie);
-
-                        List<Class> classes = cdao.getClassByUser(user.getId_account());
-                        session.setAttribute("session", user);
-                        request.setAttribute("classes", classes);
-                        request.getRequestDispatcher("Homepagelecture.jsp").forward(request, response);
-                    } else {
-                        int ID_user = user.getId_account();
-                        List<Project> p = pdao.getProjectbyIdAccount(ID_user);
-                        request.setAttribute("projects", p);
-                        session.setAttribute("session", user);
-                        request.getRequestDispatcher("Homepagestudent.jsp").forward(request, response);
-                    }
+                    // Chuyển hướng người dùng đến trang Profile
+                    response.sendRedirect("Homepagelecture.jsp");
+                    return; // Kết thúc phương thức sau khi chuyển hướng
                 } else {
                     request.setAttribute("email", email);
                     request.getRequestDispatcher("setPassword.jsp").forward(request, response);

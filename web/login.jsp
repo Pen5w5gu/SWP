@@ -14,12 +14,7 @@
 </head>
 
 <body>
-
-    <div class="login-box">
-        
-      
-        
-        
+    <div class="login-box">     
         <h2>Login</h2>
         <form action="login" method="POST">
             <div class="social-container">
