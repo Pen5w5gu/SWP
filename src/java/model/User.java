@@ -8,7 +8,9 @@ package model;
  *
  * @author tieup
  */
+
 public class User {
+
     private int Id_account;
     private String username;
     private String password;
@@ -16,16 +18,10 @@ public class User {
     private String status;
     private String role_project;
     private int Id_role;
+    private Role role;
 
     public User() {
     }
-
-    public User(String username, String email, String role_project) {
-        this.username = username;
-        this.email = email;
-        this.role_project = role_project;
-    }
-    
 
     public User(int Id_account, String username, String password, String email, String status, String role_project, int Id_role) {
         this.Id_account = Id_account;
@@ -37,8 +33,23 @@ public class User {
         this.Id_role = Id_role;
     }
 
-    public User(String string, String string0) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
+    public User(String username, String email, String role_project) {
+        this.username = username;
+        this.email = email;
+        this.role_project = role_project;
+    }
+
+    public User(String userName, String email, Role role) {
+        this.username = userName; // Cập nhật tên biến thành userName
+        this.email = email;
+        this.role = role;
+        this.role_project = role.getRole_name(); // Cập nhật role_project từ đối tượng Role
+        this.Id_role = role.getId_role(); // Cập nhật Id_role từ đối tượng Role
     }
 
     public int getId_account() {
@@ -97,17 +108,20 @@ public class User {
         this.Id_role = Id_role;
     }
 
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
     @Override
     public String toString() {
         return "User{" + "Id_account=" + Id_account + ", username=" + username + ", password=" + password + ", email=" + email + ", status=" + status + ", role_project=" + role_project + ", Id_role=" + Id_role + '}';
     }
-    
 
-   
-
-  
+    public void setRole(User role) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
- 
-    
-    
-
+}
