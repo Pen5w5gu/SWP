@@ -56,6 +56,14 @@
         <servlet-name>ViewStudentInClassServlet</servlet-name>
         <servlet-class>control.Account.Lecture.ViewStudentInClassServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Profile</servlet-name>
+        <servlet-class>control.Account.Profile</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ChangeInfomation</servlet-name>
+        <servlet-class>control.Account.ChangeInfomation</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -79,10 +87,6 @@
     <servlet-mapping>
         <servlet-name>Confim_Forget</servlet-name>
         <url-pattern>/confimforget</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ShowProflieServlet</servlet-name>
-        <url-pattern>/profile</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ViewClassServlet</servlet-name>
@@ -123,6 +127,14 @@
     <servlet-mapping>
         <servlet-name>ViewStudentInClassServlet</servlet-name>
         <url-pattern>/showstudentinclass</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Profile</servlet-name>
+        <url-pattern>/profile</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ChangeInfomation</servlet-name>
+        <url-pattern>/change_info</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

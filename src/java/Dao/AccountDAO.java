@@ -224,6 +224,56 @@ public class AccountDAO extends DBContext { // Follow Java naming conventions fo
         }
         return users;
     }
+    
+    public User getAccountProfile(String email) {
+        User user = null;
+        try {
+            String sql = "SELECT a.User_name, a.email, r.Id_role, r.Role_Name "
+                    + "FROM account a "
+                    + "JOIN Role r ON r.Id_role = a.Id_role "
+                    + "WHERE a.email = ?";
+            ps = connection.prepareStatement(sql);
+            ps.setString(1, email);
+            rs = ps.executeQuery();
+
+            if (rs.next()) {
+                String userName = rs.getString("User_name");
+                String roleName = rs.getString("Role_Name");
+                int roleId = rs.getInt("Id_role");
+                // Tạo đối tượng Role với thông tin từ cơ sở dữ liệu
+                Role role = new Role(roleId, roleName);
+                // Tạo đối tượng User với thông tin tương ứng
+                user = new User(userName, email, role);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return user;
+    }
+    
+    public Role getUserRole(String email) {
+        Role role = null;
+
+        try {
+            String sql = "SELECT r.Id_role, r.Role_Name "
+                    + "FROM account a "
+                    + "JOIN Role r ON r.Id_role = a.Id_role "
+                    + "WHERE a.email = ?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, email);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                int roleId = rs.getInt("Id_role");
+                String roleName = rs.getString("Role_Name");
+                role = new Role(roleId, roleName);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return role;
+    }
 
     public static void main(String[] args) {
         AccountDAO dao = new AccountDAO();

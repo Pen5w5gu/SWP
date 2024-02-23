@@ -26,7 +26,7 @@
             rel="stylesheet">
 
         <!-- Custom styles for this template-->
-        <link href="css/sb-admin-2.min.css" rel="stylesheet">
+        <link href="css/profile.css" rel="stylesheet">
         <link href="css/profile_setting.css" rel="stylesheet">
 
 
@@ -255,13 +255,13 @@
                                 <!-- Dropdown - User Information -->
                                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                      aria-labelledby="userDropdown">
-                                    <a class="dropdown-item" href="Profile.jsp">
+                                    <a class="dropdown-item" href="#">
                                         <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Profile
                                     </a>
-                                    <a class="dropdown-item" href="#">
+                                    <a class="dropdown-item" href="changeInfo.jsp">
                                         <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                        Settings
+                                        Change Information
                                     </a>
                                     <a class="dropdown-item" href="#">
                                         <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
@@ -315,8 +315,9 @@
                                                            <div class="form-group">
                                                                 <label for="inputEmail4">Full Name</label>
                                                                 <input type="text" class="form-control"
-                                                                       id="fullName" placeholder="${session.getUsername()}">
+                                                                       id="fullName" placeholder="${session.getUsername()}" readonly>
                                                             </div>
+                                                            
                                                         </div>
                                                         <div class="col">
                                                             <div class="form-group">
