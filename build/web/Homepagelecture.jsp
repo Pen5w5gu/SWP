@@ -7,8 +7,7 @@
                     <html lang="en">
 
                     <head>
-                        <meta charset="utf-8">
-                        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                        <meta charset="utf-8"> <meta http-equiv="X-UA-Compatible" content="IE=edge">
                         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
                         <meta name="description" content="">
                         <meta name="author" content="">
@@ -44,7 +43,7 @@
 
                                 <!-- Sidebar - Brand -->
                                 <a class="sidebar-brand d-flex align-items-center justify-content-center"
-                                    href="index.html">
+                                    href="lectureview">
                                     <div class="sidebar-brand-icon rotate-n-15">
                                         <i class="fas fa-laugh-wink"></i>
                                     </div>
@@ -255,7 +254,7 @@
                                                 <!-- Dropdown - User Information -->
                                                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                                     aria-labelledby="userDropdown">
-                                                    <a class="dropdown-item" href="#">
+                                                    <a class="dropdown-item" href="Profile.jsp">
                                                         <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                                         Profile
                                                     </a>
