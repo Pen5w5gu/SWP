@@ -11,8 +11,10 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.List;
 import model.Class;
+import model.User;
 
 /**
  *
@@ -60,9 +62,13 @@ public class SearchclassServlet extends HttpServlet {
             throws ServletException, IOException {
         String classname = request.getParameter("class");
         ClassDAO dao = new ClassDAO();
-        List<Class> classes = dao.searchclass(classname);
-        request.setAttribute("classes", classes);
-        request.getRequestDispatcher("Homepagelecture.jsp").forward(request, response);
+        HttpSession session = request.getSession();
+        if (session != null && session.getAttribute("session") != null) {
+            User user = (User) session.getAttribute("session");
+            List<Class> classes = dao.searchclass(classname, user.getId_account());
+            request.setAttribute("classes", classes);
+            request.getRequestDispatcher("Homepagelecture.jsp").forward(request, response);
+        }
     }
 
     /**

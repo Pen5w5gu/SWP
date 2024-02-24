@@ -42,17 +42,21 @@ public class ClassDAO extends DBContext {
         return classes;
     }
 
-    public List<Class> searchclass(String classname) {
+    public List<Class> searchclass(String classname, int ID_account) {
         List<Class> classes = new ArrayList<>();
-        String sql = "select * from class\n"
-                + "where Class_name like ?";
+        String sql = "SELECT    class.*\n"
+                + "FROM         Account INNER JOIN\n"
+                + "                      [In] ON Account.ID_account = [In].ID_account INNER JOIN\n"
+                + "                      class ON [In].ID_class = class.Id_class\n"
+                + "where class.Class_name like ? AND Account.ID_account=?";
         try {
 
             ps = connection.prepareStatement(sql);
-            ps.setString(1, classname+"%");
+            ps.setString(1, classname + "%");
+            ps.setInt(2, ID_account);
             rs = ps.executeQuery();
             while (rs.next()) {
-                classes.add(new Class( rs.getInt(1), rs.getString(2)));
+                classes.add(new Class(rs.getInt(1), rs.getString(2)));
 
             }
         } catch (Exception e) {
@@ -66,7 +70,7 @@ public class ClassDAO extends DBContext {
         AccountDAO adao = new AccountDAO();
         User a = adao.getUser("nguyenthiminhhang141205@gmail.com");
 //        List<Class> classes = dao.getClassByUser(a.getId_account());
-    List<Class> classes = dao.searchclass("175");
+        List<Class> classes = dao.searchclass("175",1);
         for (Class o : classes) {
             System.out.println(o);
         }

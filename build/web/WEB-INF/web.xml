@@ -64,6 +64,10 @@
         <servlet-name>ChangeInfomation</servlet-name>
         <servlet-class>control.Account.ChangeInfomation</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SearchStudentInClass</servlet-name>
+        <servlet-class>control.Account.Lecture.SearchStudentInClass</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -135,6 +139,10 @@
     <servlet-mapping>
         <servlet-name>ChangeInfomation</servlet-name>
         <url-pattern>/change_info</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchStudentInClass</servlet-name>
+        <url-pattern>/searchstudent</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

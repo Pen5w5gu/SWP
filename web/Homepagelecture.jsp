@@ -44,8 +44,8 @@
                 <!-- Sidebar - Brand -->
                 <a class="sidebar-brand d-flex align-items-center justify-content-center"
                    href="lectureview">
-                    <div class="sidebar-brand-icon rotate-n-15">
-                        <i class="fas fa-laugh-wink"></i>
+                    <div class="sidebar-brand-icon">
+                        <i class="fa-solid fa-chalkboard-user"></i>
                     </div>
                     <div class="sidebar-brand-text mx-3">Project Management</div>
                 </a>
@@ -140,13 +140,11 @@
                         </button>
 
                         <!-- Topbar Search -->
-                        <form action="searchclass"
+                        <form action ="searchclass"
                               class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                             <div class="input-group">
-                                <input type="text" required=""
-                                       class="form-control bg-light border-0 small" name="class"
-                                       aria-label="Search" aria-describedby="basic-addon2"
-                                       placeholder="Tìm kiếm tên lớp...">
+                                <input type="text" required="" class="form-control bg-light border-0 small" name="class" 
+                                       aria-label="Search"   placeholder="Tìm kiếm tên lớp... "aria-describedby="basic-addon2">
                                 <div class="input-group-append">
                                     <button class="btn btn-primary" type="submit">
                                         <i class="fas fa-search fa-sm"></i>
@@ -289,7 +287,7 @@
                             <h1 class="h3 mb-0 text-gray-800">Class </h1>
                             <a href="#"
                                class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                                    class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+                                    class="fas fa-download fa-sm text-white-50"></i> generate report</a>
                         </div>
 
                         <!-- Content Row -->
@@ -316,31 +314,20 @@
                                                             <i
                                                                 class="fa-solid fa-user-astronaut fa-2x text-gray-300"></i>
                                                         </div>
-                                                        <div
-                                                            class="col-12 text-right d-flex justify-content-end align-items-center">
-                                                            <form id="form_${myclass.class_name}"
-                                                                  action="showproject" method="GET"
-                                                                  onsubmit="return submitForm('${myclass.class_name}')"
+                                                        <div class="col-12 text-right d-flex justify-content-end align-items-center">
+                                                            <form id="form_${myclass.class_name}" action="showproject" method="GET"
                                                                   class="mr-2">
-                                                                <a
-                                                                    href='showstudentinclass?classname=${myclass.class_name}'>
-
-                                                                    <i
-                                                                        class="fa-solid fa-list-check fa-1x"></i>
+                                                                <a href='showstudentinclass?classname=${myclass.class_name}'>
+                                                                    <i class="fa-solid fa-list-check fa-1x"></i>
                                                                 </a>
-                                                                <input type="hidden" name="class_name"
-                                                                       value="${myclass.class_name}">
+                                                                <input type="hidden" name="class_name" value="${myclass.class_name}">
                                                             </form>
 
-                                                            <form id="form_${myclass.class_name}_folder"
-                                                                  action="showproject" method="GET"
-                                                                  onsubmit="return submitForm('${myclass.class_name}')">
-                                                                <a href="#">
-                                                                    <i
-                                                                        class="fa-regular fa-folder fa-1x"></i>
+                                                            <form id="form_${myclass.class_name}_folder" action="showproject" method="GET">
+                                                                <a href="showproject?classname=${myclass.class_name}">
+                                                                    <i class="fa-regular fa-folder fa-1x"></i>
                                                                 </a>
-                                                                <input type="hidden" name="class_name"
-                                                                       value="${myclass.class_name}">
+                                                                <input type="hidden" name="class_name" value="${myclass.class_name}">
                                                             </form>
                                                         </div>
 

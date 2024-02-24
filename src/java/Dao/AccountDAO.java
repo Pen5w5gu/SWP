@@ -215,16 +215,16 @@ public class AccountDAO extends DBContext { // Follow Java naming conventions fo
             ps.setString(1, classname);
             rs = ps.executeQuery();
             while (rs.next()) {
-               users.add(new User(rs.getString(1), rs.getString(2), rs.getString(3)));
+                users.add(new User(rs.getString(1), rs.getString(2), rs.getString(3)));
             }
-           
+
         } catch (SQLException e) {
             // Consider logging the exception instead of just printing it
             e.printStackTrace();
         }
         return users;
     }
-    
+
     public User getAccountProfile(String email) {
         User user = null;
         try {
@@ -250,7 +250,7 @@ public class AccountDAO extends DBContext { // Follow Java naming conventions fo
         }
         return user;
     }
-    
+
     public Role getUserRole(String email) {
         Role role = null;
 
@@ -275,13 +275,37 @@ public class AccountDAO extends DBContext { // Follow Java naming conventions fo
         return role;
     }
 
+    public List<User> searchstudentinclass(String classname, String name) {
+        List<User> users = new ArrayList<>();
+
+        try {
+            String strSelect = "SELECT    Account.User_name, Account.email, Account.role_project\n"
+                    + "FROM         Account INNER JOIN\n"
+                    + "                      [In] ON Account.ID_account = [In].ID_account INNER JOIN\n"
+                    + "                      class ON [In].ID_class = class.Id_class\n"
+                    + "where  Class_name =? and  Account.User_name like ? and Account.Id_role=2";
+            ps = connection.prepareStatement(strSelect);
+            ps.setString(1, classname);
+            ps.setString(2, name);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                users.add(new User(rs.getString(1), rs.getString(2), rs.getString(3)));
+            }
+
+        } catch (SQLException e) {
+            // Consider logging the exception instead of just printing it
+            e.printStackTrace();
+        }
+        return users;
+    }
+
     public static void main(String[] args) {
         AccountDAO dao = new AccountDAO();
 //        System.out.println(dao.getUser("nguyenthiminhhang141205@gmail.com"));
 //        System.out.println(dao.checkAccount("nguyenthiminhhang141205@gmail.com", "ohvCFjsHBfTFW6oeA30pig=="));
 //        System.out.println(dao.Register("tung7123xbuavai@gmail.com", "tung123"));
 //        List<User> list = dao.getUserByProject(2);
-          List<User> list = dao.getallstudentinclass("1750");
+        List<User> list = dao.getallstudentinclass("1750");
         System.out.println(list);
 
     }

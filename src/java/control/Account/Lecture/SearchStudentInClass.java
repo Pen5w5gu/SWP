@@ -20,7 +20,7 @@ import model.User;
  *
  * @author tieup
  */
-public class ViewStudentInClassServlet extends HttpServlet {
+public class SearchStudentInClass extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,10 +39,10 @@ public class ViewStudentInClassServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ViewStudentInClassServlet</title>");
+            out.println("<title>Servlet SearchStudentInClass</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ViewStudentInClassServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet SearchStudentInClass at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -60,22 +60,16 @@ public class ViewStudentInClassServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String Classname = request.getParameter("classname");
-        AccountDAO dao = new AccountDAO();
-        List<User> list = dao.getallstudentinclass(Classname);
-        request.setAttribute("student", list);
-        request.setAttribute("Classname", Classname);
-        HttpSession session = request.getSession();
-        if (session != null && session.getAttribute("session") != null) {
-            User user = (User) session.getAttribute("session");
-            User account = dao.getUser(user.getEmail());
-            ClassDAO cdao = new ClassDAO();
-            List<model.Class> classes = cdao.getClassByUser(account.getId_account());
-            request.setAttribute("classes", classes);
-            request.getRequestDispatcher("Showstudentinclass.jsp").forward(request, response);
-        }
+       String name=request.getParameter("namest");
+       String classname=request.getParameter("classname");
+        AccountDAO dao= new AccountDAO();
+         List<User> users = dao.searchstudentinclass(classname, name);
+         request.setAttribute("student",users);
+         request.setAttribute("classname",classname);
+      
+         request.getRequestDispatcher("Showstudentinclass.jsp").forward(request, response);
     }
-
+    
     /**
      * Handles the HTTP <code>POST</code> method.
      *

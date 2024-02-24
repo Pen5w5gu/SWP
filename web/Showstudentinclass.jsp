@@ -12,7 +12,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>Project Management</title>
+        <title>SB Admin 2 - Tables</title>
 
         <!-- Custom fonts for this template -->
         <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -43,8 +43,8 @@
 
                 <!-- Sidebar - Brand -->
                 <a class="sidebar-brand d-flex align-items-center justify-content-center" href="lectureview">
-                    <div class="sidebar-brand-icon rotate-n-15">
-                        <i class="fas fa-laugh-wink"></i>
+                    <div class="sidebar-brand-icon">
+                        <i class="fa-solid fa-chalkboard-user"></i>
                     </div>
                     <div class="sidebar-brand-text mx-3">Project Management</div>
                 </a>
@@ -85,10 +85,10 @@
                             <c:choose>
                                 <c:when test="${not empty classes}">
                                     <c:forEach var="myclass" items="${classes}">
-                                        <form id="form_${myclass.class_name}" action="showproject" method="GET"
+                                        <form id="form_${myclass.class_name}" action="c" method="GET"
                                               onsubmit="return submitForm(${myclass.class_name})">
-                                            <a href="#" class="collapse-item"
-                                               onclick="document.getElementById('form_${myclass.class_name}').submit();">Class
+                                            <a href="showproject?classname=${myclass.class_name}" class="collapse-item"
+                                               ">Class
                                                 ${myclass.class_name}</a><!-- comment -->
                                             <input type="hidden" name="class_name"
                                                    value="${myclass.class_name}">
@@ -105,7 +105,7 @@
 
                 <!-- Nav Item - Charts -->
                 <li class="nav-item">
-                    <a class="nav-link" href="ImportFile.jsp">
+                    <a class="nav-link" href="ImportExcel.jsp">
                         <i class="fa-solid fa-file-import"></i>
                         <span>Import file excel</span></a>
                 </li>
@@ -162,13 +162,13 @@
                                 <!-- Dropdown - Messages -->
                                 <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
                                      aria-labelledby="searchDropdown">
-                                    <form class="form-inline mr-auto w-100 navbar-search">
+                                    <form action="searchstudent?classname=${Classname}" class="form-inline mr-auto w-100 navbar-search">
                                         <div class="input-group">
-                                            <input type="text" class="form-control bg-light border-0 small"
+                                            <input type="text" name="namest"class="form-control bg-light border-0 small"
                                                    placeholder="Search for..." aria-label="Search"
                                                    aria-describedby="basic-addon2">
                                             <div class="input-group-append">
-                                                <button class="btn btn-primary" type="button">
+                                                <button class="btn btn-primary" type="submit">
                                                     <i class="fas fa-search fa-sm"></i>
                                                 </button>
                                             </div>
@@ -239,18 +239,18 @@
                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <span class="mr-2 d-none d-lg-inline text-gray-600 small">Xin chào,
                                         ${session.getUsername()}</span>
-                                    <img alt class="img-profile rounded-circle" src="img/undraw_profile.svg">
+                                    <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
                                 </a>
                                 <!-- Dropdown - User Information -->
                                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                      aria-labelledby="userDropdown">
-                                    <a class="dropdown-item" href="profile">
+                                    <a class="dropdown-item" href="#">
                                         <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Profile
                                     </a>
-                                    <a class="dropdown-item" href="change_info">
+                                    <a class="dropdown-item" href="#">
                                         <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                        Change Information
+                                        Settings
                                     </a>
                                     <a class="dropdown-item" href="#">
                                         <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
@@ -274,8 +274,8 @@
                     <div class="container-fluid">
 
                         <!-- Page Heading -->
-                        <h1 class="h3 mb-2 text-gray-800">${myclass.class_name}</h1>
-                        <p class="mb-4">List of student in class.</p>
+                        <h1 class="h3 mb-2 text-gray-800">Class ${Classname}</h1>
+                        <p class="mb-4">List of student in class:</p>
 
                         <!-- DataTales Example -->
                         <div class="card shadow mb-4">
@@ -294,14 +294,7 @@
                                                 <th>Role</th>
                                             </tr>
                                         </thead>
-                                        <tfoot>
-                                            <tr>
-                                                <th>ID</th>
-                                                <th>Name</th>
-                                                <th>Email</th>
-                                                <th>Role</th>
-                                            </tr>
-                                        </tfoot>
+
                                         <tbody>
                                             <c:forEach items="${student}" var="x" varStatus="loop">
                                                 <tr>
@@ -335,25 +328,26 @@
         </a>
 
         <!-- Logout Modal-->
-        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-             aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">Select "Logout" below if you are ready to end your current session.
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                        <a class="btn btn-primary" href="login.html">Logout</a>
+        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
+                 aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">Select "Logout" below if you are ready to end your
+                            current session.</div>
+                        <div class="modal-footer">
+                            <button class="btn btn-secondary" type="button"
+                                    data-dismiss="modal">Cancel</button>
+                            <a class="btn btn-primary" href="login.jsp">Logout</a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
         <!-- Bootstrap core JavaScript-->
         <script src="vendor/jquery/jquery.min.js"></script>
