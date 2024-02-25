@@ -87,7 +87,7 @@ values('lecture')
 insert into role
 values('student')
 select * from role
-insert into Account(User_name,Password,email,status,role_project,Id_role)
+insert into Account([User_name],Password,email,status,role_project,Id_role)
 values(N'Minh Hằng','ohvCFjsHBfTFW6oeA30pig==','nguyenthiminhhang141205@gmail.com',1,null,1)
 insert into class
 values('1757'),
