@@ -1,6 +1,7 @@
 <%-- Document : Showstudentinclass Created on : Feb 21, 2024, 1:54:14 AM Author : tieup --%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
+<%@ page import="model.User" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -34,6 +35,30 @@
     </head>
 
     <body id="page-top">
+        <script>
+            function Sendata(taskId, newTaskTypeId) {
+                // Tạo một đối tượng XMLHttpRequest
+                var xhr = new XMLHttpRequest();
+
+                // Thiết lập phương thức và URL cho servlet
+                xhr.open("POST", "ChangeStatusTaskServlet", true);
+                xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+                // Thiết lập hàm xử lý khi nhận được phản hồi từ server
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                        // Xử lý phản hồi từ server nếu cần
+                        console.log("Dữ liệu đã được gửi thành công!");
+                    }else{
+                        console.log("Failed");
+                    }
+                };
+
+                // Gửi yêu cầu POST với dữ liệu taskId và newTaskTypeId
+                xhr.send("taskId=" + taskId + "&newTaskTypeId=" + newTaskTypeId);
+            }
+
+        </script>
 
         <!-- Page Wrapper -->
         <div id="wrapper">
@@ -299,8 +324,12 @@
                         <div class="card shadow mb-4 ">
                             <div class="card-header d-sm-flex align-items-center justify-content-between mb-4">
                                 <h6 class="m-0  font-weight-bold text-primary">Task</h6>
-                                <a href="#"
-                                   class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fa-solid fa-plus"></i> New task</a>
+                                <h1>${roleProject}</h1>
+                                <c:if test="${session.getRole_project() == 'TL'}">
+                                    <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                                        <i class="fa-solid fa-plus"></i> New task
+                                    </a>
+                                </c:if>
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
@@ -308,7 +337,7 @@
                                            cellspacing="0">
                                         <thead>
                                             <tr>
-                                                <th>ID</th>
+                                                <th>ID ${session.getRole_project()}</th>
                                                 <th>Task name</th>
                                                 <th>Milestone</th>
                                                 <th>Task description</th>
@@ -319,16 +348,46 @@
                                         </thead>
 
                                         <tbody>
-                                            <c:forEach items="${projects}" var="x" varStatus="loop">
+                                            <c:forEach items="${tasks}" var="task" varStatus="loop">
                                                 <tr>
                                                     <td>${loop.index + 1}</td>
-                                                    <td>${x.project_name}</td>
-                                                    <td>${x.start_date}</td>
-                                                    <td>${x.end_date}</td>
+                                                    <td>${task.taskName}</td>
+                                                    <td>
+                                                        <%-- Iterate through milestones to find the corresponding milestone name --%>
+                                                        <c:forEach items="${milestones}" var="milestone">
+                                                            <c:if test="${milestone.id_milestone == task.idMilestone}">
+                                                                ${milestone.name_milestone}
+                                                            </c:if>
+                                                        </c:forEach>
+                                                    </td>
+                                                    <td>${task.taskDescription}</td>
+                                                    <td>${task.startDate}</td>
+                                                    <td>${task.endDate}</td>
 
+                                                    <td>
+                                                        <%-- Display task type --%>
+                                                        <c:choose>
+                                                            <c:when test="${session.getRole_project() == 'TL'}">
+                                                                <%-- Dropdown selection for TL to choose new task type --%>
+                                                                <select name="taskType" id="taskType_${loop.index}" onchange = "Sendata(${task.idTask}, this.value)">
+                                                                    <c:forEach items="${tasktypes}" var="tasktypeText">
+                                                                        <option value="${tasktypeText.taskType_Id}" >${tasktypeText.taskType_Name}</option>
+                                                                    </c:forEach>
+                                                                </select>
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                <c:forEach items="${tasktypes}" var="tasktypeText">
+                                                                    <c:if test="${tasktypeText.taskType_Id == task.taskTypeId}">
+                                                                        ${tasktypeText.taskType_Name}
+                                                                    </c:if>
+                                                                </c:forEach>
+                                                            </c:otherwise>
+                                                        </c:choose>
+                                                    </td>
                                                 </tr>
                                             </c:forEach>
                                         </tbody>
+
                                     </table>
                                 </div>
                             </div>
