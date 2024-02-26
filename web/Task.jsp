@@ -49,7 +49,7 @@
                     if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
                         // Xử lý phản hồi từ server nếu cần
                         console.log("Dữ liệu đã được gửi thành công!");
-                    }else{
+                    } else {
                         console.log("Failed");
                     }
                 };
@@ -326,7 +326,7 @@
                                 <h6 class="m-0  font-weight-bold text-primary">Task</h6>
                                 <h1>${roleProject}</h1>
                                 <c:if test="${session.getRole_project() == 'TL'}">
-                                    <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                                    <a href="Add_Task.jsp" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
                                         <i class="fa-solid fa-plus"></i> New task
                                     </a>
                                 </c:if>
@@ -371,6 +371,10 @@
                                                                 <%-- Dropdown selection for TL to choose new task type --%>
                                                                 <select name="taskType" id="taskType_${loop.index}" onchange = "Sendata(${task.idTask}, this.value)">
                                                                     <c:forEach items="${tasktypes}" var="tasktypeText">
+                                                                        <c:if test="${tasktypeText.taskType_Id == task.taskTypeId}">
+                                                                            <option value="" selected>${tasktypeText.taskType_Name}</option>
+                                                                            ${tasktypeText.taskType_Name}
+                                                                        </c:if>
                                                                         <option value="${tasktypeText.taskType_Id}" >${tasktypeText.taskType_Name}</option>
                                                                     </c:forEach>
                                                                 </select>

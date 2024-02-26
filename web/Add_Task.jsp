@@ -300,7 +300,7 @@
                         <div class="card shadow mb-4 ">
                             <div class="card-header d-sm-flex align-items-center justify-content-between mb-4">
                                 <h6 class="m-0  font-weight-bold text-primary">Task</h6>
-                                <a href="Task.jsp"
+                                <a href="ShowTaskServlet"
                                    class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fa-solid fa-chevron-left"></i> Back to task</a>
                             </div>
                             <div class="card-body">
@@ -322,15 +322,16 @@
 
                                         <tbody>
                                             <tr>
-                                            <th><input type="text" name="id" class="form-control" required="" ></th>
-                                            <th><input type="text" name="task_name" class="form-control" required=""></th>
-                                            <th><input type="text" name="milestone" class="form-control" required=""></th>
-                                            <th><input type="text" name="task_description" class="form-control"></th>
-                                            <th><input type="date" name="start_date" class="form-control" required=""></th>
-                                            <th><input type="date" name="end_date" class="form-control" required=""></th>
-                                            <th><input type="choose" name="status" class="form-control" required=""></th>
+                                        <form action="AddNewTaskStudentServlet">
+                                                <th><input type="text" name="id" class="form-control" value="1" disabled ></th>
+                                            <th><input type="text" name="taskName" class="form-control" required=""></th>
+                                            <th><input type="text" name="milestoneId" class="form-control" required=""></th>
+                                            <th><input type="text" name="taskDescription" class="form-control"></th>
+                                            <th><input type="date" name="startDate" class="form-control" required=""></th>
+                                            <th><input type="date" name="endDate" class="form-control" required=""></th>
+                                            <th><input type="choose" name="taskTypeId" class="form-control" value ="1" readonly></th>
                                             <th><button type="submit" class="btn btn-primary">Save</button></th>
-
+                                          </form>
                                             </tr>
                                             <c:forEach items="${projects}" var="x" varStatus="loop">
                                                 <tr>

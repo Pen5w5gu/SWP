@@ -93,8 +93,8 @@ public class ProjectDAO extends DBContext{
      
     public static void main(String[] args) {
         ProjectDAO dao= new ProjectDAO();
-        List<Project> lists = dao.getProjectbyClass("1757");
-        System.out.println(lists);
+        
+        System.out.println(dao.getProjectsByUser(7));
 
     }
 }

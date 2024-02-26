@@ -107,9 +107,9 @@ public class LoginServlet extends HttpServlet {
                         List<Class> classes = cdao.getClassByUser(user.getId_account());
                         // Tạo các đối tượng java.sql.Date trực tiếp từ ngày
                         Date startDate = Date.valueOf("2022-02-02");
-                        Date endDate = Date.valueOf("2022-02-02");
+                        Date endDate = Date.valueOf("2022-02-02");s
                         // Tạo đối tượng Project
-                        Project project = new Project(1, "test", "test", startDate, endDate);
+                        Project project = pdao.getProjectsByUser(user.getId_account());
                         session.setAttribute("project", project);
                         request.setAttribute("project", project.getId_Project());
                         session.setAttribute("session", user);
@@ -117,10 +117,11 @@ public class LoginServlet extends HttpServlet {
                         request.getRequestDispatcher("Homepagelecture.jsp").forward(request, response);
                     } else {
                         // Tạo các đối tượng java.sql.Date trực tiếp từ ngày
+                        
                         Date startDate = Date.valueOf("2022-02-02");
                         Date endDate = Date.valueOf("2022-02-02");
                         // Tạo đối tượng Project
-                        Project project = new Project(1, "test", "test", startDate, endDate);
+                        Project project = pdao.getProjectsByUser(user.getId_account());
                         session.setAttribute("project", project);
                         request.setAttribute("project", project.getId_Project());
                         int ID_user = user.getId_account();

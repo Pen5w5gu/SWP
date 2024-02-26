@@ -88,6 +88,14 @@
         <servlet-name>AddMilesToneServlet</servlet-name>
         <servlet-class>control.Account.Student.AddMilesToneServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AddcommentServlet</servlet-name>
+        <servlet-class>control.Account.Student.AddcommentServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ShowCommentServlet</servlet-name>
+        <servlet-class>control.Account.Student.ShowCommentServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -183,6 +191,14 @@
     <servlet-mapping>
         <servlet-name>AddMilesToneServlet</servlet-name>
         <url-pattern>/AddMilesToneServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddcommentServlet</servlet-name>
+        <url-pattern>/AddcommentServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ShowCommentServlet</servlet-name>
+        <url-pattern>/ShowCommentServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

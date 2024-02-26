@@ -26,7 +26,8 @@
             rel="stylesheet">
 
         <!-- Custom styles for this template -->
-        <link href="css/sb-admin-2.min.css" rel="stylesheet">
+        <link href="css/profile.css" rel="stylesheet">
+        <link href="css/profile_setting.css" rel="stylesheet">
 
         <!-- Custom styles for this page -->
         <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
@@ -104,15 +105,15 @@
                     </div>
                 </li>
 
-                <li class="nav-item ">
-                    <a class="nav-link " href="ShowTaskServlet">
-                        <i class="fas fa-fw fa-chart-area"></i>
+                <li class="nav-item">
+                    <a class="nav-link " href="task">
+                        <i class="fa-solid fa-list-check"></i>
                         <span>Task</span></a>
                 </li>
 
                 <li class="nav-item active">
-                    <a class="nav-link" href="Milestone.jsp">
-                        <i class="fas fa-fw fa-chart-area"></i>
+                    <a class="nav-link" href="milestone">
+                        <i class="fa-solid fa-chart-bar"></i>
                         <span>Milestone</span></a>
                 </li>
 
@@ -262,11 +263,11 @@
                                 <!-- Dropdown - User Information -->
                                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                      aria-labelledby="userDropdown">
-                                    <a class="dropdown-item" href="#">
+                                    <a class="dropdown-item" href="profile_s">
                                         <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Profile
                                     </a>
-                                    <a class="dropdown-item" href="#">
+                                    <a class="dropdown-item" href="change_info_s">
                                         <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Settings
                                     </a>
@@ -293,52 +294,48 @@
 
                         <!-- Page Heading -->
                         <h1 class="h3 mb-2 text-gray-800">Milestone</h1>
-                        <p class="mb-4">List of task</p>
-                        <a href="Add_Milestone.jsp" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-                                        <i class="fa-solid fa-plus"></i> New Milestone
-                                    </a>
+                        <p class="mb-4">Add milestone</p>
 
                         <!-- DataTales Example -->
-                        <c:if test="${empty milestones}">
-                            <p>Không có milestone nào.</p>
-                        </c:if>
-                        <c:forEach items="${milestones}" var="milestone">
-                            <div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">${milestone.name_milestone}</h6>
-                                </div>
-                                <div class="card-body">
-                                    <c:forEach items="${tasktypes}" var="tasktype">
-                                        <%-- Accessing percentage using EL --%>
-                                        <c:set var="milestoneId" value="${milestone.id_milestone}" />
-                                        <c:set var="attributeName" value="taskOfMilestonessize${milestoneId}" />
-                                        <c:set var="milestoneIndex" value="${milestoneId-1}" />
-                                        <c:set var="taskTypeIndex" value="${tasktype.taskType_Id}" />
-<!--                                        because the list will start with 0-->
-                                        <c:set var="percentageMap" value="${milestoneTaskTypePercentageList[milestoneIndex]}" />
-                                        <c:set var="percentage" value="${percentageMap[taskTypeIndex]}" />
-                                        <c:set var="size" value="${requestScope[attributeName]}" />
-                                        <c:set var="taskCount" value="${Math.round(percentage * size / 100)}" />
+                        <div class="card shadow mb-4">
+                            <div class="card-header d-sm-flex align-items-center justify-content-between mb-4">
+                                <h6 class="m-0  font-weight-bold text-primary">Milestone</h6>
+                                <a href="ShowMilestoneServlet" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fa-solid fa-chevron-left"></i> Back to list milestone</a>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <form action="AddMilesToneServlet">
+                                    <table class="table table-bordered" width="100%" cellspacing="0">
+                                        <thead>
+                                            <tr>
+                                                <th>Id_milestone</th>
+                                                <th>Name_milestone</th>
+                                                <th>Start_date</th>
+                                                <th>End_Date</th>
+                                                <th>Id_Project</th>
+                                            </tr>
+                                        </thead>
 
-                                        <%-- Default percentage if not present --%>
-                                        <c:if test="${empty percentage}">
-                                            <c:set var="percentage" value="10" />
-                                        </c:if>
-
-                                        <h4 class="small font-weight-bold">${tasktype.taskType_Name} <span class="float-right">${percentage}% | ${taskCount}</span></h4>
-                                        <div class="progress mb-4">
-                                            <div class="progress-bar bg-danger" role="progressbar" style="width: ${percentage}%"
-                                                 aria-valuenow="${percentage}" aria-valuemin="0" aria-valuemax="100"></div>
-                                        </div>
-                                    </c:forEach>
+                                        <tbody>
+                                            <tr>
+                                        
+                                            <th><input type="text" name="id_milestone" class="form-control" readonly></th>
+                                            <th><input type="text" name="milestoneName" class="form-control" required=""></th>
+                                            <th><input type="date" name="startDate" class="form-control" required=""></th>
+                                            <th><input type="date" name="endDate" class="form-control" required=""></th>
+                                            <th><input type="text" name="id_Project" class="form-control" readonly></th>
+                                            </tr>
+                                            </tbody>
+                                    </table>
+                                    <div class="text-center"> <!-- Thêm class text-center để căn giữa -->
+                                        <button type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                                            <i class="fa-solid fa-plus"></i> Add new milestone
+                                        </button>
+                                    </div>
+                                    </form>
                                 </div>
                             </div>
-                        </c:forEach>
-
-
-
-
-
+                        </div>
 
 
                     </div>

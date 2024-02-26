@@ -5,7 +5,7 @@
 
 package control.Account.Student;
 
-import Dao.MilestoneDAO;
+import Dao.CommentDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -13,15 +13,16 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.sql.Date;
-import model.Milestone;
+import java.util.List;
+import model.Comment;
 import model.Project;
+import model.User;
 
 /**
  *
  * @author acer
  */
-public class AddMilesToneServlet extends HttpServlet {
+public class AddcommentServlet extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -33,32 +34,32 @@ public class AddMilesToneServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         HttpSession session = request.getSession();
-        String milestoneName = request.getParameter("milestoneName");
-        Date startDate = Date.valueOf(request.getParameter("startDate"));
-        Date endDate = Date.valueOf(request.getParameter("endDate"));
-        Project project = (Project) session.getAttribute("project");
-        int project_id = project.getId_Project();
-
-        // Tạo đối tượng Milestone
-        Milestone milestone = new Milestone();
-        milestone.setName_milestone(milestoneName);
-        milestone.setStart_date(startDate);
-        milestone.setEnd_date(endDate);
-        milestone.setId_Project(project_id);
-
-        // Gọi DAO để thêm Milestone vào cơ sở dữ liệu
-        MilestoneDAO milestoneDAO = new MilestoneDAO();
-        boolean success = milestoneDAO.addMilestone(milestone);
-
-        if (success) {
-            // Nếu thêm thành công, chuyển hướng về trang thành công
-            response.sendRedirect("ShowMilestoneServlet");
-        } else {
-            // Nếu thêm không thành công, chuyển hướng về trang lỗi
-            response.sendRedirect("login.jsp");
-        }
-    }
-    
+        if ( session.getAttribute("session") != null) {
+                User user = (User) session.getAttribute("session");
+                int user_id = user.getId_account();
+                Project project = (Project) session.getAttribute("project");
+                int project_id = project.getId_Project();
+                String comment = request.getParameter("comment");
+                CommentDAO cdao = new CommentDAO();
+                int idTask = Integer.parseInt(request.getParameter("idTask"));
+                //add comment
+                if(cdao.AddComment(comment, user_id, project_id)){
+                    //chuyen den trang show comment
+                    
+                request.setAttribute("idTask", idTask);
+                request.getRequestDispatcher("ShowCommentServlet").forward(request, response);
+                }
+            
+            } else {
+                // User is not logged in or session doesn't exist, redirect to the login page
+                response.sendRedirect("login.jsp");
+            }
+        
+        
+        
+        
+        
+    } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /** 
