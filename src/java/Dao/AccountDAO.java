@@ -305,8 +305,8 @@ public class AccountDAO extends DBContext { // Follow Java naming conventions fo
 //        System.out.println(dao.checkAccount("nguyenthiminhhang141205@gmail.com", "ohvCFjsHBfTFW6oeA30pig=="));
 //        System.out.println(dao.Register("tung7123xbuavai@gmail.com", "tung123"));
 //        List<User> list = dao.getUserByProject(2);
-//        List<User> list = dao.getallstudentinclass("1750");
-        System.out.println(dao.getUser("Accout6@gmail.com"));
+        List<User> list = dao.getallstudentinclass("1750");
+        System.out.println(list);
 
     }
 }

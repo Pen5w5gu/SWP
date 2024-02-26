@@ -104,15 +104,15 @@
                     </div>
                 </li>
 
-                <li class="nav-item ">
+                <li class="nav-item">
                     <a class="nav-link " href="task">
-                        <i class="fas fa-fw fa-chart-area"></i>
+                        <i class="fa-solid fa-list-check"></i>
                         <span>Task</span></a>
                 </li>
 
-                <li class="nav-item ">
+                <li class="nav-item">
                     <a class="nav-link" href="milestone">
-                        <i class="fas fa-fw fa-chart-area"></i>
+                        <i class="fa-solid fa-chart-bar"></i>
                         <span>Milestone</span></a>
                 </li>
 

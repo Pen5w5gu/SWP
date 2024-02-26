@@ -104,15 +104,15 @@
                     </div>
                 </li>
 
-                <li class="nav-item ">
+                <li class="nav-item">
                     <a class="nav-link " href="task">
-                        <i class="fas fa-fw fa-chart-area"></i>
+                        <i class="fa-solid fa-list-check"></i>
                         <span>Task</span></a>
                 </li>
 
                 <li class="nav-item active">
                     <a class="nav-link" href="milestone">
-                        <i class="fas fa-fw fa-chart-area"></i>
+                        <i class="fa-solid fa-chart-bar"></i>
                         <span>Milestone</span></a>
                 </li>
 
@@ -293,7 +293,12 @@
 
                         <!-- Page Heading -->
                         <h1 class="h3 mb-2 text-gray-800">Milestone</h1>
-                        <p class="mb-4">List of task</p>
+                        <c:if test="${session.getRole_project() == 'TL'}">
+                            <a href="Add_Milestone.jsp" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                                <i class="fa-solid fa-plus"></i> New task
+                            </a>
+                        </c:if>
+                        </br></br>
 
                         <!-- DataTales Example -->
                         <c:if test="${empty milestones}">
@@ -311,7 +316,7 @@
                                         <c:set var="attributeName" value="taskOfMilestonessize${milestoneId}" />
                                         <c:set var="milestoneIndex" value="${milestoneId-1}" />
                                         <c:set var="taskTypeIndex" value="${tasktype.taskType_Id}" />
-<!--                                        because the list will start with 0-->
+                                        <!--                                        because the list will start with 0-->
                                         <c:set var="percentageMap" value="${milestoneTaskTypePercentageList[milestoneIndex]}" />
                                         <c:set var="percentage" value="${percentageMap[taskTypeIndex]}" />
                                         <c:set var="size" value="${requestScope[attributeName]}" />

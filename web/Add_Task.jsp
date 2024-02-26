@@ -106,14 +106,14 @@
                 </li>
 
                 <li class="nav-item active">
-                    <a class="nav-link " href="charts.html">
-                        <i class="fas fa-fw fa-chart-area"></i>
+                    <a class="nav-link " href="task">
+                        <i class="fa-solid fa-list-check"></i>
                         <span>Task</span></a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="Milestone.jsp">
-                        <i class="fas fa-fw fa-chart-area"></i>
+                    <a class="nav-link" href="milestone">
+                        <i class="fa-solid fa-chart-bar"></i>
                         <span>Milestone</span></a>
                 </li>
 
@@ -300,7 +300,7 @@
                         <div class="card shadow mb-4 ">
                             <div class="card-header d-sm-flex align-items-center justify-content-between mb-4">
                                 <h6 class="m-0  font-weight-bold text-primary">Task</h6>
-                                <a href="Task.jsp"
+                                <a href="task"
                                    class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fa-solid fa-chevron-left"></i> Back to task</a>
                             </div>
                             <div class="card-body">

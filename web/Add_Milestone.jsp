@@ -1,7 +1,6 @@
 <%-- Document : Showstudentinclass Created on : Feb 21, 2024, 1:54:14 AM Author : tieup --%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
-<%@ page import="model.User" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -27,7 +26,8 @@
             rel="stylesheet">
 
         <!-- Custom styles for this template -->
-        <link href="css/sb-admin-2.min.css" rel="stylesheet">
+        <link href="css/profile.css" rel="stylesheet">
+        <link href="css/profile_setting.css" rel="stylesheet">
 
         <!-- Custom styles for this page -->
         <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
@@ -35,30 +35,6 @@
     </head>
 
     <body id="page-top">
-        <script>
-            function Sendata(taskId, newTaskTypeId) {
-                // Tạo một đối tượng XMLHttpRequest
-                var xhr = new XMLHttpRequest();
-
-                // Thiết lập phương thức và URL cho servlet
-                xhr.open("POST", "ChangeStatusTaskServlet", true);
-                xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-
-                // Thiết lập hàm xử lý khi nhận được phản hồi từ server
-                xhr.onreadystatechange = function () {
-                    if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-                        // Xử lý phản hồi từ server nếu cần
-                        console.log("Dữ liệu đã được gửi thành công!");
-                    }else{
-                        console.log("Failed");
-                    }
-                };
-
-                // Gửi yêu cầu POST với dữ liệu taskId và newTaskTypeId
-                xhr.send("taskId=" + taskId + "&newTaskTypeId=" + newTaskTypeId);
-            }
-
-        </script>
 
         <!-- Page Wrapper -->
         <div id="wrapper">
@@ -129,13 +105,13 @@
                     </div>
                 </li>
 
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link " href="task">
                         <i class="fa-solid fa-list-check"></i>
                         <span>Task</span></a>
                 </li>
 
-                <li class="nav-item">
+                <li class="nav-item active">
                     <a class="nav-link" href="milestone">
                         <i class="fa-solid fa-chart-bar"></i>
                         <span>Milestone</span></a>
@@ -287,11 +263,11 @@
                                 <!-- Dropdown - User Information -->
                                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                      aria-labelledby="userDropdown">
-                                    <a class="dropdown-item" href="#">
+                                    <a class="dropdown-item" href="profile_s">
                                         <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Profile
                                     </a>
-                                    <a class="dropdown-item" href="#">
+                                    <a class="dropdown-item" href="change_info_s">
                                         <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Settings
                                     </a>
@@ -317,81 +293,47 @@
                     <div class="container-fluid">
 
                         <!-- Page Heading -->
-                        <h1 class="h3 mb-2 text-gray-800">Task</h1>
-                        <p class="mb-4">List of task</p>
+                        <h1 class="h3 mb-2 text-gray-800">Milestone</h1>
+                        <p class="mb-4">Add milestone</p>
 
                         <!-- DataTales Example -->
-                        <div class="card shadow mb-4 ">
+                        <div class="card shadow mb-4">
                             <div class="card-header d-sm-flex align-items-center justify-content-between mb-4">
-                                <h6 class="m-0  font-weight-bold text-primary">Task</h6>
-                                <h1>${roleProject}</h1>
-                                <c:if test="${session.getRole_project() == 'TL'}">
-                                    <a href="Add_Task.jsp" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-                                        <i class="fa-solid fa-plus"></i> New task
-                                    </a>
-                                </c:if>
+                                <h6 class="m-0  font-weight-bold text-primary">Milestone</h6>
+                                <a href="milestone" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fa-solid fa-chevron-left"></i> Back to list milestone</a>
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <table class="table table-bordered" id="dataTable" width="100%"
-                                           cellspacing="0">
+                                    <table class="table table-bordered" width="100%" cellspacing="0">
                                         <thead>
                                             <tr>
-                                                <th>ID ${session.getRole_project()}</th>
-                                                <th>Task name</th>
-                                                <th>Milestone</th>
-                                                <th>Task description</th>
+                                                <th>Id_milestone</th>
+                                                <th>Name_milestone</th>
                                                 <th>Start_date</th>
                                                 <th>End_Date</th>
-                                                <th>Status</th>
+                                                <th>Id_Project</th>
                                             </tr>
                                         </thead>
 
                                         <tbody>
-                                            <c:forEach items="${tasks}" var="task" varStatus="loop">
-                                                <tr>
-                                                    <td>${loop.index + 1}</td>
-                                                    <td>${task.taskName}</td>
-                                                    <td>
-                                                        <%-- Iterate through milestones to find the corresponding milestone name --%>
-                                                        <c:forEach items="${milestones}" var="milestone">
-                                                            <c:if test="${milestone.id_milestone == task.idMilestone}">
-                                                                ${milestone.name_milestone}
-                                                            </c:if>
-                                                        </c:forEach>
-                                                    </td>
-                                                    <td>${task.taskDescription}</td>
-                                                    <td>${task.startDate}</td>
-                                                    <td>${task.endDate}</td>
-
-                                                    <td>
-                                                        <%-- Display task type --%>
-                                                        <c:choose>
-                                                            <c:when test="${session.getRole_project() == 'TL'}">
-                                                                <%-- Dropdown selection for TL to choose new task type --%>
-                                                                <select name="taskType" id="taskType_${loop.index}" onchange = "Sendata(${task.idTask}, this.value)">
-                                                                    <c:forEach items="${tasktypes}" var="tasktypeText">
-                                                                        <option value="${tasktypeText.taskType_Id}" >${tasktypeText.taskType_Name}</option>
-                                                                    </c:forEach>
-                                                                </select>
-                                                            </c:when>
-                                                            <c:otherwise>
-                                                                <c:forEach items="${tasktypes}" var="tasktypeText">
-                                                                    <c:if test="${tasktypeText.taskType_Id == task.taskTypeId}">
-                                                                        ${tasktypeText.taskType_Name}
-                                                                    </c:if>
-                                                                </c:forEach>
-                                                            </c:otherwise>
-                                                        </c:choose>
-                                                    </td>
-                                                </tr>
-                                            </c:forEach>
+                                            <tr>
+                                                <th><input type="text" name="id_milestone" class="form-control" required=""></th>
+                                                <th><input type="text" name="name_milestone" class="form-control" required=""></th>
+                                                <th><input type="date" name="start_date" class="form-control" required=""></th>
+                                                <th><input type="date" name="end_date" class="form-control" required=""></th>
+                                                <th><input type="text" name="id_Project" class="form-control" required=""></th>
+                                            </tr>
                                         </tbody>
-
                                     </table>
+                                    <div class="text-center"> <!-- Thêm class text-center để căn giữa -->
+                                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                                            <i class="fa-solid fa-plus"></i> Add new milestone
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+
 
                     </div>
                     <!-- /.container-fluid -->
