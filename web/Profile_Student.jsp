@@ -309,74 +309,48 @@
                                 <div class="my-4">
                                     <form>
                                         <div class="row mt-5 align-items-center">
-                                            <form action="changeInfo" method="post" class="profile" id="profileForm">
-                                                <div class="col-md-3 text-center mb-5">
-                                                    <div class="avatar avatar-xl">
-                                                        <img src="img/undraw_profile.svg"
-                                                             alt="..." class="avatar-img rounded-circle" />
-                                                    </div>
-                                                </div>
-                                                <div class="col">
-
-                                                    <div class="row align-items-center">
-                                                        <div class="col-md-7">
-                                                            <h4 class="mb-1">${firstname} ${lastname}</h4>
-                                                            <p class="small mb-3"><span class="badge badge-dark">Student</span></p>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="row mb-4">
-                                                        <div class="col-md-5">
-                                                           <div class="form-group">
-                                                                <label for="inputEmail4">Full Name</label>
-                                                                <input type="text" class="form-control"
-                                                                       id="fullName" placeholder="${user.getUsername()}" readonly>
-                                                            </div>
-
-                                                        </div>
-                                                        <div class="col">
-                                                            <div class="form-group">
-                                                                <label for="inputEmail4">Email</label>
-                                                                <input type="email" class="form-control"
-                                                                       id="inputEmail4" placeholder="${user.getEmail()}" readonly />
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-
-                                        <div class="row mb-4">
-
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="inputPassword4">Old Password</label>
-                                                    <input type="password" class="form-control" id="oldPassword" />
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="inputPassword5">New Password</label>
-                                                    <input type="password" class="form-control" id="newPassword" />
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="inputPassword6">Confirm Password</label>
-                                                    <input type="password" class="form-control" id="confirmPassword" />
+                                            <div class="col-md-3 text-center mb-5">
+                                                <div class="avatar avatar-xl">
+                                                    <img src="img/undraw_profile.svg"
+                                                         alt="..." class="avatar-img rounded-circle" />
                                                 </div>
                                             </div>
-                                            <div class="col-md-6 requirements ">
-                                                <p class="mb-2">Password requirements</p>
-                                                <p class="small text-muted mb-2">To create a new password, you have to
-                                                    meet all of the following requirements:</p>
-                                                <ul class="small text-muted pl-4 mb-0">
-                                                    <li>Minimum 8 character</li>
-                                                    <li>At least one special character</li>
-                                                    <li>At least one number</li>
-                                                    <li>Can’t be the same as a previous password</li>
-                                                </ul>
-                                                <br>
-                                                <button type="submit" class="btn btn-primary">Save Change</button>
+                                            <div class="col">
+
+                                                <div class="row align-items-center">
+                                                    <div class="col-md-7" style="display: flex; flex-wrap: wrap;">
+                                                        <h4 class="mb-1">${firstname} ${lastname}</h4>
+                                                        <p class="small mb-3" style="margin-right: 10px;"><span class="badge badge-dark">${user.getRole_project()}</span></p>
+                                                        <c:choose>
+                                                            <c:when test="${user.getRole_project() == 'TL'}">
+                                                                <p class="small mb-3"><span class="badge badge-dark">Team Leader</span></p>
+                                                            </c:when>
+                                                            <c:when test="${user.getRole_project() == 'DEV'}">
+                                                                <p class="small mb-3"><span class="badge badge-dark">Developer</span></p>
+                                                            </c:when>
+                                                        </c:choose>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row mb-4">
+                                                    <div class="col-md-5">
+                                                        <div class="form-group">
+                                                            <label for="inputEmail4">Full Name</label>
+                                                            <input type="text" class="form-control"
+                                                                   id="fullName" placeholder="${user.getUsername()}" readonly>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="col">
+                                                        <div class="form-group">
+                                                            <label for="inputEmail4">Email</label>
+                                                            <input type="email" class="form-control"
+                                                                   id="inputEmail4" placeholder="${user.getEmail()}" readonly />
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-
 
                                     </form>
                                 </div>

@@ -18,10 +18,8 @@
     <div class="login-box">
         
       
-        
-        
         <h2>Login</h2>
-        <form action="login" >
+        <form action="login" method="POST" >
             <div class="social-container">
                 <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
                 <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
@@ -37,10 +35,6 @@
             <div class="user-box">
                 <input type="password" name="password" required="">
                 <label>Password</label>
-            </div>
-
-            <div class="button-cookie">
-                <input type="checkbox" value="lsRememberMe" id="rememberMe"> <label for="rememberMe">Remember me</label>
             </div>
 
             <div class="button-forgot">
