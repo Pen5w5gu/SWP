@@ -315,7 +315,7 @@
                                                            <div class="form-group">
                                                                 <label for="inputEmail4">Full Name</label>
                                                                 <input type="text" class="form-control"
-                                                                       id="fullName" placeholder="${session.getUsername()}" readonly>
+                                                                       id="fullName" placeholder="${user.getUsername()}" readonly>
                                                             </div>
                                                             
                                                         </div>
@@ -323,7 +323,7 @@
                                                             <div class="form-group">
                                                                 <label for="inputEmail4">Email</label>
                                                                 <input type="email" class="form-control"
-                                                                       id="inputEmail4" placeholder="${email}" readonly />
+                                                                       id="inputEmail4" placeholder="${user.getEmail()}" readonly />
                                                             </div>
                                                         </div>
                                                     </div>
