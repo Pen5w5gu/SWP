@@ -1,35 +1,35 @@
-<%-- Document : Showstudentinclass Created on : Feb 21, 2024, 1:54:14 AM Author : tieup --%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page import="model.Project" %>
+<%@ page import="model.Class" %>
+<%@ page import="java.util.List" %>
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">
 
     <head>
-
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta charset="utf-8"> <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="">
         <meta name="author" content="">
+        <title>Project Management</title>
 
-        <title>SB Admin 2 - Tables</title>
 
-        <!-- Custom fonts for this template -->
+        <!-- Custom fonts for this template-->
         <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
         <!--fontawesome-->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        <link rel="stylesheet"
+              href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
               integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
               crossorigin="anonymous" referrerpolicy="no-referrer" />
-
         <link
             href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
             rel="stylesheet">
 
-        <!-- Custom styles for this template -->
+        <!-- Custom styles for this template-->
         <link href="css/sb-admin-2.min.css" rel="stylesheet">
+        <link href="css/profile_setting.css" rel="stylesheet">
 
-        <!-- Custom styles for this page -->
-        <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+
 
     </head>
 
@@ -39,10 +39,12 @@
         <div id="wrapper">
 
             <!-- Sidebar -->
-            <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+            <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
+                id="accordionSidebar">
 
                 <!-- Sidebar - Brand -->
-                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="lectureview">
+                <a class="sidebar-brand d-flex align-items-center justify-content-center"
+                   href="lectureview">
                     <div class="sidebar-brand-icon">
                         <i class="fa-solid fa-chalkboard-user"></i>
                     </div>
@@ -71,8 +73,8 @@
 
                 <!-- Nav Item - Pages Collapse Menu -->
                 <li class="nav-item">
-                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-                       aria-expanded="true" aria-controls="collapsePages">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse"
+                       data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
                         <i class="fas fa-fw fa-folder"></i>
                         <span>Class</span>
                     </a>
@@ -85,10 +87,11 @@
                             <c:choose>
                                 <c:when test="${not empty classes}">
                                     <c:forEach var="myclass" items="${classes}">
-                                        <form id="form_${myclass.class_name}" action="showproject?classname=${myclass.class_name}" method="GET"
+                                        <form id="form_${myclass.class_name}" action="showproject"
+                                              method="GET"
                                               onsubmit="return submitForm(${myclass.class_name})">
-                                            <a href="showproject?classname=${myclass.class_name}" class="collapse-item"
-                                              ">Class
+                                            <a href="#" class="collapse-item"
+                                               onclick="document.getElementById('form_${myclass.class_name}').submit();">Class
                                                 ${myclass.class_name}</a><!-- comment -->
                                             <input type="hidden" name="class_name"
                                                    value="${myclass.class_name}">
@@ -128,10 +131,12 @@
                 <div id="content">
 
                     <!-- Topbar -->
-                    <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                    <nav
+                        class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
                         <!-- Sidebar Toggle (Topbar) -->
-                        <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <button id="sidebarToggleTop"
+                                class="btn btn-link d-md-none rounded-circle mr-3">
                             <i class="fa fa-bars"></i>
                         </button>
 
@@ -139,8 +144,9 @@
                         <form action="searchclass"
                               class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                             <div class="input-group">
-                                <input type="text" required="" class="form-control bg-light border-0 small"
-                                       name="class" aria-label="Search" aria-describedby="basic-addon2"
+                                <input type="text" required=""
+                                       class="form-control bg-light border-0 small" name="class"
+                                       aria-label="Search" aria-describedby="basic-addon2"
                                        placeholder="Tìm kiếm tên lớp...">
                                 <div class="input-group-append">
                                     <button class="btn btn-primary" type="submit">
@@ -155,20 +161,22 @@
 
                             <!-- Nav Item - Search Dropdown (Visible Only XS) -->
                             <li class="nav-item dropdown no-arrow d-sm-none">
-                                <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
-                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <a class="nav-link dropdown-toggle" href="#" id="searchDropdown"
+                                   role="button" data-toggle="dropdown" aria-haspopup="true"
+                                   aria-expanded="false">
                                     <i class="fas fa-search fa-fw"></i>
                                 </a>
                                 <!-- Dropdown - Messages -->
                                 <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
                                      aria-labelledby="searchDropdown">
-                                    <form action="searchstudent?classname=${Classname}" class="form-inline mr-auto w-100 navbar-search">
+                                    <form class="form-inline mr-auto w-100 navbar-search">
                                         <div class="input-group">
-                                            <input type="text" name="namest"class="form-control bg-light border-0 small"
+                                            <input type="text"
+                                                   class="form-control bg-light border-0 small"
                                                    placeholder="Search for..." aria-label="Search"
                                                    aria-describedby="basic-addon2">
                                             <div class="input-group-append">
-                                                <button class="btn btn-primary" type="submit">
+                                                <button class="btn btn-primary" type="button">
                                                     <i class="fas fa-search fa-sm"></i>
                                                 </button>
                                             </div>
@@ -179,8 +187,9 @@
 
                             <!-- Nav Item - Alerts -->
                             <li class="nav-item dropdown no-arrow mx-1">
-                                <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
-                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown"
+                                   role="button" data-toggle="dropdown" aria-haspopup="true"
+                                   aria-expanded="false">
                                     <i class="fas fa-bell fa-fw"></i>
                                     <!-- Counter - Alerts -->
                                     <span class="badge badge-danger badge-counter">3+</span>
@@ -199,8 +208,8 @@
                                         </div>
                                         <div>
                                             <div class="small text-gray-500">December 12, 2019</div>
-                                            <span class="font-weight-bold">A new monthly report is ready to
-                                                download!</span>
+                                            <span class="font-weight-bold">A new monthly report is ready
+                                                to download!</span>
                                         </div>
                                     </a>
                                     <a class="dropdown-item d-flex align-items-center" href="#">
@@ -222,12 +231,12 @@
                                         </div>
                                         <div>
                                             <div class="small text-gray-500">December 2, 2019</div>
-                                            Spending Alert: We've noticed unusually high spending for your
-                                            account.
+                                            Spending Alert: We've noticed unusually high spending for
+                                            your account.
                                         </div>
                                     </a>
-                                    <a class="dropdown-item text-center small text-gray-500" href="#">Show All
-                                        Alerts</a>
+                                    <a class="dropdown-item text-center small text-gray-500"
+                                       href="#">Show All Alerts</a>
                                 </div>
                             </li>
 
@@ -235,11 +244,13 @@
 
                             <!-- Nav Item - User Information -->
                             <li class="nav-item dropdown no-arrow">
-                                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <a class="nav-link dropdown-toggle" href="#" id="userDropdown"
+                                   role="button" data-toggle="dropdown" aria-haspopup="true"
+                                   aria-expanded="false">
                                     <span class="mr-2 d-none d-lg-inline text-gray-600 small">Xin chào,
                                         ${session.getUsername()}</span>
-                                    <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
+                                    <img class="img-profile rounded-circle"
+                                         alt src="img/undraw_profile.svg">
                                 </a>
                                 <!-- Dropdown - User Information -->
                                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -248,9 +259,9 @@
                                         <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Profile
                                     </a>
-                                    <a class="dropdown-item" href="profile_l">
+                                    <a class="dropdown-item" href="change_info_l">
                                         <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                        Settings
+                                        Change Information
                                     </a>
                                     <a class="dropdown-item" href="#">
                                         <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
@@ -259,7 +270,8 @@
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="#" data-toggle="modal"
                                        data-target="#logoutModal">
-                                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        <i
+                                            class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Logout
                                     </a>
                                 </div>
@@ -274,62 +286,106 @@
                     <div class="container-fluid">
 
                         <!-- Page Heading -->
-                        <h1 class="h3 mb-2 text-gray-800">${myclass.class_name}</h1>
-                        <p class="mb-4">List of student in class${Classname}</p>
+                        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                            <h1 class="h3 mb-0 text-gray-800">Settings</h1>
+                        </div>
+                        <div class="row justify-content-center">
+                            <div class="col-12 col-lg-10 col-xl-8 mx-auto">
+                                <div class="my-4">
+                                    <form>
+                                        <div class="row mt-5 align-items-center">
+                                            <form action="changeInfo" method="post" class="profile" id="profileForm">
+                                                <div class="col-md-3 text-center mb-5">
+                                                    <div class="avatar avatar-xl">
+                                                        <img src="img/undraw_profile.svg"
+                                                             alt="..." class="avatar-img rounded-circle" />
+                                                    </div>
+                                                </div>
+                                                <div class="col">
 
-                        <!-- DataTales Example -->
-                        <div class="card shadow mb-4">
-                            <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary">Student</h6>
-                            </div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table table-bordered" id="dataTable" width="100%"
-                                           cellspacing="0">
-                                        <thead>
-                                            <tr>
-                                                <th>ID</th>
-                                                <th>Project_name</th>
-                                                <th>Start_date</th>
-                                                <th>End_Date</th>
-                                            </tr>
-                                        </thead>
+                                                    <div class="row align-items-center">
+                                                        <div class="col-md-7">
+                                                            <h4 class="mb-1">${firstname} ${lastname}</h4>
+                                                            <p class="small mb-3"><span class="badge badge-dark">Lecture</span></p>
+                                                        </div>
+                                                    </div>
 
-                                        <tbody>
-                                            <c:forEach items="${projects}" var="x" varStatus="loop">
-                                                <tr>
-                                                    <td>${loop.index + 1}</td>
-                                                    <td>${x.project_name}</td>
-                                                    <td>${x.start_date}</td>
-                                                    <td>${x.end_date}</td>
+                                                    <div class="row mb-4">
+                                                        <div class="col-md-5">
+                                                           <div class="form-group">
+                                                                <label for="inputEmail4">Full Name</label>
+                                                                <input type="text" class="form-control"
+                                                                       id="fullName" placeholder="${session.getUsername()}">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col">
+                                                            <div class="form-group">
+                                                                <label for="inputEmail4">Email</label>
+                                                                <input type="email" class="form-control"
+                                                                       id="inputEmail4" placeholder="${email}" readonly />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
 
-                                                </tr>
-                                            </c:forEach>
-                                        </tbody>
-                                    </table>
+                                        <div class="row mb-4">
+
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="inputPassword4">Old Password</label>
+                                                    <input type="password" class="form-control" id="oldPassword" />
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="inputPassword5">New Password</label>
+                                                    <input type="password" class="form-control" id="newPassword" />
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="inputPassword6">Confirm Password</label>
+                                                    <input type="password" class="form-control" id="confirmPassword" />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 requirements ">
+                                                <p class="mb-2">Password requirements</p>
+                                                <p class="small text-muted mb-2">To create a new password, you have to
+                                                    meet all of the following requirements:</p>
+                                                <ul class="small text-muted pl-4 mb-0">
+                                                    <li>Minimum 8 character</li>
+                                                    <li>At least one special character</li>
+                                                    <li>At least one number</li>
+                                                    <li>Can’t be the same as a previous password</li>
+                                                </ul>
+                                                <br>
+                                                <button type="submit" class="btn btn-primary">Save Change</button>
+                                            </div>
+                                        </div>
+
+
+                                    </form>
                                 </div>
                             </div>
                         </div>
-
                     </div>
-                    <!-- /.container-fluid -->
+                    <!-- End of Main Content -->
+
+                    <!-- Footer -->
+
+                    <!-- End of Footer -->
 
                 </div>
-                <!-- End of Main Content -->
+                <!-- End of Content Wrapper -->
 
             </div>
-            <!-- End of Content Wrapper -->
+            <!-- End of Page Wrapper -->
 
-        </div>
-        <!-- End of Page Wrapper -->
+            <!-- Scroll to Top Button-->
+            <a class="scroll-to-top rounded" href="#page-top">
+                <i class="fas fa-angle-up"></i>
+            </a>
 
-        <!-- Scroll to Top Button-->
-        <a class="scroll-to-top rounded" href="#page-top">
-            <i class="fas fa-angle-up"></i>
-        </a>
-
-        <!-- Logout Modal-->
-        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
+            <!-- Logout Modal-->
+            <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
                  aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -350,22 +406,22 @@
                 </div>
             </div>
 
-        <!-- Bootstrap core JavaScript-->
-        <script src="vendor/jquery/jquery.min.js"></script>
-        <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+            <!-- Bootstrap core JavaScript-->
+            <script src="vendor/jquery/jquery.min.js"></script>
+            <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-        <!-- Core plugin JavaScript-->
-        <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+            <!-- Core plugin JavaScript-->
+            <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
-        <!-- Custom scripts for all pages-->
-        <script src="js/sb-admin-2.min.js"></script>
+            <!-- Custom scripts for all pages-->
+            <script src="js/sb-admin-2.min.js"></script>
 
-        <!-- Page level plugins -->
-        <script src="vendor/datatables/jquery.dataTables.min.js"></script>
-        <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+            <!-- Page level plugins -->
+            <script src="vendor/chart.js/Chart.min.js"></script>
 
-        <!-- Page level custom scripts -->
-        <script src="js/demo/datatables-demo.js"></script>
+            <!-- Page level custom scripts -->
+            <script src="js/demo/chart-area-demo.js"></script>
+            <script src="js/demo/chart-pie-demo.js"></script>
 
     </body>
 

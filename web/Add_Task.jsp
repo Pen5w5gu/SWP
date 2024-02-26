@@ -12,7 +12,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>SB Admin 2 - Tables</title>
+        <title>Task</title>
 
         <!-- Custom fonts for this template -->
         <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -26,7 +26,8 @@
             rel="stylesheet">
 
         <!-- Custom styles for this template -->
-        <link href="css/sb-admin-2.min.css" rel="stylesheet">
+        <link href="css/profile.css" rel="stylesheet">
+        <link href="css/profile_setting.css" rel="stylesheet">
 
         <!-- Custom styles for this page -->
         <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
@@ -42,9 +43,9 @@
             <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
                 <!-- Sidebar - Brand -->
-                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="lectureview">
-                    <div class="sidebar-brand-icon">
-                        <i class="fa-solid fa-chalkboard-user"></i>
+                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="Homepagestudent.jsp">
+                    <div class="sidebar-brand-icon rotate-n-15">
+                        <i class="fa-solid fa-graduation-cap"></i>
                     </div>
                     <div class="sidebar-brand-text mx-3">Project Management</div>
                 </a>
@@ -53,8 +54,8 @@
                 <hr class="sidebar-divider my-0">
 
                 <!-- Nav Item - Dashboard -->
-                <li class="nav-item active">
-                    <a class="nav-link" href="lectureview">
+                <li class="nav-item ">
+                    <a class="nav-link" href="Homepagestudent.jsp">
                         <i class="fa-solid fa-church"></i>
                         <span>Home</span></a>
                 </li>
@@ -71,43 +72,61 @@
 
                 <!-- Nav Item - Pages Collapse Menu -->
                 <li class="nav-item">
-                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-                       aria-expanded="true" aria-controls="collapsePages">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse"
+                       data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
                         <i class="fas fa-fw fa-folder"></i>
-                        <span>Class</span>
+                        <span>Project</span>
                     </a>
 
                     <div id="collapsePages" class="collapse" aria-labelledby="headingPages"
                          data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
-                            <h6 class="collapse-header">List class:</h6>
+                            <h6 class="collapse-header">List Project</h6>
                             <div class="collapse-divider"></div>
                             <c:choose>
-                                <c:when test="${not empty classes}">
-                                    <c:forEach var="myclass" items="${classes}">
-                                        <form id="form_${myclass.class_name}" action="showproject?classname=${myclass.class_name}" method="GET"
-                                              onsubmit="return submitForm(${myclass.class_name})">
-                                            <a href="showproject?classname=${myclass.class_name}" class="collapse-item"
-                                              ">Class
-                                                ${myclass.class_name}</a><!-- comment -->
-                                            <input type="hidden" name="class_name"
-                                                   value="${myclass.class_name}">
-                                        </form>
+                                <c:when test="${not empty projects}">
+
+                                    <c:forEach var="project" items="${projects}">
+                                        <div class="project-container">
+                                            <form id="form_${project.project_name}" action="showprojectstudent" method="GET" onsubmit="return submitForm('${project.project_name}')">
+                                                <div class="project-item">
+                                                    <input type="hidden" name  ="ID_project" value="${project.id_Project}" />
+                                                    <a style="text-decoration: none;" href="#" onclick="document.getElementById('form_${project.project_name}').submit();">Project ${project.project_name}</a>
+                                                </div>
+                                            </form>
+                                        </div>
                                     </c:forEach>
                                 </c:when>
                                 <c:otherwise>
-                                    <p>No classes available</p>
+                                    <p>No PROJECTS available</p>
                                 </c:otherwise>
                             </c:choose>
                         </div>
                     </div>
                 </li>
 
-                <!-- Nav Item - Charts -->
+                <li class="nav-item active">
+                    <a class="nav-link " href="charts.html">
+                        <i class="fas fa-fw fa-chart-area"></i>
+                        <span>Task</span></a>
+                </li>
+
                 <li class="nav-item">
-                    <a class="nav-link" href="ImportFile.jsp">
-                        <i class="fa-solid fa-file-import"></i>
-                        <span>Import file excel</span></a>
+                    <a class="nav-link" href="Milestone.jsp">
+                        <i class="fas fa-fw fa-chart-area"></i>
+                        <span>Milestone</span></a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="charts.html">
+                        <i class="fas fa-fw fa-chart-area"></i>
+                        <span>Issue</span></a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="charts.html">
+                        <i class="fas fa-fw fa-chart-area"></i>
+                        <span>Report</span></a>
                 </li>
 
                 <!-- Divider -->
@@ -244,11 +263,11 @@
                                 <!-- Dropdown - User Information -->
                                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                      aria-labelledby="userDropdown">
-                                    <a class="dropdown-item" href="profile_l">
+                                    <a class="dropdown-item" href="profile_s">
                                         <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Profile
                                     </a>
-                                    <a class="dropdown-item" href="profile_l">
+                                    <a class="dropdown-item" href="change_info_s">
                                         <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Settings
                                     </a>
@@ -274,13 +293,15 @@
                     <div class="container-fluid">
 
                         <!-- Page Heading -->
-                        <h1 class="h3 mb-2 text-gray-800">${myclass.class_name}</h1>
-                        <p class="mb-4">List of student in class${Classname}</p>
+                        <h1 class="h3 mb-2 text-gray-800">Task</h1>
+                        <p class="mb-4">List of task</p>
 
                         <!-- DataTales Example -->
-                        <div class="card shadow mb-4">
-                            <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary">Student</h6>
+                        <div class="card shadow mb-4 ">
+                            <div class="card-header d-sm-flex align-items-center justify-content-between mb-4">
+                                <h6 class="m-0  font-weight-bold text-primary">Task</h6>
+                                <a href="Task.jsp"
+                                   class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fa-solid fa-chevron-left"></i> Back to task</a>
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
@@ -289,13 +310,28 @@
                                         <thead>
                                             <tr>
                                                 <th>ID</th>
-                                                <th>Project_name</th>
-                                                <th>Start_date</th>
-                                                <th>End_Date</th>
+                                                <th>Task Name</th>
+                                                <th>Milestone</th>
+                                                <th>Task Description</th>
+                                                <th>Start Date</th>
+                                                <th>End Date</th>
+                                                <th>Status</th>
+                                                <th>Action</th>
                                             </tr>
                                         </thead>
 
                                         <tbody>
+                                            <tr>
+                                            <th><input type="text" name="id" class="form-control" required="" ></th>
+                                            <th><input type="text" name="task_name" class="form-control" required=""></th>
+                                            <th><input type="text" name="milestone" class="form-control" required=""></th>
+                                            <th><input type="text" name="task_description" class="form-control"></th>
+                                            <th><input type="date" name="start_date" class="form-control" required=""></th>
+                                            <th><input type="date" name="end_date" class="form-control" required=""></th>
+                                            <th><input type="choose" name="status" class="form-control" required=""></th>
+                                            <th><button type="submit" class="btn btn-primary">Save</button></th>
+
+                                            </tr>
                                             <c:forEach items="${projects}" var="x" varStatus="loop">
                                                 <tr>
                                                     <td>${loop.index + 1}</td>
@@ -330,25 +366,25 @@
 
         <!-- Logout Modal-->
         <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
-                 aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">×</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">Select "Logout" below if you are ready to end your
-                            current session.</div>
-                        <div class="modal-footer">
-                            <button class="btn btn-secondary" type="button"
-                                    data-dismiss="modal">Cancel</button>
-                            <a class="btn btn-primary" href="login.jsp">Logout</a>
-                        </div>
+             aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">Select "Logout" below if you are ready to end your
+                        current session.</div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button"
+                                data-dismiss="modal">Cancel</button>
+                        <a class="btn btn-primary" href="login.jsp">Logout</a>
                     </div>
                 </div>
             </div>
+        </div>
 
         <!-- Bootstrap core JavaScript-->
         <script src="vendor/jquery/jquery.min.js"></script>

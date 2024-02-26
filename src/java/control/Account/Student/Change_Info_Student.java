@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package control.Account;
+package control.Account.Student;
 
 import Dao.AccountDAO;
 import java.io.IOException;
@@ -19,7 +19,7 @@ import model.User;
  *
  * @author quann
  */
-public class Profile extends HttpServlet {
+public class Change_Info_Student extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,10 +38,10 @@ public class Profile extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Profile</title>");
+            out.println("<title>Servlet ChangeInfomation</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet Profile at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ChangeInfomation at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -59,7 +59,6 @@ public class Profile extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
         doPost(request, response);
     }
 
@@ -87,7 +86,7 @@ public class Profile extends HttpServlet {
                 accountProfile.setRole(userRole);
 
                 request.setAttribute("user", accountProfile);
-                request.getRequestDispatcher("Profile.jsp").forward(request, response);
+                request.getRequestDispatcher("changeInfo_Student.jsp").forward(request, response);
             } else {
                 // Xử lý khi không tìm thấy người dùng
                 response.getWriter().println("User not found");

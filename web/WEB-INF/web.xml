@@ -57,16 +57,24 @@
         <servlet-class>control.Account.Lecture.ViewStudentInClassServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>Profile</servlet-name>
-        <servlet-class>control.Account.Profile</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ChangeInfomation</servlet-name>
-        <servlet-class>control.Account.ChangeInfomation</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>SearchStudentInClass</servlet-name>
         <servlet-class>control.Account.Lecture.SearchStudentInClass</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Profile_Lecture</servlet-name>
+        <servlet-class>control.Account.Lecture.Profile_Lecture</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Change_Info_Lecture</servlet-name>
+        <servlet-class>control.Account.Lecture.Change_Info_Lecture</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Profile_Student</servlet-name>
+        <servlet-class>control.Account.Student.Profile_Student</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Change_Info_Student</servlet-name>
+        <servlet-class>control.Account.Student.Change_Info_Student</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
@@ -133,16 +141,24 @@
         <url-pattern>/showstudentinclass</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>Profile</servlet-name>
-        <url-pattern>/profile</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ChangeInfomation</servlet-name>
-        <url-pattern>/change_info</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>SearchStudentInClass</servlet-name>
         <url-pattern>/searchstudent</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Profile_Lecture</servlet-name>
+        <url-pattern>/profile_l</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Change_Info_Lecture</servlet-name>
+        <url-pattern>/change_info_l</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Profile_Student</servlet-name>
+        <url-pattern>/profile_s</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Change_Info_Student</servlet-name>
+        <url-pattern>/change_info_s</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

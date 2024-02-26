@@ -262,11 +262,11 @@
                                 <!-- Dropdown - User Information -->
                                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                      aria-labelledby="userDropdown">
-                                    <a class="dropdown-item" href="#">
+                                    <a class="dropdown-item" href="profile_s">
                                         <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Profile
                                     </a>
-                                    <a class="dropdown-item" href="#">
+                                    <a class="dropdown-item" href="change_info_s">
                                         <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Settings
                                     </a>
@@ -297,9 +297,11 @@
 
                         <!-- DataTales Example -->
                         <div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Inter 1</h6>
-                                </div>
+                                <div class="card-header d-sm-flex align-items-center justify-content-between mb-4">
+                                <h6 class="m-0  font-weight-bold text-primary">Inter 1</h6>
+                                <a href="#"
+                                   class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fa-solid fa-plus"></i> New Milestone</a>
+                            </div>
                                 <div class="card-body">
                                     <h4 class="small font-weight-bold">Server Migration <span
                                             class="float-right">20%</span></h4>
