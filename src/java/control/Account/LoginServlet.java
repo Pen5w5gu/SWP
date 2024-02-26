@@ -107,7 +107,7 @@ public class LoginServlet extends HttpServlet {
                         List<Class> classes = cdao.getClassByUser(user.getId_account());
                         // Tạo các đối tượng java.sql.Date trực tiếp từ ngày
                         Date startDate = Date.valueOf("2022-02-02");
-                        Date endDate = Date.valueOf("2022-02-02");s
+                        Date endDate = Date.valueOf("2022-02-02");
                         // Tạo đối tượng Project
                         Project project = pdao.getProjectsByUser(user.getId_account());
                         session.setAttribute("project", project);
