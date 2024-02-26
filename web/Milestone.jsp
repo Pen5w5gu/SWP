@@ -105,13 +105,13 @@
                 </li>
 
                 <li class="nav-item ">
-                    <a class="nav-link " href="Task.jsp">
+                    <a class="nav-link " href="task">
                         <i class="fas fa-fw fa-chart-area"></i>
                         <span>Task</span></a>
                 </li>
 
                 <li class="nav-item active">
-                    <a class="nav-link" href="Milestone.jsp">
+                    <a class="nav-link" href="milestone">
                         <i class="fas fa-fw fa-chart-area"></i>
                         <span>Milestone</span></a>
                 </li>
@@ -262,11 +262,11 @@
                                 <!-- Dropdown - User Information -->
                                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                      aria-labelledby="userDropdown">
-                                    <a class="dropdown-item" href="#">
+                                    <a class="dropdown-item" href="profile_s">
                                         <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Profile
                                     </a>
-                                    <a class="dropdown-item" href="#">
+                                    <a class="dropdown-item" href="change_info_s">
                                         <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Settings
                                     </a>

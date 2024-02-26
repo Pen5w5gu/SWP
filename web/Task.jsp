@@ -105,13 +105,13 @@
                 </li>
 
                 <li class="nav-item active">
-                    <a class="nav-link " href="charts.html">
+                    <a class="nav-link " href="task">
                         <i class="fas fa-fw fa-chart-area"></i>
                         <span>Task</span></a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="Milestone.jsp">
+                    <a class="nav-link" href="milestone">
                         <i class="fas fa-fw fa-chart-area"></i>
                         <span>Milestone</span></a>
                 </li>
