@@ -75,8 +75,42 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
+        String remember = request.getParameter("rememberme");
+        
+        //Cookie for email, pass, remember
+        Cookie ce = new Cookie("email", email);
+        Cookie cp = new Cookie("password", password);
+        Cookie crem = new Cookie("remember", remember);
+        
+        if(remember != null){
+            ce.setMaxAge(60*60*24*7);//max is a week
+            cp.setMaxAge(60*60*24*7);
+            crem.setMaxAge(60*60*24*7);
+        }else{
+            ce.setMaxAge(0);//max is a week
+            cp.setMaxAge(0);
+            crem.setMaxAge(0);
+        }
+        //add infor in browser
+        response.addCookie(ce);
+        response.addCookie(cp);
+        response.addCookie(crem);
 
 // Use a more secure method to obtain the secret key (e.g., KeyGenerator)
         SecretKey secretKey = generateSecretKey();
@@ -123,21 +157,6 @@ public class LoginServlet extends HttpServlet {
             Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
             // Handle exception appropriately, for example, redirect to an error page
         }
-
-    }
-
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
     }
 
     /**
