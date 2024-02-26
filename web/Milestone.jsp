@@ -262,11 +262,11 @@
                                 <!-- Dropdown - User Information -->
                                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                      aria-labelledby="userDropdown">
-                                    <a class="dropdown-item" href="profile_s">
+                                    <a class="dropdown-item" href="#">
                                         <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Profile
                                     </a>
-                                    <a class="dropdown-item" href="change_info_s">
+                                    <a class="dropdown-item" href="#">
                                         <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Settings
                                     </a>
@@ -296,45 +296,47 @@
                         <p class="mb-4">List of task</p>
 
                         <!-- DataTales Example -->
-                        <div class="card shadow mb-4">
-                                <div class="card-header d-sm-flex align-items-center justify-content-between mb-4">
-                                <h6 class="m-0  font-weight-bold text-primary">Inter 1</h6>
-                                <a href="#"
-                                   class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fa-solid fa-plus"></i> New Milestone</a>
-                            </div>
+                        <c:if test="${empty milestones}">
+                            <p>Không có milestone nào.</p>
+                        </c:if>
+                        <c:forEach items="${milestones}" var="milestone">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">${milestone.name_milestone}</h6>
+                                </div>
                                 <div class="card-body">
-                                    <h4 class="small font-weight-bold">Server Migration <span
-                                            class="float-right">20%</span></h4>
-                                    <div class="progress mb-4">
-                                        <div class="progress-bar bg-danger" role="progressbar" style="width: 20%"
-                                            aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <h4 class="small font-weight-bold">Sales Tracking <span
-                                            class="float-right">40%</span></h4>
-                                    <div class="progress mb-4">
-                                        <div class="progress-bar bg-warning" role="progressbar" style="width: 40%"
-                                            aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <h4 class="small font-weight-bold">Customer Database <span
-                                            class="float-right">60%</span></h4>
-                                    <div class="progress mb-4">
-                                        <div class="progress-bar" role="progressbar" style="width: 60%"
-                                            aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <h4 class="small font-weight-bold">Payout Details <span
-                                            class="float-right">80%</span></h4>
-                                    <div class="progress mb-4">
-                                        <div class="progress-bar bg-info" role="progressbar" style="width: 80%"
-                                            aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <h4 class="small font-weight-bold">Account Setup <span
-                                            class="float-right">Complete!</span></h4>
-                                    <div class="progress">
-                                        <div class="progress-bar bg-success" role="progressbar" style="width: 100%"
-                                            aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
+                                    <c:forEach items="${tasktypes}" var="tasktype">
+                                        <%-- Accessing percentage using EL --%>
+                                        <c:set var="milestoneId" value="${milestone.id_milestone}" />
+                                        <c:set var="attributeName" value="taskOfMilestonessize${milestoneId}" />
+                                        <c:set var="milestoneIndex" value="${milestoneId-1}" />
+                                        <c:set var="taskTypeIndex" value="${tasktype.taskType_Id}" />
+<!--                                        because the list will start with 0-->
+                                        <c:set var="percentageMap" value="${milestoneTaskTypePercentageList[milestoneIndex]}" />
+                                        <c:set var="percentage" value="${percentageMap[taskTypeIndex]}" />
+                                        <c:set var="size" value="${requestScope[attributeName]}" />
+                                        <c:set var="taskCount" value="${Math.round(percentage * size / 100)}" />
+
+                                        <%-- Default percentage if not present --%>
+                                        <c:if test="${empty percentage}">
+                                            <c:set var="percentage" value="10" />
+                                        </c:if>
+
+                                        <h4 class="small font-weight-bold">${tasktype.taskType_Name} <span class="float-right">${percentage}% | ${taskCount}</span></h4>
+                                        <div class="progress mb-4">
+                                            <div class="progress-bar bg-danger" role="progressbar" style="width: ${percentage}%"
+                                                 aria-valuenow="${percentage}" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                    </c:forEach>
                                 </div>
                             </div>
+                        </c:forEach>
+
+
+
+
+
+
 
                     </div>
                     <!-- /.container-fluid -->

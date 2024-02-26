@@ -2,40 +2,50 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
+
 package control.Account.Student;
 
-import Dao.AccountDAO;
+import Dao.TaskDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import java.util.List;
-import model.User;
 
 /**
  *
- * @author tieup
+ * @author acer
  */
-public class ShowProjectStudent extends HttpServlet {
-
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
+public class ChangeStatusTaskServlet extends HttpServlet {
+   
+    /** 
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+    throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet ChangeStatusTaskServlet</title>");  
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet ChangeStatusTaskServlet at " + request.getContextPath () + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
+    } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
+    /** 
      * Handles the HTTP <code>GET</code> method.
-     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -43,25 +53,12 @@ public class ShowProjectStudent extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        
-        HttpSession session = request.getSession();
-        if (session != null && session.getAttribute("session") != null) {
-        int ID_project = Integer.parseInt(request.getParameter("ID_project"));
-        AccountDAO dao = new AccountDAO();
-        List<User> users = dao.getUserByProject(ID_project);
-        request.setAttribute("users", users);
-        request.getRequestDispatcher("ShowUsersOfProject.jsp").forward(request, response);
-        } else {
-        // User is not logged in or session doesn't exist, redirect to the login page
-        response.sendRedirect("login.jsp");
-    }
-        
-    }
+    throws ServletException, IOException {
+        processRequest(request, response);
+    } 
 
-    /**
+    /** 
      * Handles the HTTP <code>POST</code> method.
-     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -69,13 +66,18 @@ public class ShowProjectStudent extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    throws ServletException, IOException {
+        int taskId = Integer.parseInt(request.getParameter("taskId"));
+        int newTaskTypeId = Integer.parseInt(request.getParameter("newTaskTypeId"));
+        
+        // Thực hiện các thay đổi trong cơ sở dữ liệu (Ở đây là ví dụ, bạn cần thay đổi tùy theo cấu trúc cơ sở dữ liệu của bạn)
+        TaskDAO tdao = new TaskDAO();
+        tdao.changeTaskType(taskId, newTaskTypeId);
 
     }
 
-    /**
+    /** 
      * Returns a short description of the servlet.
-     *
      * @return a String containing servlet description
      */
     @Override

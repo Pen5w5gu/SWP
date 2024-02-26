@@ -16,6 +16,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.nio.charset.StandardCharsets;
+import java.sql.Date;
 import java.util.Base64;
 import java.util.List;
 import java.util.logging.Level;
@@ -104,10 +105,24 @@ public class LoginServlet extends HttpServlet {
                         response.addCookie(loginCookie);
 
                         List<Class> classes = cdao.getClassByUser(user.getId_account());
+                        // Tạo các đối tượng java.sql.Date trực tiếp từ ngày
+                        Date startDate = Date.valueOf("2022-02-02");
+                        Date endDate = Date.valueOf("2022-02-02");
+                        // Tạo đối tượng Project
+                        Project project = new Project(1, "test", "test", startDate, endDate);
+                        session.setAttribute("project", project);
+                        request.setAttribute("project", project.getId_Project());
                         session.setAttribute("session", user);
                         request.setAttribute("classes", classes);
                         request.getRequestDispatcher("Homepagelecture.jsp").forward(request, response);
                     } else {
+                        // Tạo các đối tượng java.sql.Date trực tiếp từ ngày
+                        Date startDate = Date.valueOf("2022-02-02");
+                        Date endDate = Date.valueOf("2022-02-02");
+                        // Tạo đối tượng Project
+                        Project project = new Project(1, "test", "test", startDate, endDate);
+                        session.setAttribute("project", project);
+                        request.setAttribute("project", project.getId_Project());
                         int ID_user = user.getId_account();
                         List<Project> p = pdao.getProjectbyIdAccount(ID_user);
                         request.setAttribute("projects", p);
