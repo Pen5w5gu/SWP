@@ -299,7 +299,8 @@
                         <div class="card shadow mb-4 ">
                             <div class="card-header d-sm-flex align-items-center justify-content-between mb-4">
                                 <h6 class="m-0  font-weight-bold text-primary">Task</h6>
-
+                                <a href="Add_Task.jsp"
+                                   class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fa-solid fa-plus"></i> New task</a>
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
@@ -314,6 +315,7 @@
                                                 <th>Start_date</th>
                                                 <th>End_Date</th>
                                                 <th>Status</th>
+                                                <th>Action</th>
                                             </tr>
                                         </thead>
 
