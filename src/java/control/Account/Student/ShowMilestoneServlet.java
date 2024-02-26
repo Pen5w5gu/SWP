@@ -14,6 +14,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,32 +40,60 @@ public class ShowMilestoneServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        Project project = (Project) session.getAttribute("project");
-        int project_id = project.getId_Project();
-        MilestoneDAO mdao = new MilestoneDAO();
-        TaskTypeDAO ttdao = new TaskTypeDAO();
-        TaskDAO tdao = new TaskDAO();
-        List<TaskType> tasktypes = ttdao.getTaskType();
-        List<Milestone> milestones = mdao.getMilestoneByProjectId(project_id);
-        List<Task> tasks = tdao.getTaskByProject(project_id);
+        try {
+            HttpSession session = request.getSession();
+            Project project = (Project) session.getAttribute("project");
+            int project_id = project.getId_Project();
+            MilestoneDAO mdao = new MilestoneDAO();
+            TaskTypeDAO ttdao = new TaskTypeDAO();
+            TaskDAO tdao = new TaskDAO();
+            List<TaskType> tasktypes = ttdao.getTaskType();
+            List<Milestone> milestones = mdao.getMilestoneByProjectId(project_id);
+            List<Task> tasks = tdao.getTaskByProject(project_id);
 
-        Map<Integer, Integer> taskTypePercentageMap = new HashMap<>();
-        for (TaskType taskType : tasktypes) {
-            int typeCount = 0;
-            for (Task task : tasks) {
-                if (task.getTaskTypeId() == taskType.getTaskType_Id()) {
-                    typeCount++;
+            List<Map<Integer, Integer>> milestoneTaskTypePercentageList = new ArrayList<>();
+
+            // Iterate through milestones
+            for (Milestone milestone : milestones) {
+                Map<Integer, Integer> taskTypePercentageMap = new HashMap<>();
+                // Iterate through task types
+                for (TaskType taskType : tasktypes) {
+                    int typeCount = 0;
+
+                    // Count tasks of this type in this milestone
+                    List<Task> taskOfMilestones = tdao.getTaskByProjectAndMileStone(project_id,milestone.getId_milestone());
+                    for (Task task : taskOfMilestones) {
+                        if (task.getTaskTypeId() == taskType.getTaskType_Id() && task.getIdMilestone() == milestone.getId_milestone()) {
+                            typeCount++;
+                        }
+                    }
+                    request.setAttribute("taskOfMilestonessize"+milestone.getId_milestone(), taskOfMilestones.size());
+                    // Calculate percentage for this task type in this milestone
+                    int percentage = (!taskOfMilestones.isEmpty()) ? (typeCount * 100) / taskOfMilestones.size() : 0;
+
+                    taskTypePercentageMap.put(taskType.getTaskType_Id(), percentage);
                 }
-            }
-            int percentage = (!tasks.isEmpty()) ? (typeCount * 100) / tasks.size() : 0;
-            taskTypePercentageMap.put(taskType.getTaskType_Id(), percentage);
-        }
 
-        request.setAttribute("milestones", milestones);
-        request.setAttribute("tasktypes", tasktypes);
-        request.setAttribute("taskTypePercentageMap", taskTypePercentageMap);
-        request.getRequestDispatcher("Milestone.jsp").forward(request, response);
+                // Add task type percentage map for this milestone to the list
+                milestoneTaskTypePercentageList.add(taskTypePercentageMap);
+            }
+            if (milestoneTaskTypePercentageList.isEmpty()) {
+                System.out.println("Some stuff was done");
+
+                PrintWriter out = response.getWriter();
+                out.println("Error");
+            }
+            
+            request.setAttribute("numberoftask", tasks.size());
+            request.setAttribute("milestones", milestones);
+            request.setAttribute("tasktypes", tasktypes);
+            request.setAttribute("milestoneTaskTypePercentageList", milestoneTaskTypePercentageList);
+            request.getRequestDispatcher("Milestone.jsp").forward(request, response);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("An error occurred in ShowTaskServlet: " + e.getMessage());
+            throw new ServletException("An error occurred in ShowTaskServlet.", e);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

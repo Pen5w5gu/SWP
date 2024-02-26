@@ -6,27 +6,20 @@
 package control.Account.Student;
 
 import Dao.MilestoneDAO;
-import Dao.TaskDAO;
-import Dao.TaskTypeDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import java.util.List;
+import java.sql.Date;
 import model.Milestone;
-import model.Project;
-import model.Task;
-import model.TaskType;
-import model.User;
 
 /**
  *
  * @author acer
  */
-public class ShowTaskServlet extends HttpServlet {
+public class AddMilesToneServlet extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -37,33 +30,31 @@ public class ShowTaskServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        try {
-        HttpSession session = request.getSession();
-        if (session != null && session.getAttribute("session") != null  ) {
-        User user =  (User) session.getAttribute("session");
-        Project project = (Project) session.getAttribute("project");
-        int project_id = project.getId_Project();
-        TaskDAO tdao = new TaskDAO();
-        MilestoneDAO mdao = new MilestoneDAO();
-        TaskTypeDAO ttdao = new TaskTypeDAO();
-        List<Task> tasks = tdao.getTaskByProject(project_id);
-        List<Milestone> milestones = mdao.getMilestoneByProjectId(project_id);
-        List<TaskType> tasktypes = ttdao.getTaskType();
-        request.setAttribute("milestones", milestones);
-        request.setAttribute("tasks", tasks);
-        request.setAttribute("tasktypes",tasktypes);
-        request.getRequestDispatcher("Task.jsp").forward(request, response);
+         String milestoneName = request.getParameter("milestoneName");
+        Date startDate = Date.valueOf(request.getParameter("startDate"));
+        Date endDate = Date.valueOf(request.getParameter("endDate"));
+        int projectId = Integer.parseInt(request.getParameter("projectId"));
+
+        // Tạo đối tượng Milestone
+        Milestone milestone = new Milestone();
+        milestone.setName_milestone(milestoneName);
+        milestone.setStart_date(startDate);
+        milestone.setEnd_date(endDate);
+        milestone.setId_Project(projectId);
+
+        // Gọi DAO để thêm Milestone vào cơ sở dữ liệu
+        MilestoneDAO milestoneDAO = new MilestoneDAO();
+        boolean success = milestoneDAO.addMilestone(milestone);
+
+        if (success) {
+            // Nếu thêm thành công, chuyển hướng về trang thành công
+            response.sendRedirect("ShowMilestoneServlet");
         } else {
-        // User is not logged in or session doesn't exist, redirect to the login page
-        response.sendRedirect("login.jsp");
+            // Nếu thêm không thành công, chuyển hướng về trang lỗi
+            response.sendRedirect("login.jsp");
         }
-        
-         } catch (Exception e) {
-        e.printStackTrace();
-        System.out.println("An error occurred in ShowTaskServlet: " + e.getMessage());
-        throw new ServletException("An error occurred in ShowTaskServlet.", e);
     }
-    } 
+    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /** 

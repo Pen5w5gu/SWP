@@ -296,6 +296,9 @@
                         <p class="mb-4">List of task</p>
 
                         <!-- DataTales Example -->
+                        <c:if test="${empty milestones}">
+                            <p>Không có milestone nào.</p>
+                        </c:if>
                         <c:forEach items="${milestones}" var="milestone">
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
@@ -303,10 +306,23 @@
                                 </div>
                                 <div class="card-body">
                                     <c:forEach items="${tasktypes}" var="tasktype">
-                                        <%-- Lấy phần trăm từ taskTypePercentageMap --%>
-                                        <c:set var="percentage" value="${taskTypePercentageMap[tasktype.taskType_Id]}" />
+                                        <%-- Accessing percentage using EL --%>
+                                        <c:set var="milestoneId" value="${milestone.id_milestone}" />
+                                        <c:set var="attributeName" value="taskOfMilestonessize${milestoneId}" />
+                                        <c:set var="milestoneIndex" value="${milestoneId-1}" />
+                                        <c:set var="taskTypeIndex" value="${tasktype.taskType_Id}" />
+<!--                                        because the list will start with 0-->
+                                        <c:set var="percentageMap" value="${milestoneTaskTypePercentageList[milestoneIndex]}" />
+                                        <c:set var="percentage" value="${percentageMap[taskTypeIndex]}" />
+                                        <c:set var="size" value="${requestScope[attributeName]}" />
+                                        <c:set var="taskCount" value="${Math.round(percentage * size / 100)}" />
 
-                                        <h4 class="small font-weight-bold">${tasktype.taskType_Name} <span class="float-right">${percentage}%</span></h4>
+                                        <%-- Default percentage if not present --%>
+                                        <c:if test="${empty percentage}">
+                                            <c:set var="percentage" value="10" />
+                                        </c:if>
+
+                                        <h4 class="small font-weight-bold">${tasktype.taskType_Name} <span class="float-right">${percentage}% | ${taskCount}</span></h4>
                                         <div class="progress mb-4">
                                             <div class="progress-bar bg-danger" role="progressbar" style="width: ${percentage}%"
                                                  aria-valuenow="${percentage}" aria-valuemin="0" aria-valuemax="100"></div>
@@ -315,6 +331,11 @@
                                 </div>
                             </div>
                         </c:forEach>
+
+
+
+
+
 
 
                     </div>

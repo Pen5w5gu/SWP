@@ -43,6 +43,30 @@ public class TaskDAO extends DBContext {
         }
         return tasks;
     }
+    //created by Tung
+    public List<Task> getTaskByProjectAndMileStone(int project_id, int milestone_id) {
+    List<Task> tasks = new ArrayList<>();
+    try {
+        String strSelect = "SELECT Task.* " +
+                           "FROM milestone " +
+                           "INNER JOIN Project ON milestone.Id_Project = Project.Id_Project " +
+                           "INNER JOIN Task ON milestone.Id_milestone = Task.Id_milestone " +
+                           "WHERE Project.Id_Project=? AND milestone.Id_milestone=?";
+        ps = connection.prepareStatement(strSelect);
+        ps.setInt(1, project_id);
+        ps.setInt(2, milestone_id);
+        rs = ps.executeQuery();
+        while (rs.next()) {
+            tasks.add(new Task(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getDate(4), rs.getDate(5), rs.getString(6), rs.getInt(7), rs.getInt(8)));
+        }
+        return tasks;
+    } catch (SQLException e) {
+        // Consider logging the exception instead of just printing it
+        e.printStackTrace();
+    }
+    return tasks;
+}
+
 
     //created by Tung
     public boolean AddTask(String taskName, String taskDescription, Date startDate, Date endDate, String code, int taskTypeId, int milestoneId) {

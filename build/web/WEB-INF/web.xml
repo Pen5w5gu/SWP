@@ -84,6 +84,10 @@
         <servlet-name>ShowMilestoneServlet</servlet-name>
         <servlet-class>control.Account.Student.ShowMilestoneServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AddMilesToneServlet</servlet-name>
+        <servlet-class>control.Account.Student.AddMilesToneServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -175,6 +179,10 @@
     <servlet-mapping>
         <servlet-name>ShowMilestoneServlet</servlet-name>
         <url-pattern>/ShowMilestoneServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddMilesToneServlet</servlet-name>
+        <url-pattern>/AddMilesToneServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

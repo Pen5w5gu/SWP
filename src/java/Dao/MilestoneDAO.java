@@ -45,6 +45,26 @@ public class MilestoneDAO extends DBContext {
         return milestones;
     }
 
+    //created by Tung
+    public boolean addMilestone(Milestone milestone) {
+        try {
+            String query = "INSERT INTO milestone (name_milestone, Start_date, End_date, Id_Project)\n"
+                    + "VALUES (?, ?, ?, ?);";
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setString(1, milestone.getName_milestone());
+            ps.setDate(2, milestone.getStart_date());
+            ps.setDate(3, milestone.getEnd_date());
+            ps.setInt(4, milestone.getId_Project());
+
+            int rowsAffected = ps.executeUpdate();
+
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     public static void main(String[] args) {
         MilestoneDAO dao = new MilestoneDAO();
         System.out.println(dao.getMilestoneByProjectId(1));
