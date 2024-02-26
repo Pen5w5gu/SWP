@@ -92,6 +92,14 @@
         <servlet-name>ShowTaskServlet</servlet-name>
         <servlet-class>control.Account.Student.ShowTaskServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AddcommentServlet</servlet-name>
+        <servlet-class>control.Account.Student.AddcommentServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ShowCommentServlet</servlet-name>
+        <servlet-class>control.Account.Student.ShowCommentServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -191,6 +199,14 @@
     <servlet-mapping>
         <servlet-name>ShowTaskServlet</servlet-name>
         <url-pattern>/task</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddcommentServlet</servlet-name>
+        <url-pattern>/add_comment</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ShowCommentServlet</servlet-name>
+        <url-pattern>/comment</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

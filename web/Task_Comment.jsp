@@ -1,6 +1,7 @@
 <%-- Document : Showstudentinclass Created on : Feb 21, 2024, 1:54:14 AM Author : tieup --%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
+<%@ page import="model.User" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -26,7 +27,8 @@
             rel="stylesheet">
 
         <!-- Custom styles for this template -->
-        <link href="css/sb-admin-2.min.css" rel="stylesheet">
+        <link href="css/task.css" rel="stylesheet">
+        <link href="css/comment.css" rel="stylesheet">
 
         <!-- Custom styles for this page -->
         <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
@@ -34,6 +36,30 @@
     </head>
 
     <body id="page-top">
+        <script>
+            function Sendata(taskId, newTaskTypeId) {
+                // Tạo một đối tượng XMLHttpRequest
+                var xhr = new XMLHttpRequest();
+
+                // Thiết lập phương thức và URL cho servlet
+                xhr.open("POST", "ChangeStatusTaskServlet", true);
+                xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+                // Thiết lập hàm xử lý khi nhận được phản hồi từ server
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                        // Xử lý phản hồi từ server nếu cần
+                        console.log("Dữ liệu đã được gửi thành công!");
+                    } else {
+                        console.log("Failed");
+                    }
+                };
+
+                // Gửi yêu cầu POST với dữ liệu taskId và newTaskTypeId
+                xhr.send("taskId=" + taskId + "&newTaskTypeId=" + newTaskTypeId);
+            }
+
+        </script>
 
         <!-- Page Wrapper -->
         <div id="wrapper">
@@ -104,13 +130,13 @@
                     </div>
                 </li>
 
-                <li class="nav-item">
+                <li class="nav-item active">
                     <a class="nav-link " href="task">
                         <i class="fa-solid fa-list-check"></i>
                         <span>Task</span></a>
                 </li>
 
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link" href="milestone">
                         <i class="fa-solid fa-chart-bar"></i>
                         <span>Milestone</span></a>
@@ -262,11 +288,11 @@
                                 <!-- Dropdown - User Information -->
                                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                      aria-labelledby="userDropdown">
-                                    <a class="dropdown-item" href="profile_s">
+                                    <a class="dropdown-item" href="#">
                                         <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Profile
                                     </a>
-                                    <a class="dropdown-item" href="change_info_s">
+                                    <a class="dropdown-item" href="#">
                                         <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Settings
                                     </a>
@@ -292,59 +318,162 @@
                     <div class="container-fluid">
 
                         <!-- Page Heading -->
-                        <h1 class="h3 mb-2 text-gray-800">Milestone</h1>
-                        <c:if test="${session.getRole_project() == 'TL'}">
-                            <a href="Add_Milestone.jsp" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-                                <i class="fa-solid fa-plus"></i> New task
-                            </a>
-                        </c:if>
-                        </br></br>
+                        <h1 class="h3 mb-2 text-gray-800">Task</h1>
+                        <p class="mb-4">List of task</p>
 
                         <!-- DataTales Example -->
-                        <c:if test="${empty milestones}">
-                            <p>Không có milestone nào.</p>
-                        </c:if>
-                        <c:forEach items="${milestones}" var="milestone">
-                            <div class="card shadow mb-4">
-                                <div class="card-header d-sm-flex align-items-center justify-content-between mb-4">
-                                    <h6 class="m-0 font-weight-bold text-primary">${milestone.name_milestone}</h6>
-                                    <a href="Add_Milestone.jsp" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-                                        <i class="fa-solid fa-pen-to-square"></i> Edit
+                        <div class="card shadow mb-4 ">
+                            <div class="card-header d-sm-flex align-items-center justify-content-between mb-4">
+                                <h6 class="m-0 font-weight-bold text-primary">${task.idTask}</h6>
+                                <h1>${roleProject}</h1>
+                                <c:if test="${session.getRole_project() == 'TL'}">
+                                    <a href="Add_Task.jsp" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                                        <i class="fa-solid fa-plus"></i> New task
                                     </a>
-                                </div>
-                                <div class="card-body">
-                                    <c:forEach items="${tasktypes}" var="tasktype">
-                                        <%-- Accessing percentage using EL --%>
-                                        <c:set var="milestoneId" value="${milestone.id_milestone}" />
-                                        <c:set var="attributeName" value="taskOfMilestonessize${milestoneId}" />
-                                        <c:set var="milestoneIndex" value="${milestoneId-1}" />
-                                        <c:set var="taskTypeIndex" value="${tasktype.taskType_Id}" />
-                                        <!--                                        because the list will start with 0-->
-                                        <c:set var="percentageMap" value="${milestoneTaskTypePercentageList[milestoneIndex]}" />
-                                        <c:set var="percentage" value="${percentageMap[taskTypeIndex]}" />
-                                        <c:set var="size" value="${requestScope[attributeName]}" />
-                                        <c:set var="taskCount" value="${Math.round(percentage * size / 100)}" />
+                                </c:if>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <form action="comment" method="POST">
+                                        <table class="table table-bordered"  width="100%"
+                                               cellspacing="0">
+                                            <thead>
+                                                <tr>
+                                                    <th >ID ${session.getRole_project()}</th>
+                                                    <th>Task name</th>
+                                                    <th>Milestone</th>
+                                                    <th>Task description</th>
+                                                    <th>Start_date</th>
+                                                    <th>End_Date</th>
+                                                    <th>Status</th>
+                                                </tr>
+                                            </thead>
 
-                                        <%-- Default percentage if not present --%>
-                                        <c:if test="${empty percentage}">
-                                            <c:set var="percentage" value="10" />
-                                        </c:if>
+                                            <tbody>
+                                                <c:forEach items="${tasks}" var="task" varStatus="loop">
+                                                    <tr>
+                                                        <td>${loop.index + 1}</td>
+                                                        <td>
+                                                            <input type="hidden" name="task_id" value="${task.idTask}">
+                                                            <button type="submit" class="nav-link text-primary" style=" border: none; background-color: transparent; padding: 0; cursor: pointer;" >${task.taskName}</button>
+                                                        </td>
+                                                        <td>
+                                                            <%-- Iterate through milestones to find the corresponding milestone name --%>
+                                                            <c:forEach items="${milestones}" var="milestone">
+                                                                <c:if test="${milestone.id_milestone == task.idMilestone}">
+                                                                    ${milestone.name_milestone}
+                                                                </c:if>
+                                                            </c:forEach>
+                                                        </td>
+                                                        <td>${task.taskDescription}</td>
+                                                        <td>${task.startDate}</td>
+                                                        <td>${task.endDate}</td>
 
-                                        <h4 class="small font-weight-bold">${tasktype.taskType_Name} <span class="float-right">${percentage}% | ${taskCount}</span></h4>
-                                        <div class="progress mb-4">
-                                            <div class="progress-bar bg-danger" role="progressbar" style="width: ${percentage}%"
-                                                 aria-valuenow="${percentage}" aria-valuemin="0" aria-valuemax="100"></div>
-                                        </div>
-                                    </c:forEach>
+                                                        <td>
+                                                            <%-- Display task type --%>
+                                                            <c:choose>
+                                                                <c:when test="${session.getRole_project() == 'TL'}">
+                                                                    <%-- Dropdown selection for TL to choose new task type --%>
+                                                                    <select class="form-control bg-light border-0 small" name="taskType" id="taskType_${loop.index}" onchange = "Sendata(${task.idTask}, this.value)">
+                                                                        <c:forEach items="${tasktypes}" var="tasktypeText">
+                                                                            <option value="${tasktypeText.taskType_Id}" >${tasktypeText.taskType_Name}</option>
+                                                                        </c:forEach>
+                                                                    </select>
+                                                                </c:when>
+                                                                <c:otherwise>
+                                                                    <c:forEach items="${tasktypes}" var="tasktypeText">
+                                                                        <c:if test="${tasktypeText.taskType_Id == task.taskTypeId}">
+                                                                            ${tasktypeText.taskType_Name}
+                                                                        </c:if>
+                                                                    </c:forEach>
+                                                                </c:otherwise>
+                                                            </c:choose>
+                                                        </td>
+                                                    </tr>
+                                                </c:forEach>
+                                            </tbody>
+
+                                        </table>
+                                    </form>
                                 </div>
                             </div>
-                        </c:forEach>
+                        </div>
+                        <div class="card shadow mb-4 ">
+                            <div class="card-header d-sm-flex align-items-center justify-content-between mb-4">
+                                <h6 class="m-0 font-weight-bold text-primary">Comment</h6>
+                            </div>
+                            <div class="container bootdey">
+                                <div class="col-md-12 bootstrap snippets">
+                                    <div class="panel">
+                                        <div class="panel-body">
+                                            <textarea class="form-control" rows="2" placeholder="What are you thinking?"></textarea>
+                                            <div class="mar-top clearfix">
+                                                <button class="btn btn-sm btn-primary pull-right" type="submit"><i class="fa fa-pencil fa-fw"></i> Share</button>
+                                                <a class="btn btn-trans btn-icon" href="#"><i class="fa-solid fa-camera"></i></a>
+                                                <a class="btn btn-trans btn-icon" href="#"><i class="fa-solid fa-video"></i></a>
+                                                <a class="btn btn-trans btn-icon" href="#"><i class="fa-solid fa-file"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel">
+                                        <div class="panel-body">
+                                            <!-- Newsfeed Content -->
+                                            <!--===================================================-->
+                                            <div class="media-block">
+                                                <a class="media-left" href="#"><img class="img-circle img-sm" alt="Profile Picture" src="https://bootdey.com/img/Content/avatar/avatar1.png"></a>
+                                                <div class="media-body">
+                                                    <div class="mar-btm">
+                                                        <a href="#" class="btn-link text-semibold media-heading box-inline">Lisa D.</a>
+                                                        <p class="text-muted text-sm"> 11 min ago</p>
+                                                    </div>
+                                                    <p>consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
+                                                    <div class="pad-ver">
+                                                        <div class="btn-group">
+                                                            <a class="btn btn-sm btn-default btn-hover-success" href="#"><i class="fa fa-thumbs-up"></i></a>
+                                                            <a class="btn btn-sm btn-default btn-hover-danger" href="#"><i class="fa fa-thumbs-down"></i></a>
+                                                        </div>
+                                                        <a class="btn btn-sm btn-default btn-hover-primary" href="#">Comment</a>
+                                                    </div>
+                                                    <hr>
+
+                                                    
+                                            </div>
+                                            <!--===================================================-->
+                                            <!-- End Newsfeed Content -->
 
 
+                                            <!-- Newsfeed Content -->
+                                            <!--===================================================-->
+                                            <div class="media-block pad-all">
+                                                <a class="media-left" href="#"><img class="img-circle img-sm" alt="Profile Picture" src="https://bootdey.com/img/Content/avatar/avatar1.png"></a>
+                                                <div class="media-body">
+                                                    <div class="mar-btm">
+                                                        <a href="#" class="btn-link text-semibold media-heading box-inline">John Doe</a>
+                                                        <p class="text-muted text-sm"><i class="fa fa-mobile fa-lg"></i> - From Mobile - 11 min ago</p>
+                                                    </div>
+                                                    <p>Lorem ipsum dolor sit amet.</p>
+                                                    <img class="img-responsive thumbnail" src="https://www.bootdey.com/image/400x300" alt="Image">
+                                                    <div class="pad-ver">
+                                                        <span class="tag tag-sm"><i class="fa fa-heart text-danger"></i> 250 Likes</span>
+                                                        <div class="btn-group">
+                                                            <a class="btn btn-sm btn-default btn-hover-success" href="#"><i class="fa fa-thumbs-up"></i></a>
+                                                            <a class="btn btn-sm btn-default btn-hover-danger" href="#"><i class="fa fa-thumbs-down"></i></a>
+                                                        </div>
+                                                        <a class="btn btn-sm btn-default btn-hover-primary" href="#">Comment</a>
+                                                    </div>
+                                                    <hr>
 
-
-
-
+                                                    <!-- Comments -->
+                                                    
+                                                </div>
+                                            </div>
+                                            <!--===================================================-->
+                                            <!-- End Newsfeed Content -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
                     </div>
                     <!-- /.container-fluid -->

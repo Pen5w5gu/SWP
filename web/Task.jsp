@@ -27,7 +27,7 @@
             rel="stylesheet">
 
         <!-- Custom styles for this template -->
-        <link href="css/sb-admin-2.min.css" rel="stylesheet">
+        <link href="css/task.css" rel="stylesheet">
 
         <!-- Custom styles for this page -->
         <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
@@ -49,7 +49,7 @@
                     if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
                         // Xử lý phản hồi từ server nếu cần
                         console.log("Dữ liệu đã được gửi thành công!");
-                    }else{
+                    } else {
                         console.log("Failed");
                     }
                 };
@@ -323,7 +323,7 @@
                         <!-- DataTales Example -->
                         <div class="card shadow mb-4 ">
                             <div class="card-header d-sm-flex align-items-center justify-content-between mb-4">
-                                <h6 class="m-0  font-weight-bold text-primary">Task</h6>
+                                <h6 class="m-0 font-weight-bold text-primary">Task</h6>
                                 <h1>${roleProject}</h1>
                                 <c:if test="${session.getRole_project() == 'TL'}">
                                     <a href="Add_Task.jsp" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
@@ -333,62 +333,67 @@
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <table class="table table-bordered" id="dataTable" width="100%"
-                                           cellspacing="0">
-                                        <thead>
-                                            <tr>
-                                                <th>ID ${session.getRole_project()}</th>
-                                                <th>Task name</th>
-                                                <th>Milestone</th>
-                                                <th>Task description</th>
-                                                <th>Start_date</th>
-                                                <th>End_Date</th>
-                                                <th>Status</th>
-                                            </tr>
-                                        </thead>
-
-                                        <tbody>
-                                            <c:forEach items="${tasks}" var="task" varStatus="loop">
+                                    <form action="comment" method="POST">
+                                        <table class="table table-bordered" id="dataTable" width="100%"
+                                               cellspacing="0">
+                                            <thead>
                                                 <tr>
-                                                    <td>${loop.index + 1}</td>
-                                                    <td>${task.taskName}</td>
-                                                    <td>
-                                                        <%-- Iterate through milestones to find the corresponding milestone name --%>
-                                                        <c:forEach items="${milestones}" var="milestone">
-                                                            <c:if test="${milestone.id_milestone == task.idMilestone}">
-                                                                ${milestone.name_milestone}
-                                                            </c:if>
-                                                        </c:forEach>
-                                                    </td>
-                                                    <td>${task.taskDescription}</td>
-                                                    <td>${task.startDate}</td>
-                                                    <td>${task.endDate}</td>
-
-                                                    <td>
-                                                        <%-- Display task type --%>
-                                                        <c:choose>
-                                                            <c:when test="${session.getRole_project() == 'TL'}">
-                                                                <%-- Dropdown selection for TL to choose new task type --%>
-                                                                <select name="taskType" id="taskType_${loop.index}" onchange = "Sendata(${task.idTask}, this.value)">
-                                                                    <c:forEach items="${tasktypes}" var="tasktypeText">
-                                                                        <option value="${tasktypeText.taskType_Id}" >${tasktypeText.taskType_Name}</option>
-                                                                    </c:forEach>
-                                                                </select>
-                                                            </c:when>
-                                                            <c:otherwise>
-                                                                <c:forEach items="${tasktypes}" var="tasktypeText">
-                                                                    <c:if test="${tasktypeText.taskType_Id == task.taskTypeId}">
-                                                                        ${tasktypeText.taskType_Name}
-                                                                    </c:if>
-                                                                </c:forEach>
-                                                            </c:otherwise>
-                                                        </c:choose>
-                                                    </td>
+                                                    <th >ID ${session.getRole_project()}</th>
+                                                    <th>Task name</th>
+                                                    <th>Milestone</th>
+                                                    <th>Task description</th>
+                                                    <th>Start_date</th>
+                                                    <th>End_Date</th>
+                                                    <th>Status</th>
                                                 </tr>
-                                            </c:forEach>
-                                        </tbody>
+                                            </thead>
 
-                                    </table>
+                                            <tbody>
+                                                <c:forEach items="${tasks}" var="task" varStatus="loop">
+                                                    <tr>
+                                                        <td>${loop.index + 1}</td>
+                                                        <td>
+                                                            <input type="hidden" name="task_id" value="${task.idTask}">
+                                                            <button type="submit" class="nav-link text-primary" style=" border: none; background-color: transparent; padding: 0; cursor: pointer;" >${task.taskName}</button>
+                                                        </td>
+                                                        <td>
+                                                            <%-- Iterate through milestones to find the corresponding milestone name --%>
+                                                            <c:forEach items="${milestones}" var="milestone">
+                                                                <c:if test="${milestone.id_milestone == task.idMilestone}">
+                                                                    ${milestone.name_milestone}
+                                                                </c:if>
+                                                            </c:forEach>
+                                                        </td>
+                                                        <td>${task.taskDescription}</td>
+                                                        <td>${task.startDate}</td>
+                                                        <td>${task.endDate}</td>
+
+                                                        <td>
+                                                            <%-- Display task type --%>
+                                                            <c:choose>
+                                                                <c:when test="${session.getRole_project() == 'TL'}">
+                                                                    <%-- Dropdown selection for TL to choose new task type --%>
+                                                                    <select class="form-control bg-light border-0 small" name="taskType" id="taskType_${loop.index}" onchange = "Sendata(${task.idTask}, this.value)">
+                                                                        <c:forEach items="${tasktypes}" var="tasktypeText">
+                                                                            <option value="${tasktypeText.taskType_Id}" >${tasktypeText.taskType_Name}</option>
+                                                                        </c:forEach>
+                                                                    </select>
+                                                                </c:when>
+                                                                <c:otherwise>
+                                                                    <c:forEach items="${tasktypes}" var="tasktypeText">
+                                                                        <c:if test="${tasktypeText.taskType_Id == task.taskTypeId}">
+                                                                            ${tasktypeText.taskType_Name}
+                                                                        </c:if>
+                                                                    </c:forEach>
+                                                                </c:otherwise>
+                                                            </c:choose>
+                                                        </td>
+                                                    </tr>
+                                                </c:forEach>
+                                            </tbody>
+
+                                        </table>
+                                    </form>
                                 </div>
                             </div>
                         </div>

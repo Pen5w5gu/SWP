@@ -12,8 +12,10 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.sql.Date;
 import model.Milestone;
+import model.Project;
 
 /**
  *
@@ -30,17 +32,19 @@ public class AddMilesToneServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-         String milestoneName = request.getParameter("milestoneName");
+        HttpSession session = request.getSession();
+        String milestoneName = request.getParameter("milestoneName");
         Date startDate = Date.valueOf(request.getParameter("startDate"));
         Date endDate = Date.valueOf(request.getParameter("endDate"));
-        int projectId = Integer.parseInt(request.getParameter("projectId"));
+        Project project = (Project) session.getAttribute("project");
+        int project_id = project.getId_Project();
 
         // Tạo đối tượng Milestone
         Milestone milestone = new Milestone();
         milestone.setName_milestone(milestoneName);
         milestone.setStart_date(startDate);
         milestone.setEnd_date(endDate);
-        milestone.setId_Project(projectId);
+        milestone.setId_Project(project_id);
 
         // Gọi DAO để thêm Milestone vào cơ sở dữ liệu
         MilestoneDAO milestoneDAO = new MilestoneDAO();
