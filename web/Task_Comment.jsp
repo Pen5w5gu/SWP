@@ -288,11 +288,11 @@
                                 <!-- Dropdown - User Information -->
                                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                      aria-labelledby="userDropdown">
-                                    <a class="dropdown-item" href="#">
+                                    <a class="dropdown-item" href="profile_l">
                                         <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Profile
                                     </a>
-                                    <a class="dropdown-item" href="#">
+                                    <a class="dropdown-item" href="change_info_s">
                                         <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Settings
                                     </a>
@@ -319,7 +319,7 @@
 
                         <!-- Page Heading -->
                         <h1 class="h3 mb-2 text-gray-800">Task</h1>
-                        <p class="mb-4">List of task</p>
+                        <p class="mb-4">Comment in task</p>
 
                         <!-- DataTales Example -->
                         <div class="card shadow mb-4 ">
@@ -432,7 +432,7 @@
 
                                                     </div>
                                                     <div style="position: relative;">
-                                                        <textarea class="form-control form-control-sm border-0" id="myInput" wrap="soft" maxlength="200" readonly style="overflow-wrap: break-word; height: auto; resize: none;"></textarea>
+                                                        <textarea class="form-control form-control-sm border-0" id="myInput" wrap="soft" maxlength="250" readonly style="overflow-wrap: break-word; height: auto; resize: none;"></textarea>
                                                         <div id="charCount" style="position: absolute; bottom: 5px; right: 5px; font-size: 10px; display: none;"></div>
                                                     </div>
                                                     <div class="pad-ver">
@@ -449,8 +449,6 @@
                                             <!-- End Newsfeed Content -->
                                         </div>
                                     </div>
-
-
 
                                 </div>
                             </div>
@@ -504,41 +502,41 @@
 
         <!-- Custom scripts for all pages-->
         <script src="js/sb-admin-2.min.js"></script>
-        <textarea class="form-control form-control-sm" id="myInput" wrap="soft" maxlength="200" readonly style="overflow-wrap: break-word; height: auto; resize: none;"></textarea>        
-<script>
-    // Hàm để cập nhật số ký tự còn lại
-    function updateCharCount() {
-        var maxLength = 200; // Độ dài tối đa của textarea
-        var currentLength = document.getElementById("myInput").value.length; // Độ dài hiện tại của nội dung textarea
-        var remaining = maxLength - currentLength; // Số ký tự còn lại
 
-        document.getElementById("charCount").innerText = remaining + "/200";
-    }
+        <script>
+                                                                    // Hàm để cập nhật số ký tự còn lại
+                                                                    function updateCharCount() {
+                                                                        var maxLength = 250; // Độ dài tối đa của textarea
+                                                                        var currentLength = document.getElementById("myInput").value.length; // Độ dài hiện tại của nội dung textarea
+                                                                        var remaining = maxLength - currentLength; // Số ký tự còn lại
 
-    // Gọi hàm cập nhật lần đầu
-    updateCharCount();
+                                                                        document.getElementById("charCount").innerText = remaining + "/250";
+                                                                    }
 
-    // Thêm sự kiện onchange vào textarea để cập nhật số ký tự khi nội dung thay đổi
-    document.getElementById("myInput").addEventListener("input", updateCharCount);
+                                                                    // Gọi hàm cập nhật lần đầu
+                                                                    updateCharCount();
 
-    function enableEdit() {
-        document.getElementById("myInput").readOnly = false;
-        document.getElementById("dropdownButton").innerHTML = "Save"; // Thay đổi nội dung của nút thành "Save"
-        document.getElementById("dropdownButton").setAttribute("onclick", "saveChanges()"); // Thêm sự kiện onclick mới cho nút
-        document.getElementById("charCount").style.display = "block"; // Hiển thị charCount
-        document.getElementById("myInput").classList.remove("border-0"); // Xóa lớp CSS "border-0"
-    }
+                                                                    // Thêm sự kiện onchange vào textarea để cập nhật số ký tự khi nội dung thay đổi
+                                                                    document.getElementById("myInput").addEventListener("input", updateCharCount);
 
-    function saveChanges() {
-        // Thực hiện các hành động khi người dùng nhấp vào "Save" ở đây
-        alert("Đã lưu thay đổi!");
-        document.getElementById("myInput").readOnly = true;
-        document.getElementById("dropdownButton").innerHTML = '<i class="fa fa-ellipsis-h"></i>'; // Thay đổi lại nội dung của nút thành icon "..." ban đầu
-        document.getElementById("dropdownButton").setAttribute("onclick", ""); // Xóa sự kiện onclick của nút
-        document.getElementById("charCount").style.display = "none"; // Ẩn charCount
-        document.getElementById("myInput").classList.add("border-0"); // Thêm lớp CSS "border-0"
-    }
-</script>
+                                                                    function enableEdit() {
+                                                                        document.getElementById("myInput").readOnly = false;
+                                                                        document.getElementById("dropdownButton").innerHTML = "Save"; // Thay đổi nội dung của nút thành "Save"
+                                                                        document.getElementById("dropdownButton").setAttribute("onclick", "saveChanges()"); // Thêm sự kiện onclick mới cho nút
+                                                                        document.getElementById("charCount").style.display = "block"; // Hiển thị charCount
+                                                                        document.getElementById("myInput").classList.remove("border-0"); // Xóa lớp CSS "border-0"
+                                                                    }
+
+                                                                    function saveChanges() {
+                                                                        // Thực hiện các hành động khi người dùng nhấp vào "Save" ở đây
+                                                                        alert("Đã lưu thay đổi!");
+                                                                        document.getElementById("myInput").readOnly = true;
+                                                                        document.getElementById("dropdownButton").innerHTML = '<i class="fa fa-ellipsis-h"></i>'; // Thay đổi lại nội dung của nút thành icon "..." ban đầu
+                                                                        document.getElementById("dropdownButton").setAttribute("onclick", ""); // Xóa sự kiện onclick của nút
+                                                                        document.getElementById("charCount").style.display = "none"; // Ẩn charCount
+                                                                        document.getElementById("myInput").classList.add("border-0"); // Thêm lớp CSS "border-0"
+                                                                    }
+        </script>
 
 
         <!-- Page level plugins -->

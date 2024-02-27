@@ -284,10 +284,10 @@
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <p>download template: <i class="fa-solid fa-file"></i> File excel</p>
+                                    <p>download template: <a href="File/template.xlsx">File excel</a></p>
                                     <form action="import" method="post" enctype="multipart/form-data">
                                         Select Excel File to Upload:
-                                        <input type="file" name="file" id="file"><br>
+                                        <input class="" type="file" name="file" id="file"><br>
                                         <input type="submit" value="Upload" name="submit">
                                     </form>
 
