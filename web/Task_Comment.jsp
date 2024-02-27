@@ -432,7 +432,7 @@
 
                                                     </div>
                                                     <div style="position: relative;">
-                                                        <textarea class="form-control form-control-sm" id="myInput" wrap="soft" maxlength="200" readonly style="overflow-wrap: break-word; height: auto; resize: none;"></textarea>
+                                                        <textarea class="form-control form-control-sm border-0" id="myInput" wrap="soft" maxlength="200" readonly style="overflow-wrap: break-word; height: auto; resize: none;"></textarea>
                                                         <div id="charCount" style="position: absolute; bottom: 5px; right: 5px; font-size: 10px; display: none;"></div>
                                                     </div>
                                                     <div class="pad-ver">
@@ -504,7 +504,8 @@
 
         <!-- Custom scripts for all pages-->
         <script src="js/sb-admin-2.min.js"></script>
-        <script>
+        <textarea class="form-control form-control-sm" id="myInput" wrap="soft" maxlength="200" readonly style="overflow-wrap: break-word; height: auto; resize: none;"></textarea>        
+<script>
     // Hàm để cập nhật số ký tự còn lại
     function updateCharCount() {
         var maxLength = 200; // Độ dài tối đa của textarea
@@ -525,6 +526,7 @@
         document.getElementById("dropdownButton").innerHTML = "Save"; // Thay đổi nội dung của nút thành "Save"
         document.getElementById("dropdownButton").setAttribute("onclick", "saveChanges()"); // Thêm sự kiện onclick mới cho nút
         document.getElementById("charCount").style.display = "block"; // Hiển thị charCount
+        document.getElementById("myInput").classList.remove("border-0"); // Xóa lớp CSS "border-0"
     }
 
     function saveChanges() {
@@ -534,6 +536,7 @@
         document.getElementById("dropdownButton").innerHTML = '<i class="fa fa-ellipsis-h"></i>'; // Thay đổi lại nội dung của nút thành icon "..." ban đầu
         document.getElementById("dropdownButton").setAttribute("onclick", ""); // Xóa sự kiện onclick của nút
         document.getElementById("charCount").style.display = "none"; // Ẩn charCount
+        document.getElementById("myInput").classList.add("border-0"); // Thêm lớp CSS "border-0"
     }
 </script>
 
