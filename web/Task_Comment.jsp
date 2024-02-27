@@ -328,7 +328,7 @@
                                 <h1>${roleProject}</h1>
                                 <c:if test="${session.getRole_project() == 'TL'}">
                                     <a href="Add_Task.jsp" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-                                        <i class="fa-solid fa-plus"></i> New task
+                                        <i class="fa-solid fa-chevron-left"></i> Back to list task
                                     </a>
                                 </c:if>
                             </div>
@@ -339,7 +339,7 @@
                                                cellspacing="0">
                                             <thead>
                                                 <tr>
-                                                    <th >ID ${session.getRole_project()}</th>
+                                                    <th>ID</th>
                                                     <th>Task name</th>
                                                     <th>Milestone</th>
                                                     <th>Task description</th>
@@ -350,47 +350,41 @@
                                             </thead>
 
                                             <tbody>
-                                                <c:forEach items="${tasks}" var="task" varStatus="loop">
-                                                    <tr>
-                                                        <td>${loop.index + 1}</td>
-                                                        <td>
-                                                            <input type="hidden" name="task_id" value="${task.idTask}">
-                                                            <button type="submit" class="nav-link text-primary" style=" border: none; background-color: transparent; padding: 0; cursor: pointer;" >${task.taskName}</button>
-                                                        </td>
-                                                        <td>
-                                                            <%-- Iterate through milestones to find the corresponding milestone name --%>
-                                                            <c:forEach items="${milestones}" var="milestone">
-                                                                <c:if test="${milestone.id_milestone == task.idMilestone}">
-                                                                    ${milestone.name_milestone}
-                                                                </c:if>
-                                                            </c:forEach>
-                                                        </td>
-                                                        <td>${task.taskDescription}</td>
-                                                        <td>${task.startDate}</td>
-                                                        <td>${task.endDate}</td>
+                                                <tr>
+                                                    <td>${tasks.idTask + 1}</td>
+                                                    <td>
+                                                        <p class="nav-link font-weight-bold text-primary">${task.taskName}</p>
+                                                    </td>
+                                                    <td>
+                                                        <c:if test="${milestone.id_milestone == task.idMilestone}">
+                                                            ${milestone.name_milestone}
+                                                        </c:if>
+                                                    </td>
+                                                    <td>${task.taskDescription}</td>
+                                                    <td>${task.startDate}</td>
+                                                    <td>${task.endDate}</td>
 
-                                                        <td>
-                                                            <%-- Display task type --%>
-                                                            <c:choose>
-                                                                <c:when test="${session.getRole_project() == 'TL'}">
-                                                                    <%-- Dropdown selection for TL to choose new task type --%>
-                                                                    <select class="form-control bg-light border-0 small" name="taskType" id="taskType_${loop.index}" onchange = "Sendata(${task.idTask}, this.value)">
-                                                                        <c:forEach items="${tasktypes}" var="tasktypeText">
-                                                                            <option value="${tasktypeText.taskType_Id}" >${tasktypeText.taskType_Name}</option>
-                                                                        </c:forEach>
-                                                                    </select>
-                                                                </c:when>
-                                                                <c:otherwise>
+                                                    <td>
+                                                        <%-- Display task type --%>
+                                                        <c:choose>
+                                                            <c:when test="${session.getRole_project() == 'TL'}">
+                                                                <%-- Dropdown selection for TL to choose new task type --%>
+                                                                <select class="form-control bg-light border-0 small" name="taskType" id="taskType_${loop.index}" onchange = "Sendata(${task.idTask}, this.value)">
                                                                     <c:forEach items="${tasktypes}" var="tasktypeText">
-                                                                        <c:if test="${tasktypeText.taskType_Id == task.taskTypeId}">
-                                                                            ${tasktypeText.taskType_Name}
-                                                                        </c:if>
+                                                                        <option value="${tasktypeText.taskType_Id}" >${tasktypeText.taskType_Name}</option>
                                                                     </c:forEach>
-                                                                </c:otherwise>
-                                                            </c:choose>
-                                                        </td>
-                                                    </tr>
-                                                </c:forEach>
+                                                                </select>
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                <c:forEach items="${tasktypes}" var="tasktypeText">
+                                                                    <c:if test="${tasktypeText.taskType_Id == task.taskTypeId}">
+                                                                        ${tasktypeText.taskType_Name}
+                                                                    </c:if>
+                                                                </c:forEach>
+                                                            </c:otherwise>
+                                                        </c:choose>
+                                                    </td>
+                                                </tr>
                                             </tbody>
 
                                         </table>
@@ -420,13 +414,27 @@
                                             <!-- Newsfeed Content -->
                                             <!--===================================================-->
                                             <div class="media-block">
-                                                <a class="media-left" href="#"><img class="img-circle img-sm" alt="Profile Picture" src="https://bootdey.com/img/Content/avatar/avatar1.png"></a>
-                                                <div class="media-body">
-                                                    <div class="mar-btm">
+                                                <a class="media-left" style="padding-right: 10px" href="#"><img class="img-circle img-sm" alt="Profile Picture" src="img/undraw_profile.svg"></a>
+                                                <div class="media-body ">
+                                                    <div class="mar-btm d-sm-flex align-items-center justify-content-between mb-4">
                                                         <a href="#" class="btn-link text-semibold media-heading box-inline">Lisa D.</a>
-                                                        <p class="text-muted text-sm"> 11 min ago</p>
+                                                        <!-- Nút dropdown -->
+                                                        <div id="dropdownContainer" class="dropdown pull-right">
+                                                            <button id="dropdownButton" class="btn btn-default dropdown-toggle form-control bg-light border-0 small" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                <i class="fa fa-ellipsis-h"></i>
+                                                            </button>
+                                                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                                                                <a class="dropdown-item" href="#" onclick="enableEdit()">Edit</a>
+                                                                <a class="dropdown-item" href="#">Delete</a>
+                                                            </div>
+                                                        </div>
+                                                        <!-- End nút dropdown -->
+
                                                     </div>
-                                                    <p>consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
+                                                    <div style="position: relative;">
+                                                        <textarea class="form-control form-control-sm" id="myInput" wrap="soft" maxlength="200" readonly style="overflow-wrap: break-word; height: auto; resize: none;"></textarea>
+                                                        <div id="charCount" style="position: absolute; bottom: 5px; right: 5px; font-size: 10px; display: none;"></div>
+                                                    </div>
                                                     <div class="pad-ver">
                                                         <div class="btn-group">
                                                             <a class="btn btn-sm btn-default btn-hover-success" href="#"><i class="fa fa-thumbs-up"></i></a>
@@ -435,42 +443,15 @@
                                                         <a class="btn btn-sm btn-default btn-hover-primary" href="#">Comment</a>
                                                     </div>
                                                     <hr>
-
-                                                    
-                                            </div>
-                                            <!--===================================================-->
-                                            <!-- End Newsfeed Content -->
-
-
-                                            <!-- Newsfeed Content -->
-                                            <!--===================================================-->
-                                            <div class="media-block pad-all">
-                                                <a class="media-left" href="#"><img class="img-circle img-sm" alt="Profile Picture" src="https://bootdey.com/img/Content/avatar/avatar1.png"></a>
-                                                <div class="media-body">
-                                                    <div class="mar-btm">
-                                                        <a href="#" class="btn-link text-semibold media-heading box-inline">John Doe</a>
-                                                        <p class="text-muted text-sm"><i class="fa fa-mobile fa-lg"></i> - From Mobile - 11 min ago</p>
-                                                    </div>
-                                                    <p>Lorem ipsum dolor sit amet.</p>
-                                                    <img class="img-responsive thumbnail" src="https://www.bootdey.com/image/400x300" alt="Image">
-                                                    <div class="pad-ver">
-                                                        <span class="tag tag-sm"><i class="fa fa-heart text-danger"></i> 250 Likes</span>
-                                                        <div class="btn-group">
-                                                            <a class="btn btn-sm btn-default btn-hover-success" href="#"><i class="fa fa-thumbs-up"></i></a>
-                                                            <a class="btn btn-sm btn-default btn-hover-danger" href="#"><i class="fa fa-thumbs-down"></i></a>
-                                                        </div>
-                                                        <a class="btn btn-sm btn-default btn-hover-primary" href="#">Comment</a>
-                                                    </div>
-                                                    <hr>
-
-                                                    <!-- Comments -->
-                                                    
                                                 </div>
                                             </div>
                                             <!--===================================================-->
                                             <!-- End Newsfeed Content -->
                                         </div>
                                     </div>
+
+
+
                                 </div>
                             </div>
                         </div>
@@ -523,6 +504,39 @@
 
         <!-- Custom scripts for all pages-->
         <script src="js/sb-admin-2.min.js"></script>
+        <script>
+    // Hàm để cập nhật số ký tự còn lại
+    function updateCharCount() {
+        var maxLength = 200; // Độ dài tối đa của textarea
+        var currentLength = document.getElementById("myInput").value.length; // Độ dài hiện tại của nội dung textarea
+        var remaining = maxLength - currentLength; // Số ký tự còn lại
+
+        document.getElementById("charCount").innerText = remaining + "/200";
+    }
+
+    // Gọi hàm cập nhật lần đầu
+    updateCharCount();
+
+    // Thêm sự kiện onchange vào textarea để cập nhật số ký tự khi nội dung thay đổi
+    document.getElementById("myInput").addEventListener("input", updateCharCount);
+
+    function enableEdit() {
+        document.getElementById("myInput").readOnly = false;
+        document.getElementById("dropdownButton").innerHTML = "Save"; // Thay đổi nội dung của nút thành "Save"
+        document.getElementById("dropdownButton").setAttribute("onclick", "saveChanges()"); // Thêm sự kiện onclick mới cho nút
+        document.getElementById("charCount").style.display = "block"; // Hiển thị charCount
+    }
+
+    function saveChanges() {
+        // Thực hiện các hành động khi người dùng nhấp vào "Save" ở đây
+        alert("Đã lưu thay đổi!");
+        document.getElementById("myInput").readOnly = true;
+        document.getElementById("dropdownButton").innerHTML = '<i class="fa fa-ellipsis-h"></i>'; // Thay đổi lại nội dung của nút thành icon "..." ban đầu
+        document.getElementById("dropdownButton").setAttribute("onclick", ""); // Xóa sự kiện onclick của nút
+        document.getElementById("charCount").style.display = "none"; // Ẩn charCount
+    }
+</script>
+
 
         <!-- Page level plugins -->
         <script src="vendor/datatables/jquery.dataTables.min.js"></script>

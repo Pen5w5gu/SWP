@@ -45,7 +45,7 @@ public class ShowCommentServlet extends HttpServlet {
                 List<Comment> comments = cdao.getCommentByTaskAndProject(idTask, project_id);
                 request.setAttribute("comments", comments);
                 request.setAttribute("idTask", idTask);
-                request.getRequestDispatcher("ShowComment.jsp").forward(request, response);
+                request.getRequestDispatcher("Task_Comment.jsp").forward(request, response);
       
             } else {
                 // User is not logged in or session doesn't exist, redirect to the login page
