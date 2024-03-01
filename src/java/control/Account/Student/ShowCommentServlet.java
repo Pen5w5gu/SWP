@@ -6,6 +6,8 @@
 package control.Account.Student;
 
 import Dao.CommentDAO;
+import Dao.TaskDAO;
+import Dao.TaskTypeDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -16,6 +18,8 @@ import jakarta.servlet.http.HttpSession;
 import java.util.List;
 import model.Comment;
 import model.Project;
+import model.Task;
+import model.TaskType;
 import model.User;
 
 /**
@@ -39,13 +43,20 @@ public class ShowCommentServlet extends HttpServlet {
                 int user_id = user.getId_account();
                 Project project = (Project) session.getAttribute("project");
                 int project_id = project.getId_Project();
-                int idTask = Integer.parseInt(request.getParameter("idTask"));
+                int idTask = Integer.parseInt(request.getParameter("task_id"));
+                TaskDAO tdao = new TaskDAO();
+                Task task = tdao.getTaskByID(idTask);
+                TaskTypeDAO ttdao = new TaskTypeDAO();
                 CommentDAO cdao = new CommentDAO();
+                List<TaskType> tasktypes = ttdao.getTaskType();
                 
                 List<Comment> comments = cdao.getCommentByTaskAndProject(idTask, project_id);
                 request.setAttribute("comments", comments);
                 request.setAttribute("idTask", idTask);
-                request.getRequestDispatcher("ShowComment.jsp").forward(request, response);
+                request.setAttribute("task", task);
+                request.setAttribute("tasktypes",tasktypes);
+                
+                request.getRequestDispatcher("Task_Comment.jsp").forward(request, response);
       
             } else {
                 // User is not logged in or session doesn't exist, redirect to the login page

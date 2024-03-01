@@ -21,7 +21,7 @@
         
         
         <h2>Login</h2>
-        <form action="login" >
+        <form action="login" method ="get" >
             <div class="social-container">
                 <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
                 <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
@@ -49,7 +49,7 @@
 
            
             <div class="button-submit">
-                <button type="submit">Submit</button>
+                <button type="submit">Login</button>
          
             </div>
            
