@@ -90,6 +90,6 @@ public class MilestoneDAO extends DBContext {
         Date endDate = new Date(System.currentTimeMillis()); // Example initialization
 
         MilestoneDAO dao = new MilestoneDAO();
-        System.out.println(dao.editMilestone(3, "asdasd", startDate, endDate));
+        
     }
 }
