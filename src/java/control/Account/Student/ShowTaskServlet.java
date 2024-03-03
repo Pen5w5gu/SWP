@@ -5,6 +5,7 @@
 package control.Account.Student;
 
 import Dao.MilestoneDAO;
+import Dao.NotificationDAO;
 import Dao.TaskDAO;
 import Dao.TaskTypeDAO;
 import java.io.IOException;
@@ -16,6 +17,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.List;
 import model.Milestone;
+import model.Notification;
 import model.Project;
 import model.Task;
 import model.TaskType;
@@ -47,12 +49,17 @@ public class ShowTaskServlet extends HttpServlet {
                 TaskDAO tdao = new TaskDAO();
                 MilestoneDAO mdao = new MilestoneDAO();
                 TaskTypeDAO ttdao = new TaskTypeDAO();
+                NotificationDAO notidao = new NotificationDAO();
+                
                 List<Task> tasks = tdao.getTaskByProject(project_id);
                 List<Milestone> milestones = mdao.getMilestoneByProjectId(project_id);
                 List<TaskType> tasktypes = ttdao.getTaskType();
+                List<Notification> notifications = notidao.getAllNotiInProject(project_id);
+                        
                 request.setAttribute("milestones", milestones);
                 request.setAttribute("tasks", tasks);
                 request.setAttribute("tasktypes", tasktypes);
+                request.setAttribute("notifications", notifications);
                 request.getRequestDispatcher("Task.jsp").forward(request, response);
             } else {
                 // User is not logged in or session doesn't exist, redirect to the login page

@@ -1,4 +1,8 @@
-﻿create database SWP6
+﻿select * from Notification
+
+
+
+create database SWP6
 
 ALTER DATABASE [SWP6] SET COMPATIBILITY_LEVEL = 150
 GO
@@ -219,7 +223,9 @@ GO
 CREATE TABLE [dbo].[Notification](
 	[norifi_id] [int] NOT NULL,
 	[account_id] [int] NULL,
-	[notification] [nvarchar](4000) NULL
+	[notification] [nvarchar](4000) NULL,
+	[date] [date] NULL,
+	[Id_task] [int] Null,
 ) ON [PRIMARY]
 GO
 /****** Object:  Table [dbo].[Project]    Script Date: 3/2/2024 3:14:30 PM ******/
