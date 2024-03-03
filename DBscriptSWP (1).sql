@@ -139,3 +139,13 @@ VALUES
 	(6, 2, 1),
 	(7, 3, 1),
 	(8, 3, 1)
+
+INSERT INTO Task_Type (TaskType_Name) 
+VALUES 
+	('To Do'),
+	('Doing'),
+	('Done'),
+	('Cancel');
+
+
+

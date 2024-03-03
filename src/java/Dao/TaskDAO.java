@@ -43,30 +43,30 @@ public class TaskDAO extends DBContext {
         }
         return tasks;
     }
+
     //created by Tung
     public List<Task> getTaskByProjectAndMileStone(int project_id, int milestone_id) {
-    List<Task> tasks = new ArrayList<>();
-    try {
-        String strSelect = "SELECT Task.* " +
-                           "FROM milestone " +
-                           "INNER JOIN Project ON milestone.Id_Project = Project.Id_Project " +
-                           "INNER JOIN Task ON milestone.Id_milestone = Task.Id_milestone " +
-                           "WHERE Project.Id_Project=? AND milestone.Id_milestone=?";
-        ps = connection.prepareStatement(strSelect);
-        ps.setInt(1, project_id);
-        ps.setInt(2, milestone_id);
-        rs = ps.executeQuery();
-        while (rs.next()) {
-            tasks.add(new Task(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getDate(4), rs.getDate(5), rs.getString(6), rs.getInt(7), rs.getInt(8)));
+        List<Task> tasks = new ArrayList<>();
+        try {
+            String strSelect = "SELECT Task.* "
+                    + "FROM milestone "
+                    + "INNER JOIN Project ON milestone.Id_Project = Project.Id_Project "
+                    + "INNER JOIN Task ON milestone.Id_milestone = Task.Id_milestone "
+                    + "WHERE Project.Id_Project=? AND milestone.Id_milestone=?";
+            ps = connection.prepareStatement(strSelect);
+            ps.setInt(1, project_id);
+            ps.setInt(2, milestone_id);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                tasks.add(new Task(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getDate(4), rs.getDate(5), rs.getString(6), rs.getInt(7), rs.getInt(8)));
+            }
+            return tasks;
+        } catch (SQLException e) {
+            // Consider logging the exception instead of just printing it
+            e.printStackTrace();
         }
         return tasks;
-    } catch (SQLException e) {
-        // Consider logging the exception instead of just printing it
-        e.printStackTrace();
     }
-    return tasks;
-}
-
 
     //created by Tung
     public boolean AddTask(String taskName, String taskDescription, Date startDate, Date endDate, String code, int taskTypeId, int milestoneId) {
@@ -110,6 +110,7 @@ public class TaskDAO extends DBContext {
             }
         }
     }
+
     //created by Tung
     public boolean changeTaskType(int taskId, int newTaskTypeId) {
         PreparedStatement ps = null;
@@ -145,31 +146,31 @@ public class TaskDAO extends DBContext {
         }
     }
 
+    //created by Tung
+    public Task getTaskByID(int task_id ) {
+        
+        try {
+            String strSelect = "select * from Task where Id_task = ?";
+            ps = connection.prepareStatement(strSelect);
+            ps.setInt(1, task_id);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                return new Task(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getDate(4), rs.getDate(5), rs.getString(6), rs.getInt(7), rs.getInt(8));
+            }
+            return null;
+        } catch (SQLException e) {
+            // Consider logging the exception instead of just printing it
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public static void main(String[] args) {
         TaskDAO taskDAO = new TaskDAO();
         System.out.println(taskDAO.getTaskByProject(1));
 
-//        // Provide sample values for the task
-//        String taskName = "Sample Task";
-//        String taskDescription = "This is a sample task description.";
-//        Date startDate = Date.valueOf("2024-02-26");
-//        Date endDate = Date.valueOf("2024-03-05");
-//        String code = "ABC123";
-//        int taskTypeId = 1; // Sample task type ID
-//        int milestoneId = 1; // Sample milestone ID
-//
-//        // Call the AddTask method and store the result
-//        boolean result = taskDAO.AddTask(taskName, taskDescription, startDate, endDate, code, taskTypeId, milestoneId);
-//
-//        // Check the result and print appropriate message
-//        if (result) {
-//            System.out.println("Task added successfully.");
-//        } else {
-//            System.out.println("Failed to add task.");
-//        }
+        System.out.println(taskDAO.getTaskByID(1));
 
-        System.out.println(taskDAO.changeTaskType(3, 3));
-        
     }
 
 }

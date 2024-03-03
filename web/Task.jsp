@@ -35,30 +35,6 @@
     </head>
 
     <body id="page-top">
-        <script>
-            function Sendata(taskId, newTaskTypeId) {
-                // Tạo một đối tượng XMLHttpRequest
-                var xhr = new XMLHttpRequest();
-
-                // Thiết lập phương thức và URL cho servlet
-                xhr.open("POST", "ChangeStatusTaskServlet", true);
-                xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-
-                // Thiết lập hàm xử lý khi nhận được phản hồi từ server
-                xhr.onreadystatechange = function () {
-                    if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-                        // Xử lý phản hồi từ server nếu cần
-                        console.log("Dữ liệu đã được gửi thành công!");
-                    } else {
-                        console.log("Failed");
-                    }
-                };
-
-                // Gửi yêu cầu POST với dữ liệu taskId và newTaskTypeId
-                xhr.send("taskId=" + taskId + "&newTaskTypeId=" + newTaskTypeId);
-            }
-
-        </script>
 
         <!-- Page Wrapper -->
         <div id="wrapper">
@@ -130,14 +106,14 @@
                 </li>
 
                 <li class="nav-item active">
-                    <a class="nav-link " href="task">
+                    <a class="nav-link " href="ShowTaskServlet">
                         <i class="fa-solid fa-list-check"></i>
                         <span>Task</span></a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="milestone">
-                        <i class="fa-solid fa-chart-bar"></i>
+                    <a class="nav-link" href="ShowMilestoneServlet">
+                        <i class="fas fa-fw fa-chart-area"></i>
                         <span>Milestone</span></a>
                 </li>
 
@@ -323,7 +299,7 @@
                         <!-- DataTales Example -->
                         <div class="card shadow mb-4 ">
                             <div class="card-header d-sm-flex align-items-center justify-content-between mb-4">
-                                <h6 class="m-0 font-weight-bold text-primary">Task</h6>
+                                <h6 class="m-0  font-weight-bold text-primary">Task</h6>
                                 <h1>${roleProject}</h1>
                                 <c:if test="${session.getRole_project() == 'TL'}">
                                     <a href="Add_Task.jsp" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
@@ -333,7 +309,7 @@
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <form action="comment" method="POST">
+                                    <form action="ShowCommentServlet" method="POST">
                                         <table class="table table-bordered" id="dataTable" width="100%"
                                                cellspacing="0">
                                             <thead>
@@ -436,6 +412,31 @@
                 </div>
             </div>
         </div>
+        
+        <script>
+            function Sendata(taskId, newTaskTypeId) {
+                // Tạo một đối tượng XMLHttpRequest
+                var xhr = new XMLHttpRequest();
+
+                // Thiết lập phương thức và URL cho servlet
+                xhr.open("POST", "ChangeStatusTaskServlet", true);
+                xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+                // Thiết lập hàm xử lý khi nhận được phản hồi từ server
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                        // Xử lý phản hồi từ server nếu cần
+                        console.log("Dữ liệu đã được gửi thành công!");
+                    } else {
+                        console.log("Failed");
+                    }
+                };
+
+                // Gửi yêu cầu POST với dữ liệu taskId và newTaskTypeId
+                xhr.send("taskId=" + taskId + "&newTaskTypeId=" + newTaskTypeId);
+            }
+
+        </script>
 
         <!-- Bootstrap core JavaScript-->
         <script src="vendor/jquery/jquery.min.js"></script>

@@ -319,15 +319,15 @@
 
                         <!-- Page Heading -->
                         <h1 class="h3 mb-2 text-gray-800">Task</h1>
-                        <p class="mb-4">Comment in task</p>
+
 
                         <!-- DataTales Example -->
                         <div class="card shadow mb-4 ">
                             <div class="card-header d-sm-flex align-items-center justify-content-between mb-4">
-                                <h6 class="m-0 font-weight-bold text-primary">${task.idTask}</h6>
+                                <h6 class="m-0 font-weight-bold text-primary">Comment in task ${task.taskName}</h6>
                                 <h1>${roleProject}</h1>
                                 <c:if test="${session.getRole_project() == 'TL'}">
-                                    <a href="Add_Task.jsp" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                                    <a href="task" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
                                         <i class="fa-solid fa-chevron-left"></i> Back to list task
                                     </a>
                                 </c:if>
