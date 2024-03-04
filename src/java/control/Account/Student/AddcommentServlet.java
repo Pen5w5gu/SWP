@@ -97,4 +97,8 @@ public class AddcommentServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> a932d4479392a1e5c91c4c321407a7dda252f9a8

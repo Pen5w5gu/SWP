@@ -41,7 +41,11 @@
                 var xhr = new XMLHttpRequest();
 
                 // Thiết lập phương thức và URL cho servlet
+<<<<<<< HEAD
                 xhr.open("POST", "shange_status", true);
+=======
+                xhr.open("POST", "ChangeStatusTaskServlet", true);
+>>>>>>> a932d4479392a1e5c91c4c321407a7dda252f9a8
                 xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
                 // Thiết lập hàm xử lý khi nhận được phản hồi từ server
@@ -136,7 +140,11 @@
                 </li>
 
                 <li class="nav-item">
+<<<<<<< HEAD
                     <a class="nav-link" href="milestone">
+=======
+                    <a class="nav-link" href="ShowMilestoneServlet">
+>>>>>>> a932d4479392a1e5c91c4c321407a7dda252f9a8
                         <i class="fas fa-fw fa-chart-area"></i>
                         <span>Milestone</span></a>
                 </li>
@@ -372,6 +380,7 @@
                                                             <%-- Display task type --%>
                                                             <c:choose>
                                                                 <c:when test="${session.getRole_project() == 'TL'}">
+<<<<<<< HEAD
                                                                     <select class="form-control bg-light border-0 small" name="taskType" id="taskType_${loop.index}" onchange="Sendata(${task.idTask}, this.value)">
                                                                         <c:forEach items="${tasktypes}" var="tasktypeText">
                                                                             <option value="${tasktypeText.taskType_Id}" <c:if test="${tasktypeText.taskType_Id == task.taskTypeId}">selected</c:if>>${tasktypeText.taskType_Name}</option>
@@ -379,6 +388,15 @@
                                                                     </select>
                                                                 </c:when>
 
+=======
+                                                                    <%-- Dropdown selection for TL to choose new task type --%>
+                                                                    <select class="form-control bg-light border-0 small" name="taskType" id="taskType_${loop.index}" onchange = "Sendata(${task.idTask}, this.value)">
+                                                                        <c:forEach items="${tasktypes}" var="tasktypeText">
+                                                                            <option value="${tasktypeText.taskType_Id}" >${tasktypeText.taskType_Name}</option>
+                                                                        </c:forEach>
+                                                                    </select>
+                                                                </c:when>
+>>>>>>> a932d4479392a1e5c91c4c321407a7dda252f9a8
                                                                 <c:otherwise>
                                                                     <c:forEach items="${tasktypes}" var="tasktypeText">
                                                                         <c:if test="${tasktypeText.taskType_Id == task.taskTypeId}">

@@ -36,6 +36,33 @@
     </head>
 
     <body id="page-top">
+<<<<<<< HEAD
+=======
+        <script>
+            function Sendata(taskId, newTaskTypeId) {
+                // Tạo một đối tượng XMLHttpRequest
+                var xhr = new XMLHttpRequest();
+
+                // Thiết lập phương thức và URL cho servlet
+                xhr.open("POST", "ChangeStatusTaskServlet", true);
+                xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+                // Thiết lập hàm xử lý khi nhận được phản hồi từ server
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                        // Xử lý phản hồi từ server nếu cần
+                        console.log("Dữ liệu đã được gửi thành công!");
+                    } else {
+                        console.log("Failed");
+                    }
+                };
+
+                // Gửi yêu cầu POST với dữ liệu taskId và newTaskTypeId
+                xhr.send("taskId=" + taskId + "&newTaskTypeId=" + newTaskTypeId);
+            }
+
+        </script>
+>>>>>>> a932d4479392a1e5c91c4c321407a7dda252f9a8
 
         <!-- Page Wrapper -->
         <div id="wrapper">
@@ -264,11 +291,19 @@
                                 <!-- Dropdown - User Information -->
                                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                      aria-labelledby="userDropdown">
+<<<<<<< HEAD
                                     <a class="dropdown-item" href="profile">
                                         <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Profile
                                     </a>
                                     <a class="dropdown-item" href="change_info">
+=======
+                                    <a class="dropdown-item" href="profile_l">
+                                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        Profile
+                                    </a>
+                                    <a class="dropdown-item" href="change_info_s">
+>>>>>>> a932d4479392a1e5c91c4c321407a7dda252f9a8
                                         <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Settings
                                     </a>
@@ -294,12 +329,18 @@
                     <div class="container-fluid">
 
                         <!-- Page Heading -->
+<<<<<<< HEAD
                         <h1 class="h3 mb-2 text-gray-800">Task</h1>
 
+=======
+                        <h1 class="h3 mb-2 text-graasy-800">Task</h1>
+                        <p class="mb-4">Comment in tk</p>
+>>>>>>> a932d4479392a1e5c91c4c321407a7dda252f9a8
 
                         <!-- DataTales Example -->
                         <div class="card shadow mb-4 ">
                             <div class="card-header d-sm-flex align-items-center justify-content-between mb-4">
+<<<<<<< HEAD
                                 <h6 class="m-0 font-weight-bold text-primary">Comment in task ${task.taskName}</h6>
                                 <h1>${roleProject}</h1>
                                 <c:if test="${session.getRole_project() == 'TL'}">
@@ -308,6 +349,14 @@
                                     </a>
                                 </c:if>
                             </div>
+=======
+                                <h6 class="m-0 font-weight-bold text-primary">${task.idTask}</h6>
+                                <a href="Add_Task.jsp" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                                    <i class="fa-solid fa-chevron-left"></i> Back to list task
+                                </a>
+                            </div>
+                                
+>>>>>>> a932d4479392a1e5c91c4c321407a7dda252f9a8
                             <div class="card-body">
                                 <div class="table-responsive">
                                     <form action="comment" method="POST">
@@ -332,15 +381,24 @@
                                                         <p class="nav-link font-weight-bold text-primary">${task.taskName}</p>
                                                     </td>
                                                     <td>
+<<<<<<< HEAD
                                                         <c:if test="${milestone.id_milestone == task.idMilestone}">
                                                             ${milestone.name_milestone}
                                                         </c:if>
+=======
+                                                        <c:forEach items="${milestones}" var="milestone">
+                                                            <c:if test="${milestone.id_milestone == task.idMilestone}">
+                                                                ${milestone.name_milestone}
+                                                            </c:if>
+                                                        </c:forEach>
+>>>>>>> a932d4479392a1e5c91c4c321407a7dda252f9a8
                                                     </td>
                                                     <td>${task.taskDescription}</td>
                                                     <td>${task.startDate}</td>
                                                     <td>${task.endDate}</td>
 
                                                     <td>
+<<<<<<< HEAD
                                                         <%-- Display task type --%>
                                                         <c:choose>
                                                             <c:when test="${session.getRole_project() == 'TL'}">
@@ -363,11 +421,28 @@
                                                 </tr>
                                             </tbody>
 
+=======
+                                                        <c:forEach items="${tasktypes}" var="tasktype">
+                                                            <c:if test="${tasktypes.taskType_Id == task.taskTypeId}">
+                                                                ${tasktype.taskType_Name}
+                                                            </c:if>
+                                                        </c:forEach>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+>>>>>>> a932d4479392a1e5c91c4c321407a7dda252f9a8
                                         </table>
                                     </form>
                                 </div>
                             </div>
+<<<<<<< HEAD
                         </div>
+=======
+                                                    
+                        </div>
+                                                    <h1>ABC</h1>
+
+>>>>>>> a932d4479392a1e5c91c4c321407a7dda252f9a8
                         <div class="card shadow mb-4 ">
                             <div class="card-header d-sm-flex align-items-center justify-content-between mb-4">
                                 <h6 class="m-0 font-weight-bold text-primary">Comment</h6>
@@ -425,7 +500,10 @@
                                             <!-- End Newsfeed Content -->
                                         </div>
                                     </div>
+<<<<<<< HEAD
 
+=======
+>>>>>>> a932d4479392a1e5c91c4c321407a7dda252f9a8
                                 </div>
                             </div>
                         </div>
@@ -463,7 +541,11 @@
                     <div class="modal-footer">
                         <button class="btn btn-secondary" type="button"
                                 data-dismiss="modal">Cancel</button>
+<<<<<<< HEAD
                         <a class="btn btn-primary" href="logout">Logout</a>
+=======
+                        <a class="btn btn-primary" href="login.jsp">Logout</a>
+>>>>>>> a932d4479392a1e5c91c4c321407a7dda252f9a8
                     </div>
                 </div>
             </div>
@@ -478,6 +560,7 @@
 
         <!-- Custom scripts for all pages-->
         <script src="js/sb-admin-2.min.js"></script>
+<<<<<<< HEAD
         
 <script>
             function Sendata(taskId, newTaskTypeId) {
@@ -503,6 +586,9 @@
             }
 
         </script>
+=======
+
+>>>>>>> a932d4479392a1e5c91c4c321407a7dda252f9a8
         <script>
                                                                     // Hàm để cập nhật số ký tự còn lại
                                                                     function updateCharCount() {

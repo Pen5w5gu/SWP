@@ -106,14 +106,24 @@
                 </li>
 
                 <li class="nav-item active">
+<<<<<<< HEAD
                     <a class="nav-link " href="task">
                         <i class="fa-solid fa-list-check"></i>
+=======
+                    <a class="nav-link " href="charts.html">
+                        <i class="fas fa-fw fa-chart-area"></i>
+>>>>>>> a932d4479392a1e5c91c4c321407a7dda252f9a8
                         <span>Task</span></a>
                 </li>
 
                 <li class="nav-item">
+<<<<<<< HEAD
                     <a class="nav-link" href="milestone">
                         <i class="fa-solid fa-chart-bar"></i>
+=======
+                    <a class="nav-link" href="Milestone.jsp">
+                        <i class="fas fa-fw fa-chart-area"></i>
+>>>>>>> a932d4479392a1e5c91c4c321407a7dda252f9a8
                         <span>Milestone</span></a>
                 </li>
 
@@ -263,11 +273,19 @@
                                 <!-- Dropdown - User Information -->
                                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                      aria-labelledby="userDropdown">
+<<<<<<< HEAD
                                     <a class="dropdown-item" href="profile">
                                         <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Profile
                                     </a>
                                     <a class="dropdown-item" href="change_info">
+=======
+                                    <a class="dropdown-item" href="profile_s">
+                                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        Profile
+                                    </a>
+                                    <a class="dropdown-item" href="change_info_s">
+>>>>>>> a932d4479392a1e5c91c4c321407a7dda252f9a8
                                         <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Settings
                                     </a>
@@ -300,7 +318,11 @@
                         <div class="card shadow mb-4 ">
                             <div class="card-header d-sm-flex align-items-center justify-content-between mb-4">
                                 <h6 class="m-0  font-weight-bold text-primary">Task</h6>
+<<<<<<< HEAD
                                 <a href="task"
+=======
+                                <a href="ShowTaskServlet"
+>>>>>>> a932d4479392a1e5c91c4c321407a7dda252f9a8
                                    class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fa-solid fa-chevron-left"></i> Back to task</a>
                             </div>
                             <div class="card-body">
@@ -322,8 +344,13 @@
 
                                         <tbody>
                                             <tr>
+<<<<<<< HEAD
                                         <form action="add_task">
                                             <th><input type="text" name="id" class="form-control" value="1" disabled ></th>
+=======
+                                        <form action="AddNewTaskStudentServlet">
+                                                <th><input type="text" name="id" class="form-control" value="1" disabled ></th>
+>>>>>>> a932d4479392a1e5c91c4c321407a7dda252f9a8
                                             <th><input type="text" name="taskName" class="form-control" required=""></th>
                                             <th><input type="text" name="milestoneId" class="form-control" required=""></th>
                                             <th><input type="text" name="taskDescription" class="form-control"></th>
@@ -331,6 +358,7 @@
                                             <th><input type="date" name="endDate" class="form-control" required=""></th>
                                             <th><input type="choose" name="taskTypeId" class="form-control" value ="1" readonly></th>
                                             <th><button type="submit" class="btn btn-primary">Save</button></th>
+<<<<<<< HEAD
                                         </form>
                                         </tr>
                                         <c:forEach items="${projects}" var="x" varStatus="loop">
@@ -342,6 +370,19 @@
 
                                             </tr>
                                         </c:forEach>
+=======
+                                          </form>
+                                            </tr>
+                                            <c:forEach items="${projects}" var="x" varStatus="loop">
+                                                <tr>
+                                                    <td>${loop.index + 1}</td>
+                                                    <td>${x.project_name}</td>
+                                                    <td>${x.start_date}</td>
+                                                    <td>${x.end_date}</td>
+
+                                                </tr>
+                                            </c:forEach>
+>>>>>>> a932d4479392a1e5c91c4c321407a7dda252f9a8
                                         </tbody>
                                     </table>
                                 </div>
@@ -381,7 +422,11 @@
                     <div class="modal-footer">
                         <button class="btn btn-secondary" type="button"
                                 data-dismiss="modal">Cancel</button>
+<<<<<<< HEAD
                         <a class="btn btn-primary" href="logout">Logout</a>
+=======
+                        <a class="btn btn-primary" href="login.jsp">Logout</a>
+>>>>>>> a932d4479392a1e5c91c4c321407a7dda252f9a8
                     </div>
                 </div>
             </div>

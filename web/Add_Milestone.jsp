@@ -304,7 +304,11 @@
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
+<<<<<<< HEAD
                                     <form action="add_milestone">
+=======
+                                    <form action="AddMilesToneServlet">
+>>>>>>> a932d4479392a1e5c91c4c321407a7dda252f9a8
                                     <table class="table table-bordered" width="100%" cellspacing="0">
                                         <thead>
                                             <tr>

@@ -1,6 +1,5 @@
 package control.Account.Lecture;
 
-
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.logging.Level;
@@ -14,10 +13,9 @@ import jakarta.servlet.http.Part;
 import java.io.IOException;
 import org.apache.poi.ss.usermodel.*;
 
-
-
+@WebServlet("/ImportFileServlet")
 public class ImportFileServlet extends HttpServlet {
-    
+
     private static final Logger LOGGER = Logger.getLogger(ImportFileServlet.class.getName());
 
     @Override
@@ -25,6 +23,7 @@ public class ImportFileServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
+<<<<<<< HEAD
 //        try (PrintWriter out = response.getWriter()) {
 //            InputStream inputStream = null;
 //            Part filePart = request.getPart("file");
@@ -64,6 +63,47 @@ public class ImportFileServlet extends HttpServlet {
 //                out.println("Error processing Excel file. Please check the log for details.");
 //            }
 //        }
+=======
+        try (PrintWriter out = response.getWriter()) {
+            InputStream inputStream = null;
+            Part filePart = request.getPart("file");
+            if (filePart != null) {
+                inputStream = filePart.getInputStream();
+            }
+
+            try (Workbook workbook = new XSSFWorkbook(inputStream)) {
+                int numberOfSheets = workbook.getNumberOfSheets();
+                for (int i = 0; i < numberOfSheets; i++) {
+                    Sheet sheet = workbook.getSheetAt(i);
+                    out.println("<h2>Sheet " + (i + 1) + "</h2>");
+                    for (Row row : sheet) {
+                        for (Cell cell : row) {
+                            switch (cell.getCellTypeEnum()) {
+                                case STRING:
+                                    out.print(cell.getStringCellValue() + "\t");
+                                    break;
+                                case NUMERIC:
+                                    out.print(cell.getNumericCellValue() + "\t");
+                                    break;
+                                case BOOLEAN:
+                                    out.print(cell.getBooleanCellValue() + "\t");
+                                    break;
+                                case BLANK:
+                                    out.print("\t");
+                                    break;
+                                default:
+                                    out.print("\t");
+                            }
+                        }
+                        out.println("<br/>");
+                    }
+                }
+            } catch (Exception ex) {
+                LOGGER.log(Level.SEVERE, "Error processing Excel file", ex);
+                out.println("Error processing Excel file. Please check the log for details.");
+            }
+        }
+>>>>>>> a932d4479392a1e5c91c4c321407a7dda252f9a8
     }
 
     @Override

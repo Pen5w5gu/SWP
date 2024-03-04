@@ -49,6 +49,7 @@ public class LoginServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+<<<<<<< HEAD
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
@@ -91,6 +92,8 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+=======
+>>>>>>> a932d4479392a1e5c91c4c321407a7dda252f9a8
         String email = request.getParameter("email");
         String password = request.getParameter("password");
 
@@ -114,6 +117,22 @@ public class LoginServlet extends HttpServlet {
                 if (dao.checkStatus(email) == 1) {
                     User user = dao.getUser(email);
                     if (user.getId_role() == 1) {
+<<<<<<< HEAD
+=======
+
+                        Cookie loginCookie = new Cookie("username", email);
+                        loginCookie.setMaxAge(3600); // Set the maximum age of the cookie in seconds
+                        response.addCookie(loginCookie);
+
+                        List<Class> classes = cdao.getClassByUser(user.getId_account());
+                        // Tạo các đối tượng java.sql.Date trực tiếp từ ngày
+                        Date startDate = Date.valueOf("2022-02-02");
+                        Date endDate = Date.valueOf("2022-02-02");
+                        // Tạo đối tượng Project
+                        Project project = pdao.getProjectsByUser(user.getId_account());
+                        session.setAttribute("project", project);
+                        request.setAttribute("project", project.getId_Project());
+>>>>>>> a932d4479392a1e5c91c4c321407a7dda252f9a8
                         session.setAttribute("session", user);
                         List<Class> classes = cdao.getClassByUser(user.getId_account());
                         request.setAttribute("classes", classes);
@@ -124,7 +143,11 @@ public class LoginServlet extends HttpServlet {
                         request.getRequestDispatcher("Homepagelecture.jsp").forward(request, response);
                     } else {
                         // Tạo các đối tượng java.sql.Date trực tiếp từ ngày
+<<<<<<< HEAD
 
+=======
+                        
+>>>>>>> a932d4479392a1e5c91c4c321407a7dda252f9a8
                         Date startDate = Date.valueOf("2022-02-02");
                         Date endDate = Date.valueOf("2022-02-02");
                         // Tạo đối tượng Project
@@ -146,6 +169,39 @@ public class LoginServlet extends HttpServlet {
             Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
             // Handle exception appropriately, for example, redirect to an error page
         }
+<<<<<<< HEAD
+=======
+    }
+
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+         processRequest(request, response);
+
+    }
+
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+>>>>>>> a932d4479392a1e5c91c4c321407a7dda252f9a8
     }
 
     /**

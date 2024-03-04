@@ -73,6 +73,7 @@
                         Interface
                     </div>
 
+<<<<<<< HEAD
                     <!-- Nav Item - Pages Collapse Menu -->
                     <li class="nav-item">
                         <a class="nav-link collapsed" href="#" data-toggle="collapse"
@@ -80,6 +81,13 @@
                             <i class="fas fa-fw fa-folder"></i>
                             <span>Class</span>
                         </a>
+=======
+                <li class="nav-item ">
+                    <a class="nav-link " href="ShowTaskServlet">
+                        <i class="fas fa-fw fa-chart-area"></i>
+                        <span>Task</span></a>
+                </li>
+>>>>>>> a932d4479392a1e5c91c4c321407a7dda252f9a8
 
                         <div id="collapsePages" class="collapse" aria-labelledby="headingPages"
                              data-parent="#accordionSidebar">
@@ -375,18 +383,26 @@
 
                         <!-- Page Heading -->
                         <h1 class="h3 mb-2 text-gray-800">Milestone</h1>
+<<<<<<< HEAD
                         <c:if test="${session.getRole_project() == 'TL'}">
                             <a href="Add_Milestone.jsp" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
                                 <i class="fa-solid fa-plus"></i> New task
                             </a>
                         </c:if>
                         </br></br>
+=======
+                        <p class="mb-4">List of task</p>
+                        <a href="Add_Milestone.jsp" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                            <i class="fa-solid fa-plus"></i> New Milestone
+                        </a>
+>>>>>>> a932d4479392a1e5c91c4c321407a7dda252f9a8
 
                         <!-- DataTales Example -->
                         <c:if test="${empty milestones}">
                             <p>Không có milestone nào.</p>
                         </c:if>
                         <c:forEach items="${milestones}" var="milestone">
+<<<<<<< HEAD
                             <div class="card shadow mb-4">
                                 <div class="card-header d-sm-flex align-items-center justify-content-between mb-4">
                                     <h6 class="m-0 font-weight-bold text-primary">${milestone.name_milestone}</h6>
@@ -422,6 +438,46 @@
                                     </c:forEach>
                                 </div>
                             </div>
+=======
+                            <form action="EditMilestone.jsp">
+                                <div class="card shadow mb-4">
+                                    <div class="card-header py-3">
+                                        <h6 class="m-0 font-weight-bold text-primary">${milestone.name_milestone}</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <c:forEach items="${tasktypes}" var="tasktype">
+                                            <%-- Accessing percentage using EL --%>
+                                            <c:set var="milestoneId"  value="${milestone.id_milestone}" />
+                                            <c:set var="attributeName" value="taskOfMilestonessize${milestoneId}" />
+                                            <c:set var="milestoneIndex" value="${milestoneId-1}" />
+                                            <c:set var="taskTypeIndex" value="${tasktype.taskType_Id}" />
+                                            <!--                                        because the list will start with 0-->
+                                            <c:set var="percentageMap" value="${milestoneTaskTypePercentageList[milestoneIndex]}" />
+                                            <c:set var="percentage" value="${percentageMap[taskTypeIndex]}" />
+                                            <c:set var="size" value="${requestScope[attributeName]}" />
+                                            <c:set var="taskCount" value="${Math.round(percentage * size / 100)}" />
+
+                                            <%-- Default percentage if not present --%>
+                                            <c:if test="${empty percentage}">
+                                                <c:set var="percentage" value="10" />
+                                            </c:if>
+
+                                            <h4 class="small font-weight-bold">${tasktype.taskType_Name} <span class="float-right">${percentage}% | ${taskCount}</span></h4>
+                                            <div class="progress mb-4">
+                                                <div class="progress-bar bg-danger" role="progressbar" style="width: ${percentage}%"
+                                                     aria-valuenow="${percentage}" aria-valuemin="0" aria-valuemax="100"></div>
+                                            </div>
+                                        </c:forEach>
+                                    </div>
+                                </div>
+                                <input type="hidden" name="id_milestone" value="${milestone.id_milestone}">
+                                <input type="hidden" name="name_milestone" value="${milestone.name_milestone}">
+                                <input type="hidden" name="start_date" value="${milestone.start_date}">
+                                <input type="hidden" name="end_date" value="${milestone.end_date}">
+                                <input type="hidden" name="id_Project" value="${milestone.id_Project}">
+                                <input type="submit" name="submit" value="Edit Milestone">
+                            </form>
+>>>>>>> a932d4479392a1e5c91c4c321407a7dda252f9a8
                         </c:forEach>
 
 

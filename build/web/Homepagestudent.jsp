@@ -106,14 +106,24 @@
                 </li>
 
                 <li class="nav-item">
+<<<<<<< HEAD
                     <a class="nav-link " href="task">
                         <i class="fa-solid fa-list-check"></i>
+=======
+                    <a class="nav-link" href="ShowTaskServlet">
+                        <i class="fas fa-fw fa-chart-area"></i>
+>>>>>>> a932d4479392a1e5c91c4c321407a7dda252f9a8
                         <span>Task</span></a>
                 </li>
 
                 <li class="nav-item">
+<<<<<<< HEAD
                     <a class="nav-link" href="milestone">
                         <i class="fa-solid fa-chart-bar"></i>
+=======
+                    <a class="nav-link" href="ShowMilestoneServlet">
+                        <i class="fas fa-fw fa-chart-area"></i>
+>>>>>>> a932d4479392a1e5c91c4c321407a7dda252f9a8
                         <span>Milestone</span></a>
                 </li>
 

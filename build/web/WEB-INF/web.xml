@@ -96,6 +96,38 @@
         <servlet-name>ChangeStatusTaskServlet</servlet-name>
         <servlet-class>control.Account.Student.ChangeStatusTaskServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ShowTaskServlet</servlet-name>
+        <servlet-class>control.Account.Student.ShowTaskServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddNewTaskStudentServlet</servlet-name>
+        <servlet-class>control.Account.Student.AddNewTaskStudentServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ChangeStatusTaskServlet</servlet-name>
+        <servlet-class>control.Account.Student.ChangeStatusTaskServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ShowMilestoneServlet</servlet-name>
+        <servlet-class>control.Account.Student.ShowMilestoneServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddMilesToneServlet</servlet-name>
+        <servlet-class>control.Account.Student.AddMilesToneServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddcommentServlet</servlet-name>
+        <servlet-class>control.Account.Student.AddcommentServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ShowCommentServlet</servlet-name>
+        <servlet-class>control.Account.Student.ShowCommentServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditMilestoneServlet</servlet-name>
+        <servlet-class>control.Account.Student.EditMilestoneServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -139,7 +171,7 @@
     <dependencies>
         <dependency>
             <groupId>org.apache.poi</groupId>
-            <artifactId>poi</artifactId>
+            <artifactId>poi-ooxml</artifactId>
             <version>3.17</version>
         </dependency>
         <dependency>
@@ -199,6 +231,38 @@
     <servlet-mapping>
         <servlet-name>ChangeStatusTaskServlet</servlet-name>
         <url-pattern>/shange_status</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ShowTaskServlet</servlet-name>
+        <url-pattern>/ShowTaskServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddNewTaskStudentServlet</servlet-name>
+        <url-pattern>/AddNewTaskStudentServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ChangeStatusTaskServlet</servlet-name>
+        <url-pattern>/ChangeStatusTaskServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ShowMilestoneServlet</servlet-name>
+        <url-pattern>/ShowMilestoneServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddMilesToneServlet</servlet-name>
+        <url-pattern>/AddMilesToneServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddcommentServlet</servlet-name>
+        <url-pattern>/AddcommentServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ShowCommentServlet</servlet-name>
+        <url-pattern>/ShowCommentServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditMilestoneServlet</servlet-name>
+        <url-pattern>/EditMilestoneServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

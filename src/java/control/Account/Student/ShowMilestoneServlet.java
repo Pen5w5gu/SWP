@@ -5,7 +5,10 @@
 package control.Account.Student;
 
 import Dao.MilestoneDAO;
+<<<<<<< HEAD
 import Dao.NotificationDAO;
+=======
+>>>>>>> a932d4479392a1e5c91c4c321407a7dda252f9a8
 import Dao.TaskDAO;
 import Dao.TaskTypeDAO;
 import java.io.IOException;
@@ -20,7 +23,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import model.Milestone;
+<<<<<<< HEAD
 import model.Notification;
+=======
+>>>>>>> a932d4479392a1e5c91c4c321407a7dda252f9a8
 import model.Project;
 import model.Task;
 import model.TaskType;
@@ -46,6 +52,7 @@ public class ShowMilestoneServlet extends HttpServlet {
             HttpSession session = request.getSession();
             Project project = (Project) session.getAttribute("project");
             int project_id = project.getId_Project();
+<<<<<<< HEAD
             
             MilestoneDAO mdao = new MilestoneDAO();
             TaskTypeDAO ttdao = new TaskTypeDAO();
@@ -57,6 +64,15 @@ public class ShowMilestoneServlet extends HttpServlet {
             List<Task> tasks = tdao.getTaskByProject(project_id);
             List<Notification> notifications = notidao.getAllNotiInProject(project_id);
             
+=======
+            MilestoneDAO mdao = new MilestoneDAO();
+            TaskTypeDAO ttdao = new TaskTypeDAO();
+            TaskDAO tdao = new TaskDAO();
+            List<TaskType> tasktypes = ttdao.getTaskType();
+            List<Milestone> milestones = mdao.getMilestoneByProjectId(project_id);
+            List<Task> tasks = tdao.getTaskByProject(project_id);
+
+>>>>>>> a932d4479392a1e5c91c4c321407a7dda252f9a8
             List<Map<Integer, Integer>> milestoneTaskTypePercentageList = new ArrayList<>();
 
             // Iterate through milestones
@@ -93,8 +109,11 @@ public class ShowMilestoneServlet extends HttpServlet {
             request.setAttribute("numberoftask", tasks.size());
             request.setAttribute("milestones", milestones);
             request.setAttribute("tasktypes", tasktypes);
+<<<<<<< HEAD
             request.setAttribute("tasks", tasks);
             request.setAttribute("notifications", notifications);
+=======
+>>>>>>> a932d4479392a1e5c91c4c321407a7dda252f9a8
             request.setAttribute("milestoneTaskTypePercentageList", milestoneTaskTypePercentageList);
             request.getRequestDispatcher("Milestone.jsp").forward(request, response);
         } catch (Exception e) {
@@ -143,4 +162,8 @@ public class ShowMilestoneServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> a932d4479392a1e5c91c4c321407a7dda252f9a8
