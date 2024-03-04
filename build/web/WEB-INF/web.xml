@@ -29,10 +29,6 @@
         <servlet-class>control.Account.ShowProflieServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ViewClassServlet</servlet-name>
-        <servlet-class>control.Account.Lecture.ViewClassServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>LogoutServlet</servlet-name>
         <servlet-class>control.Account.LogoutServlet</servlet-class>
     </servlet>
@@ -100,6 +96,10 @@
         <servlet-name>ShowCommentServlet</servlet-name>
         <servlet-class>control.Account.Student.ShowCommentServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ViewClassServlet</servlet-name>
+        <servlet-class>control.Account.Lecture.ViewClassServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -123,10 +123,6 @@
     <servlet-mapping>
         <servlet-name>Confim_Forget</servlet-name>
         <url-pattern>/confimforget</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ViewClassServlet</servlet-name>
-        <url-pattern>/lectureview</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>LogoutServlet</servlet-name>
@@ -207,6 +203,10 @@
     <servlet-mapping>
         <servlet-name>ShowCommentServlet</servlet-name>
         <url-pattern>/comment</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewClassServlet</servlet-name>
+        <url-pattern>/lectureview</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

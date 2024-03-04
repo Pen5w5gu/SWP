@@ -12,35 +12,57 @@ import java.sql.Date;
  */
 public class Notification {
     
-    private int norifi_id;
-    private int account_id;
+    private int noti_id;
+    private int id_account;
+    private String user_name;
+    private int id_Project;
     private String notification;
     private Date date;
+    private int id_task;
 
     public Notification() {
     }
 
-    public Notification(int norifi_id, int account_id, String notification, Date date) {
-        this.norifi_id = norifi_id;
-        this.account_id = account_id;
+    public Notification(int noti_id, int id_account, String user_name, int id_Project, String notification, Date date, int id_task) {
+        this.noti_id = noti_id;
+        this.id_account = id_account;
+        this.user_name = user_name;
+        this.id_Project = id_Project;
         this.notification = notification;
         this.date = date;
+        this.id_task = id_task;
     }
 
-    public int getNorifi_id() {
-        return norifi_id;
+    public int getNoti_id() {
+        return noti_id;
     }
 
-    public void setNorifi_id(int norifi_id) {
-        this.norifi_id = norifi_id;
+    public void setNoti_id(int noti_id) {
+        this.noti_id = noti_id;
     }
 
-    public int getAccount_id() {
-        return account_id;
+    public int getId_account() {
+        return id_account;
     }
 
-    public void setAccount_id(int account_id) {
-        this.account_id = account_id;
+    public void setId_account(int id_account) {
+        this.id_account = id_account;
+    }
+
+    public String getUser_name() {
+        return user_name;
+    }
+
+    public void setUser_name(String user_name) {
+        this.user_name = user_name;
+    }
+
+    public int getId_Project() {
+        return id_Project;
+    }
+
+    public void setId_Project(int id_Project) {
+        this.id_Project = id_Project;
     }
 
     public String getNotification() {
@@ -58,4 +80,14 @@ public class Notification {
     public void setDate(Date date) {
         this.date = date;
     }
+
+    public int getId_task() {
+        return id_task;
+    }
+
+    public void setId_task(int id_task) {
+        this.id_task = id_task;
+    }
+
+    
 }

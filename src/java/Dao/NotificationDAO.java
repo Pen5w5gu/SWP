@@ -25,7 +25,7 @@ public class NotificationDAO extends DBContext {
     PreparedStatement ps = null;
     ResultSet rs = null;
 
-    public boolean AddNoti(int Id_account, int Id_Project, int idTask, String Noti) {
+    public boolean AddNoti(int id_account,String user_name, int id_Project, int id_task, String noti) {
         Connection connection = null;
         PreparedStatement ps = null;
 
@@ -36,18 +36,19 @@ public class NotificationDAO extends DBContext {
 
             // Define the SQL query
             String strInsert = "INSERT INTO [dbo].[Notification] "
-                    + "([account_id],[Id_Project], [Id_task], [notification], [date]) "
-                    + "VALUES (?, ?, ?, ?, ?)";
+                    + "([ID_account],[User_name] ,[Id_Project], [Id_task], [notification], [date]) "
+                    + "VALUES (?,?,?,?,?,?)";
 
             // Create the PreparedStatement object
             ps = connection.prepareStatement(strInsert);
 
             // Set parameters for the prepared statement
-            ps.setInt(1, Id_account);
-            ps.setInt(2, Id_Project);
-            ps.setInt(3, idTask);
-            ps.setString(4, Noti);
-            ps.setDate(5, date);
+            ps.setInt(1, id_account);
+            ps.setString(2, user_name);
+            ps.setInt(3, id_Project);
+            ps.setInt(4, id_task);
+            ps.setString(5, noti);
+            ps.setDate(6, date);
 
             // Execute the update
             int rowsAffected = ps.executeUpdate();
@@ -84,7 +85,7 @@ public class NotificationDAO extends DBContext {
             ps.setInt(1, Id_Project);
             rs = ps.executeQuery();
             while (rs.next()) {
-                notifications.add(new Notification());
+                notifications.add(new Notification(rs.getInt(1), rs.getInt(2),rs.getNString(3),rs.getInt(4),rs.getNString(5), rs.getDate(6),rs.getInt(7)));
             }
             return notifications;
         } catch (SQLException e) {
@@ -93,5 +94,25 @@ public class NotificationDAO extends DBContext {
         }
         return null;
     }
+    
+    public static void main(String[] args) {
+    NotificationDAO dao = new NotificationDAO();
+    List<Notification> notifications = dao.getAllNotiInProject(1);
+    if (notifications != null) {
+        for (Notification notification : notifications) {
+            System.out.println("noti_id: " + notification.getNoti_id());
+            System.out.println("account_id: " + notification.getId_account());
+            System.out.println("username: " + notification.getUser_name());
+            System.out.println("notification: " + notification.getNotification());
+            System.out.println("date: " + notification.getDate());
+            System.out.println("Id_task: " + notification.getId_task());
+            System.out.println("-----------------------------------");
+        }
+    } else {
+        System.out.println("No notifications found.");
+    }
+}
+
+
 
 }

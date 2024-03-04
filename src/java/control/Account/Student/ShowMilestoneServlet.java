@@ -5,6 +5,7 @@
 package control.Account.Student;
 
 import Dao.MilestoneDAO;
+import Dao.NotificationDAO;
 import Dao.TaskDAO;
 import Dao.TaskTypeDAO;
 import java.io.IOException;
@@ -19,6 +20,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import model.Milestone;
+import model.Notification;
 import model.Project;
 import model.Task;
 import model.TaskType;
@@ -44,13 +46,17 @@ public class ShowMilestoneServlet extends HttpServlet {
             HttpSession session = request.getSession();
             Project project = (Project) session.getAttribute("project");
             int project_id = project.getId_Project();
+            
             MilestoneDAO mdao = new MilestoneDAO();
             TaskTypeDAO ttdao = new TaskTypeDAO();
             TaskDAO tdao = new TaskDAO();
+            NotificationDAO notidao = new NotificationDAO();
+            
             List<TaskType> tasktypes = ttdao.getTaskType();
             List<Milestone> milestones = mdao.getMilestoneByProjectId(project_id);
             List<Task> tasks = tdao.getTaskByProject(project_id);
-
+            List<Notification> notifications = notidao.getAllNotiInProject(project_id);
+            
             List<Map<Integer, Integer>> milestoneTaskTypePercentageList = new ArrayList<>();
 
             // Iterate through milestones
@@ -87,6 +93,8 @@ public class ShowMilestoneServlet extends HttpServlet {
             request.setAttribute("numberoftask", tasks.size());
             request.setAttribute("milestones", milestones);
             request.setAttribute("tasktypes", tasktypes);
+            request.setAttribute("tasks", tasks);
+            request.setAttribute("notifications", notifications);
             request.setAttribute("milestoneTaskTypePercentageList", milestoneTaskTypePercentageList);
             request.getRequestDispatcher("Milestone.jsp").forward(request, response);
         } catch (Exception e) {

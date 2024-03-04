@@ -220,14 +220,17 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
+
 CREATE TABLE [dbo].[Notification](
-	[norifi_id] [int] NOT NULL,
-	[account_id] [int] NULL,
-	[notification] [nvarchar](4000) NULL,
-	[date] [date] NULL,
-	[Id_task] [int] Null,
-) ON [PRIMARY]
-GO
+    [noti_id] [INT] IDENTITY(1,1) PRIMARY KEY NOT NULL,
+    [ID_account] [INT] NOT NULL,
+    [User_name] [NVARCHAR](50) NOT NULL,
+	[Id_Project] [INT] NOT NULL,
+    [notification] [NVARCHAR](4000) NULL,
+    [date] [DATE] NULL,
+    [Id_task] [INT] NULL
+) ON [PRIMARY];
+
 /****** Object:  Table [dbo].[Project]    Script Date: 3/2/2024 3:14:30 PM ******/
 SET ANSI_NULLS ON
 GO

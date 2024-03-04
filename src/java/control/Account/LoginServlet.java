@@ -55,10 +55,10 @@ public class LoginServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet LoginServlet</title>");
+            out.println("<title>Servlet ChangeInfomation</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet LoginServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ChangeInfomation at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -76,7 +76,8 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            processRequest(request, response);
+        processRequest(request, response);
+
     }
 
     /**
@@ -113,28 +114,21 @@ public class LoginServlet extends HttpServlet {
                 if (dao.checkStatus(email) == 1) {
                     User user = dao.getUser(email);
                     if (user.getId_role() == 1) {
-
-                        Cookie loginCookie = new Cookie("username", email);
-                        loginCookie.setMaxAge(3600); // Set the maximum age of the cookie in seconds
-                        response.addCookie(loginCookie);
-
-                        List<Class> classes = cdao.getClassByUser(user.getId_account());
-                        // Tạo các đối tượng java.sql.Date trực tiếp từ ngày
-                        Date startDate = Date.valueOf("2022-02-02");
-                        Date endDate = Date.valueOf("2022-02-02");
-                        // Tạo đối tượng Project
-                        Project project = new Project(1, "test", "test", startDate, endDate);
-                        session.setAttribute("project", project);
-                        request.setAttribute("project", project.getId_Project());
                         session.setAttribute("session", user);
+                        List<Class> classes = cdao.getClassByUser(user.getId_account());
                         request.setAttribute("classes", classes);
+                        
+                        Project project = pdao.getProjectsByUser(user.getId_account());
+//                        session.setAttribute("project", project);
+//                        request.setAttribute("project", project.getId_Project());
                         request.getRequestDispatcher("Homepagelecture.jsp").forward(request, response);
                     } else {
                         // Tạo các đối tượng java.sql.Date trực tiếp từ ngày
+
                         Date startDate = Date.valueOf("2022-02-02");
                         Date endDate = Date.valueOf("2022-02-02");
                         // Tạo đối tượng Project
-                        Project project = new Project(1, "test", "test", startDate, endDate);
+                        Project project = pdao.getProjectsByUser(user.getId_account());
                         session.setAttribute("project", project);
                         request.setAttribute("project", project.getId_Project());
                         int ID_user = user.getId_account();

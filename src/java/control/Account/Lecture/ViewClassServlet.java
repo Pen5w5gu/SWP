@@ -46,7 +46,7 @@ public class ViewClassServlet extends HttpServlet {
         request.getRequestDispatcher("Homepagelecture.jsp").forward(request, response);
         } else {
         // User is not logged in or session doesn't exist, redirect to the login page
-        response.sendRedirect("login.jsp");
+        response.sendRedirect("login");
         }
     }
 

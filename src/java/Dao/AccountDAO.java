@@ -250,6 +250,26 @@ public class AccountDAO extends DBContext { // Follow Java naming conventions fo
         }
         return user;
     }
+    public String getUsernameById(int Id_account) {
+        
+
+        try {
+            String strSelect = "select User_name from Account\n"
+                    + "where ID_account = ?";
+            ps = connection.prepareStatement(strSelect);
+            ps.setInt(1, Id_account);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                String Username = rs.getString("User_name");
+                return Username;
+            }
+
+        } catch (SQLException e) {
+            // Consider logging the exception instead of just printing it
+            e.printStackTrace();
+        }
+        return null;
+    }
 
     public Role getUserRole(String email) {
         Role role = null;
