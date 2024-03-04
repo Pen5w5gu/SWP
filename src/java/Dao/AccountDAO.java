@@ -321,12 +321,13 @@ public class AccountDAO extends DBContext { // Follow Java naming conventions fo
 
     public static void main(String[] args) {
         AccountDAO dao = new AccountDAO();
+          System.out.println(dao.getAccountProfile("nguyenthiminhhang141205@gmail.com"));
 //        System.out.println(dao.getUser("nguyenthiminhhang141205@gmail.com"));
 //        System.out.println(dao.checkAccount("nguyenthiminhhang141205@gmail.com", "ohvCFjsHBfTFW6oeA30pig=="));
 //        System.out.println(dao.Register("tung7123xbuavai@gmail.com", "tung123"));
 //        List<User> list = dao.getUserByProject(2);
-        List<User> list = dao.getallstudentinclass("1750");
-        System.out.println(list);
+//        List<User> list = dao.getallstudentinclass("1750");
+//        System.out.println(list);
 
     }
 }

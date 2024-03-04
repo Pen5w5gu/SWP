@@ -83,18 +83,19 @@ public class Change_InfoServlet extends HttpServlet {
         if (session != null && session.getAttribute("session") != null) {
             User user = (User) session.getAttribute("session");
             AccountDAO dao = new AccountDAO();
-            Project project = (Project) session.getAttribute("project");
-            int project_id = project.getId_Project();
-            TaskDAO tdao = new TaskDAO();
-            NotificationDAO notidao = new NotificationDAO();
 
             if (user != null) {
                 // Lấy thông tin về tài khoản và vai trò từ cơ sở dữ liệu
                 User accountProfile = dao.getAccountProfile(user.getEmail());
                 Role userRole = dao.getUserRole(user.getEmail());
+
                 if (user.getId_role() == 1) {
 
                 } else {
+                    Project project = (Project) session.getAttribute("project");
+                    int project_id = project.getId_Project();
+                    TaskDAO tdao = new TaskDAO();
+                    NotificationDAO notidao = new NotificationDAO();
                     List<Task> tasks = tdao.getTaskByProject(project_id);
                     List<Notification> notifications = notidao.getAllNotiInProject(project_id);
                     request.setAttribute("tasks", tasks);

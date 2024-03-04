@@ -451,9 +451,9 @@
                                                     <li>At least one number</li>
                                                     <li>Can’t be the same as a previous password</li>
                                                 </ul>
-                                                <br>
-                                                <button type="submit" class="btn btn-primary">Save Change</button>
                                             </div>
+
+                                            <button type="submit" class="btn btn-primary mx-auto">Save Change</button>
                                         </div>
 
 
