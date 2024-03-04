@@ -31,10 +31,11 @@ public class ShowProjectClassSeverlet extends HttpServlet {
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
-  
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
+     *
+     *
+     * //
+     * <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+     * /**
      * Handles the HTTP <code>GET</code> method.
      *
      * @param request servlet request
@@ -45,20 +46,20 @@ public class ShowProjectClassSeverlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String class_name = request.getParameter("class_name");
+        String class_name = request.getParameter("classname");
         HttpSession session = request.getSession();
         if (session != null && session.getAttribute("session") != null) {
-        User user = (User) session.getAttribute("session");
-        ProjectDAO pjdao = new ProjectDAO();
-        ClassDAO cldao = new ClassDAO();
-        List<Project> projects = pjdao.getProjectbyClass(class_name);
-        List<model.Class> classes = cldao.getClassByUser(user.getId_account());
-        request.setAttribute("projects", projects);
-        request.setAttribute("classes", classes);
-        request.getRequestDispatcher("ShowProject.jsp").forward(request, response);
+            User user = (User) session.getAttribute("session");
+            ProjectDAO pjdao = new ProjectDAO();
+            ClassDAO cldao = new ClassDAO();
+            List<Project> projects = pjdao.getProjectbyClass(class_name);
+            List<model.Class> classes = cldao.getClassByUser(user.getId_account());
+            request.setAttribute("projects", projects);
+            request.setAttribute("classes", classes);
+            request.getRequestDispatcher("ShowProject.jsp").forward(request, response);
         } else {
-        // User is not logged in or session doesn't exist, redirect to the login page
-        response.sendRedirect("login.jsp");
+            // User is not logged in or session doesn't exist, redirect to the login page
+            response.sendRedirect("login.jsp");
         }
     }
 

@@ -29,10 +29,6 @@
         <servlet-class>control.Account.ShowProflieServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ViewClassServlet</servlet-name>
-        <servlet-class>control.Account.Lecture.ViewClassServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>LogoutServlet</servlet-name>
         <servlet-class>control.Account.LogoutServlet</servlet-class>
     </servlet>
@@ -55,6 +51,50 @@
     <servlet>
         <servlet-name>ViewStudentInClassServlet</servlet-name>
         <servlet-class>control.Account.Lecture.ViewStudentInClassServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchStudentInClass</servlet-name>
+        <servlet-class>control.Account.Lecture.SearchStudentInClass</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ShowMilestoneServlet</servlet-name>
+        <servlet-class>control.Account.ShowMilestoneServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddNewTaskStudentServlet</servlet-name>
+        <servlet-class>control.Account.Student.AddNewTaskStudentServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ShowTaskServlet</servlet-name>
+        <servlet-class>control.Account.Student.ShowTaskServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddcommentServlet</servlet-name>
+        <servlet-class>control.Account.Student.AddcommentServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ShowCommentServlet</servlet-name>
+        <servlet-class>control.Account.Student.ShowCommentServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewClassServlet</servlet-name>
+        <servlet-class>control.Account.Lecture.ViewClassServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Profile</servlet-name>
+        <servlet-class>control.Account.Profile</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Change_InfoServlet</servlet-name>
+        <servlet-class>control.Account.Change_InfoServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddMilesToneServlet</servlet-name>
+        <servlet-class>control.Account.Student.AddMilesToneServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ChangeStatusTaskServlet</servlet-name>
+        <servlet-class>control.Account.Student.ChangeStatusTaskServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
@@ -79,14 +119,6 @@
     <servlet-mapping>
         <servlet-name>Confim_Forget</servlet-name>
         <url-pattern>/confimforget</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ShowProflieServlet</servlet-name>
-        <url-pattern>/profile</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ViewClassServlet</servlet-name>
-        <url-pattern>/lectureview</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>LogoutServlet</servlet-name>
@@ -123,6 +155,50 @@
     <servlet-mapping>
         <servlet-name>ViewStudentInClassServlet</servlet-name>
         <url-pattern>/showstudentinclass</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchStudentInClass</servlet-name>
+        <url-pattern>/searchstudent</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ShowMilestoneServlet</servlet-name>
+        <url-pattern>/milestone</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddNewTaskStudentServlet</servlet-name>
+        <url-pattern>/add_task</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ShowTaskServlet</servlet-name>
+        <url-pattern>/task</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddcommentServlet</servlet-name>
+        <url-pattern>/add_comment</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ShowCommentServlet</servlet-name>
+        <url-pattern>/comment</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewClassServlet</servlet-name>
+        <url-pattern>/lectureview</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Profile</servlet-name>
+        <url-pattern>/profile</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Change_InfoServlet</servlet-name>
+        <url-pattern>/change_info</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddMilesToneServlet</servlet-name>
+        <url-pattern>/add_milestone</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ChangeStatusTaskServlet</servlet-name>
+        <url-pattern>/shange_status</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

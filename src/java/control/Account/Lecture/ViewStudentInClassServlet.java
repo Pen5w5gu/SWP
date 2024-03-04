@@ -5,12 +5,14 @@
 package control.Account.Lecture;
 
 import Dao.AccountDAO;
+import Dao.ClassDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.List;
 import model.User;
 
@@ -37,7 +39,7 @@ public class ViewStudentInClassServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ViewStudentInClassServlet</title>");            
+            out.println("<title>Servlet ViewStudentInClassServlet</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet ViewStudentInClassServlet at " + request.getContextPath() + "</h1>");
@@ -58,11 +60,20 @@ public class ViewStudentInClassServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String Classname=request.getParameter("classname");
-        AccountDAO dao =new AccountDAO();
+        String Classname = request.getParameter("classname");
+        AccountDAO dao = new AccountDAO();
         List<User> list = dao.getallstudentinclass(Classname);
         request.setAttribute("student", list);
-        request.getRequestDispatcher("Showstudentinclass.jsp").forward(request, response);
+        request.setAttribute("Classname", Classname);
+        HttpSession session = request.getSession();
+        if (session != null && session.getAttribute("session") != null) {
+            User user = (User) session.getAttribute("session");
+            User account = dao.getUser(user.getEmail());
+            ClassDAO cdao = new ClassDAO();
+            List<model.Class> classes = cdao.getClassByUser(account.getId_account());
+            request.setAttribute("classes", classes);
+            request.getRequestDispatcher("Showstudentinclass.jsp").forward(request, response);
+        }
     }
 
     /**

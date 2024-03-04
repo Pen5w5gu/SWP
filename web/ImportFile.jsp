@@ -43,8 +43,8 @@
 
                 <!-- Sidebar - Brand -->
                 <a class="sidebar-brand d-flex align-items-center justify-content-center" href="lectureview">
-                    <div class="sidebar-brand-icon rotate-n-15">
-                        <i class="fas fa-laugh-wink"></i>
+                    <div class="sidebar-brand-icon">
+                        <i class="fa-solid fa-chalkboard-user"></i>
                     </div>
                     <div class="sidebar-brand-text mx-3">Project Management</div>
                 </a>
@@ -244,13 +244,13 @@
                                 <!-- Dropdown - User Information -->
                                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                      aria-labelledby="userDropdown">
-                                    <a class="dropdown-item" href="#">
+                                    <a class="dropdown-item" href="profile">
                                         <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Profile
                                     </a>
-                                    <a class="dropdown-item" href="#">
+                                    <a class="dropdown-item" href="change_info">
                                         <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                        Settings
+                                        Change Information
                                     </a>
                                     <a class="dropdown-item" href="#">
                                         <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
@@ -284,10 +284,10 @@
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <p>download template: <i class="fa-solid fa-file"></i> File excel</p>
+                                    <p>download template: <a href="File/template.xlsx">File excel</a></p>
                                     <form action="import" method="post" enctype="multipart/form-data">
                                         Select Excel File to Upload:
-                                        <input type="file" name="file" id="file"><br>
+                                        <input class="" type="file" name="file" id="file"><br>
                                         <input type="submit" value="Upload" name="submit">
                                     </form>
 
@@ -313,25 +313,26 @@
         </a>
 
         <!-- Logout Modal-->
-        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-             aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">Select "Logout" below if you are ready to end your current session.
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                        <a class="btn btn-primary" href="login.html">Logout</a>
+        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
+                 aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">Select "Logout" below if you are ready to end your
+                            current session.</div>
+                        <div class="modal-footer">
+                            <button class="btn btn-secondary" type="button"
+                                    data-dismiss="modal">Cancel</button>
+                            <a class="btn btn-primary" href="logout">Logout</a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
         <!-- Bootstrap core JavaScript-->
         <script src="vendor/jquery/jquery.min.js"></script>
