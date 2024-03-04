@@ -61,10 +61,6 @@
         <servlet-class>control.Account.ShowMilestoneServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>AddMilestoneServlet</servlet-name>
-        <servlet-class>control.Account.Student.AddMilestoneServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>AddNewTaskStudentServlet</servlet-name>
         <servlet-class>control.Account.Student.AddNewTaskStudentServlet</servlet-class>
     </servlet>
@@ -91,6 +87,14 @@
     <servlet>
         <servlet-name>Change_InfoServlet</servlet-name>
         <servlet-class>control.Account.Change_InfoServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddMilesToneServlet</servlet-name>
+        <servlet-class>control.Account.Student.AddMilesToneServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ChangeStatusTaskServlet</servlet-name>
+        <servlet-class>control.Account.Student.ChangeStatusTaskServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
@@ -161,10 +165,6 @@
         <url-pattern>/milestone</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>AddMilestoneServlet</servlet-name>
-        <url-pattern>/add_milestone</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>AddNewTaskStudentServlet</servlet-name>
         <url-pattern>/add_task</url-pattern>
     </servlet-mapping>
@@ -191,6 +191,14 @@
     <servlet-mapping>
         <servlet-name>Change_InfoServlet</servlet-name>
         <url-pattern>/change_info</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddMilesToneServlet</servlet-name>
+        <url-pattern>/add_milestone</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ChangeStatusTaskServlet</servlet-name>
+        <url-pattern>/shange_status</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

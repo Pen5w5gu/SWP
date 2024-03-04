@@ -88,10 +88,10 @@
 
                                     <c:forEach var="project" items="${projects}">
                                         <div class="project-container">
-                                            <form id="form_${project.project_name}" action="showprojectstudent" method="GET" onsubmit="return submitForm('${project.project_name}')">
+                                            <form id="form_${project.project_name}" action="showprojectstudent" method="POST" onsubmit="return submitForm('${project.project_name}')">
                                                 <div class="project-item">
                                                     <input type="hidden" name  ="ID_project" value="${project.id_Project}" />
-                                                    <a style="text-decoration: none;" href="#" onclick="document.getElementById('form_${project.project_name}').submit();">Project ${project.project_name}</a>
+                                                    <a href="#" class="collapse-item" onclick="document.getElementById('form_${project.project_name}').submit();">Project ${project.project_name}</a>
                                                 </div>
                                             </form>
                                         </div>

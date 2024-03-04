@@ -52,7 +52,7 @@ public class AddMilesToneServlet extends HttpServlet {
 
         if (success) {
             // Nếu thêm thành công, chuyển hướng về trang thành công
-            response.sendRedirect("ShowMilestoneServlet");
+            response.sendRedirect("milestone");
         } else {
             // Nếu thêm không thành công, chuyển hướng về trang lỗi
             response.sendRedirect("login.jsp");

@@ -36,30 +36,6 @@
     </head>
 
     <body id="page-top">
-        <script>
-            function Sendata(taskId, newTaskTypeId) {
-                // Tạo một đối tượng XMLHttpRequest
-                var xhr = new XMLHttpRequest();
-
-                // Thiết lập phương thức và URL cho servlet
-                xhr.open("POST", "ChangeStatusTaskServlet", true);
-                xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-
-                // Thiết lập hàm xử lý khi nhận được phản hồi từ server
-                xhr.onreadystatechange = function () {
-                    if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-                        // Xử lý phản hồi từ server nếu cần
-                        console.log("Dữ liệu đã được gửi thành công!");
-                    } else {
-                        console.log("Failed");
-                    }
-                };
-
-                // Gửi yêu cầu POST với dữ liệu taskId và newTaskTypeId
-                xhr.send("taskId=" + taskId + "&newTaskTypeId=" + newTaskTypeId);
-            }
-
-        </script>
 
         <!-- Page Wrapper -->
         <div id="wrapper">
@@ -502,7 +478,31 @@
 
         <!-- Custom scripts for all pages-->
         <script src="js/sb-admin-2.min.js"></script>
+        
+<script>
+            function Sendata(taskId, newTaskTypeId) {
+                // Tạo một đối tượng XMLHttpRequest
+                var xhr = new XMLHttpRequest();
 
+                // Thiết lập phương thức và URL cho servlet
+                xhr.open("POST", "ChangeStatusTaskServlet", true);
+                xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+                // Thiết lập hàm xử lý khi nhận được phản hồi từ server
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                        // Xử lý phản hồi từ server nếu cần
+                        console.log("Dữ liệu đã được gửi thành công!");
+                    } else {
+                        console.log("Failed");
+                    }
+                };
+
+                // Gửi yêu cầu POST với dữ liệu taskId và newTaskTypeId
+                xhr.send("taskId=" + taskId + "&newTaskTypeId=" + newTaskTypeId);
+            }
+
+        </script>
         <script>
                                                                     // Hàm để cập nhật số ký tự còn lại
                                                                     function updateCharCount() {

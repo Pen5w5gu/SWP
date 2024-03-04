@@ -44,13 +44,13 @@ public class AddNewTaskStudentServlet extends HttpServlet {
         String taskDescription = request.getParameter("taskDescription");
         Date startDate = Date.valueOf(request.getParameter("startDate"));
         Date endDate = Date.valueOf(request.getParameter("endDate"));
-        String code = "";
+        int assign_to = 0;
         int taskTypeId = Integer.parseInt(request.getParameter("taskTypeId"));
         int milestoneId = Integer.parseInt(request.getParameter("milestoneId"));
 
         // Call the AddTask method in your DAO class
         TaskDAO taskDAO = new TaskDAO();
-        boolean result = taskDAO.AddTask(taskName, taskDescription, startDate, endDate, code, taskTypeId, milestoneId);
+        boolean result = taskDAO.AddTask(taskName, taskDescription, startDate, endDate, assign_to , taskTypeId, milestoneId);
 
         // Redirect to appropriate page based on the result
         if (result) {

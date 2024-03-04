@@ -4,6 +4,7 @@
  */
 package Dao;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -64,9 +65,31 @@ public class MilestoneDAO extends DBContext {
             return false;
         }
     }
+    //created by Tung
+    public boolean editMilestone(int milestone_id, String name, Date startDate, Date endDate, int project_id) {
+        try {
+            String query = "UPDATE milestone SET name_milestone = ?, Start_date = ?, End_date = ? WHERE id_milestone = ? and Id_Project=?";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, name);
+            preparedStatement.setDate(2, startDate);
+            preparedStatement.setDate(3, endDate);
+            preparedStatement.setInt(4, milestone_id);
+            preparedStatement.setInt(4, project_id);
 
-    public static void main(String[] args) {
+            int rowsAffected = preparedStatement.executeUpdate();
+
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+     public static void main(String[] args) {
+        // Assuming startDate and endDate are Date objects
+        Date startDate = new Date(System.currentTimeMillis()); // Example initialization
+        Date endDate = new Date(System.currentTimeMillis()); // Example initialization
+
         MilestoneDAO dao = new MilestoneDAO();
-        System.out.println(dao.getMilestoneByProjectId(1));
+        
     }
 }

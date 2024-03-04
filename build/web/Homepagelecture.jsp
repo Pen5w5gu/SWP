@@ -87,11 +87,11 @@
                                 <c:when test="${not empty classes}">
                                     <c:forEach var="myclass" items="${classes}">
                                         <form id="form_${myclass.class_name}" action="showproject"
-                                              method="GET"
+                                              method="POST"
                                               onsubmit="return submitForm(${myclass.class_name})">
                                             <a href="#" class="collapse-item"
                                                onclick="document.getElementById('form_${myclass.class_name}').submit();">Class
-                                                ${myclass.class_name}</a><!-- comment -->
+                                                ${myclass.class_name}</a>
                                             <input type="hidden" name="class_name"
                                                    value="${myclass.class_name}">
                                         </form>

@@ -390,9 +390,11 @@
                             <div class="card shadow mb-4">
                                 <div class="card-header d-sm-flex align-items-center justify-content-between mb-4">
                                     <h6 class="m-0 font-weight-bold text-primary">${milestone.name_milestone}</h6>
+                                    <c:if test="${session.getRole_project() == 'TL'}">
                                     <a href="Add_Milestone.jsp" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
                                         <i class="fa-solid fa-pen-to-square"></i> Edit
                                     </a>
+                                    </c:if>
                                 </div>
                                 <div class="card-body">
                                     <c:forEach items="${tasktypes}" var="tasktype">

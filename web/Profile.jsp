@@ -197,7 +197,7 @@
                             <span>Task</span></a>
                     </li>
 
-                    <li class="nav-item active">
+                    <li class="nav-item">
                         <a class="nav-link" href="milestone">
                             <i class="fa-solid fa-chart-bar"></i>
                             <span>Milestone</span></a>

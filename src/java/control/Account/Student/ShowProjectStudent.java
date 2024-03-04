@@ -30,8 +30,6 @@ public class ShowProjectStudent extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-
-
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -44,19 +42,7 @@ public class ShowProjectStudent extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        HttpSession session = request.getSession();
-        if (session != null && session.getAttribute("session") != null) {
-        int ID_project = Integer.parseInt(request.getParameter("ID_project"));
-        AccountDAO dao = new AccountDAO();
-        List<User> users = dao.getUserByProject(ID_project);
-        request.setAttribute("users", users);
-        request.getRequestDispatcher("ShowUsersOfProject.jsp").forward(request, response);
-        } else {
-        // User is not logged in or session doesn't exist, redirect to the login page
-        response.sendRedirect("login.jsp");
-    }
-        
+
     }
 
     /**
@@ -70,7 +56,17 @@ public class ShowProjectStudent extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        HttpSession session = request.getSession();
+        if (session != null && session.getAttribute("session") != null) {
+            int ID_project = Integer.parseInt(request.getParameter("ID_project"));
+            AccountDAO dao = new AccountDAO();
+            List<User> users = dao.getUserByProject(ID_project);
+            request.setAttribute("users", users);
+            request.getRequestDispatcher("ShowUsersOfProject.jsp").forward(request, response);
+        } else {
+            // User is not logged in or session doesn't exist, redirect to the login page
+            response.sendRedirect("login.jsp");
+        }
     }
 
     /**

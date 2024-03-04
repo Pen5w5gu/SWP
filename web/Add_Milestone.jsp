@@ -263,11 +263,11 @@
                                 <!-- Dropdown - User Information -->
                                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                      aria-labelledby="userDropdown">
-                                    <a class="dropdown-item" href="profile">
+                                    <a class="dropdown-item" href="profile_s">
                                         <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Profile
                                     </a>
-                                    <a class="dropdown-item" href="change_info">
+                                    <a class="dropdown-item" href="change_info_s">
                                         <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Settings
                                     </a>
@@ -300,10 +300,11 @@
                         <div class="card shadow mb-4">
                             <div class="card-header d-sm-flex align-items-center justify-content-between mb-4">
                                 <h6 class="m-0  font-weight-bold text-primary">Milestone</h6>
-                                <a href="milestone" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fa-solid fa-chevron-left"></i> Back to list milestone</a>
+                                <a href="ShowMilestoneServlet" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fa-solid fa-chevron-left"></i> Back to list milestone</a>
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
+                                    <form action="add_milestone">
                                     <table class="table table-bordered" width="100%" cellspacing="0">
                                         <thead>
                                             <tr>
@@ -317,19 +318,21 @@
 
                                         <tbody>
                                             <tr>
-                                                <th><input type="text" name="id_milestone" class="form-control" required=""></th>
-                                                <th><input type="text" name="name_milestone" class="form-control" required=""></th>
-                                                <th><input type="date" name="start_date" class="form-control" required=""></th>
-                                                <th><input type="date" name="end_date" class="form-control" required=""></th>
-                                                <th><input type="text" name="id_Project" class="form-control" required=""></th>
+                                        
+                                            <th><input type="text" name="id_milestone" class="form-control" readonly></th>
+                                            <th><input type="text" name="milestoneName" class="form-control" required=""></th>
+                                            <th><input type="date" name="startDate" class="form-control" required=""></th>
+                                            <th><input type="date" name="endDate" class="form-control" required=""></th>
+                                            <th><input type="text" name="id_Project" class="form-control" readonly></th>
                                             </tr>
-                                        </tbody>
+                                            </tbody>
                                     </table>
                                     <div class="text-center"> <!-- Thêm class text-center để căn giữa -->
-                                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                                        <button type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
                                             <i class="fa-solid fa-plus"></i> Add new milestone
-                                        </a>
+                                        </button>
                                     </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -368,7 +371,7 @@
                     <div class="modal-footer">
                         <button class="btn btn-secondary" type="button"
                                 data-dismiss="modal">Cancel</button>
-                        <a class="btn btn-primary" href="logout">Logout</a>
+                        <a class="btn btn-primary" href="login.jsp">Logout</a>
                     </div>
                 </div>
             </div>

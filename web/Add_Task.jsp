@@ -322,25 +322,26 @@
 
                                         <tbody>
                                             <tr>
-                                            <th><input type="text" name="id" class="form-control" required="" ></th>
-                                            <th><input type="text" name="task_name" class="form-control" required=""></th>
-                                            <th><input type="text" name="milestone" class="form-control" required=""></th>
-                                            <th><input type="text" name="task_description" class="form-control"></th>
-                                            <th><input type="date" name="start_date" class="form-control" required=""></th>
-                                            <th><input type="date" name="end_date" class="form-control" required=""></th>
-                                            <th><input type="choose" name="status" class="form-control" required=""></th>
+                                        <form action="add_task">
+                                            <th><input type="text" name="id" class="form-control" value="1" disabled ></th>
+                                            <th><input type="text" name="taskName" class="form-control" required=""></th>
+                                            <th><input type="text" name="milestoneId" class="form-control" required=""></th>
+                                            <th><input type="text" name="taskDescription" class="form-control"></th>
+                                            <th><input type="date" name="startDate" class="form-control" required=""></th>
+                                            <th><input type="date" name="endDate" class="form-control" required=""></th>
+                                            <th><input type="choose" name="taskTypeId" class="form-control" value ="1" readonly></th>
                                             <th><button type="submit" class="btn btn-primary">Save</button></th>
+                                        </form>
+                                        </tr>
+                                        <c:forEach items="${projects}" var="x" varStatus="loop">
+                                            <tr>
+                                                <td>${loop.index + 1}</td>
+                                                <td>${x.project_name}</td>
+                                                <td>${x.start_date}</td>
+                                                <td>${x.end_date}</td>
 
                                             </tr>
-                                            <c:forEach items="${projects}" var="x" varStatus="loop">
-                                                <tr>
-                                                    <td>${loop.index + 1}</td>
-                                                    <td>${x.project_name}</td>
-                                                    <td>${x.start_date}</td>
-                                                    <td>${x.end_date}</td>
-
-                                                </tr>
-                                            </c:forEach>
+                                        </c:forEach>
                                         </tbody>
                                     </table>
                                 </div>

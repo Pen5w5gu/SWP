@@ -35,6 +35,30 @@
     </head>
 
     <body id="page-top">
+        <script>
+            function Sendata(taskId, newTaskTypeId) {
+                // Tạo một đối tượng XMLHttpRequest
+                var xhr = new XMLHttpRequest();
+
+                // Thiết lập phương thức và URL cho servlet
+                xhr.open("POST", "shange_status", true);
+                xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+                // Thiết lập hàm xử lý khi nhận được phản hồi từ server
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                        // Xử lý phản hồi từ server nếu cần
+                        console.log("Dữ liệu đã được gửi thành công!");
+                    } else {
+                        console.log("Failed");
+                    }
+                };
+
+                // Gửi yêu cầu POST với dữ liệu taskId và newTaskTypeId
+                xhr.send("taskId=" + taskId + "&newTaskTypeId=" + newTaskTypeId);
+            }
+
+        </script>
 
         <!-- Page Wrapper -->
         <div id="wrapper">
@@ -106,7 +130,7 @@
                 </li>
 
                 <li class="nav-item active">
-                    <a class="nav-link " href="task">
+                    <a class="nav-link " href="ShowTaskServlet">
                         <i class="fa-solid fa-list-check"></i>
                         <span>Task</span></a>
                 </li>
@@ -210,27 +234,41 @@
                                     <h6 class="dropdown-header">
                                         Alerts Center
                                     </h6>
-
-                                    <c:forEach items="${notifications}" var="noti">
-                                        <a class="dropdown-item d-flex align-items-center" href="#">
-                                            <div class="mr-3">
-                                                <div class="icon-circle bg-primary">
-                                                    <i class="fas fa-file-alt text-white"></i>
-                                                </div>
+                                    <a class="dropdown-item d-flex align-items-center" href="#">
+                                        <div class="mr-3">
+                                            <div class="icon-circle bg-primary">
+                                                <i class="fas fa-file-alt text-white"></i>
                                             </div>
-                                            <div>
-                                                <div class="small text-gray-500">${noti.date}</div>
-                                                <span class="font-weight-bold">${noti.user_name} ${noti.notification} 
-                                                    <c:forEach items="${tasks}" var="task"> 
-                                                        <c:if test="${task.idTask == noti.id_task}">
-                                                            ${task.taskName}
-                                                        </c:if>
-                                                    </c:forEach>
-
-                                                </span>
+                                        </div>
+                                        <div>
+                                            <div class="small text-gray-500">December 12, 2019</div>
+                                            <span class="font-weight-bold">A new monthly report is ready to
+                                                download!</span>
+                                        </div>
+                                    </a>
+                                    <a class="dropdown-item d-flex align-items-center" href="#">
+                                        <div class="mr-3">
+                                            <div class="icon-circle bg-success">
+                                                <i class="fas fa-donate text-white"></i>
                                             </div>
-                                        </a>
-                                    </c:forEach> 
+                                        </div>
+                                        <div>
+                                            <div class="small text-gray-500">December 7, 2019</div>
+                                            $290.29 has been deposited into your account!
+                                        </div>
+                                    </a>
+                                    <a class="dropdown-item d-flex align-items-center" href="#">
+                                        <div class="mr-3">
+                                            <div class="icon-circle bg-warning">
+                                                <i class="fas fa-exclamation-triangle text-white"></i>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="small text-gray-500">December 2, 2019</div>
+                                            Spending Alert: We've noticed unusually high spending for your
+                                            account.
+                                        </div>
+                                    </a>
                                     <a class="dropdown-item text-center small text-gray-500" href="#">Show All
                                         Alerts</a>
                                 </div>
@@ -244,16 +282,16 @@
                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <span class="mr-2 d-none d-lg-inline text-gray-600 small">Xin chào,
                                         ${session.getUsername()}</span>
-                                    <img alt="" class="img-profile rounded-circle" src="img/undraw_profile.svg">
+                                    <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
                                 </a>
                                 <!-- Dropdown - User Information -->
                                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                      aria-labelledby="userDropdown">
-                                    <a class="dropdown-item" href="profile_s">
+                                    <a class="dropdown-item" href="#">
                                         <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Profile
                                     </a>
-                                    <a class="dropdown-item" href="change_info_s">
+                                    <a class="dropdown-item" href="#">
                                         <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Settings
                                     </a>
@@ -295,7 +333,7 @@
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <form action="comment" method="POST">
+                                    <form action="ShowCommentServlet" method="POST">
                                         <table class="table table-bordered" id="dataTable" width="100%"
                                                cellspacing="0">
                                             <thead>
@@ -334,13 +372,13 @@
                                                             <%-- Display task type --%>
                                                             <c:choose>
                                                                 <c:when test="${session.getRole_project() == 'TL'}">
-                                                                    <%-- Dropdown selection for TL to choose new task type --%>
-                                                                    <select class="form-control bg-light border-0 small" name="taskType" id="taskType_${loop.index}" onchange = "Sendata(${task.idTask}, this.value)">
+                                                                    <select class="form-control bg-light border-0 small" name="taskType" id="taskType_${loop.index}" onchange="Sendata(${task.idTask}, this.value)">
                                                                         <c:forEach items="${tasktypes}" var="tasktypeText">
-                                                                            <option value="${tasktypeText.taskType_Id}" >${tasktypeText.taskType_Name}</option>
+                                                                            <option value="${tasktypeText.taskType_Id}" <c:if test="${tasktypeText.taskType_Id == task.taskTypeId}">selected</c:if>>${tasktypeText.taskType_Name}</option>
                                                                         </c:forEach>
                                                                     </select>
                                                                 </c:when>
+
                                                                 <c:otherwise>
                                                                     <c:forEach items="${tasktypes}" var="tasktypeText">
                                                                         <c:if test="${tasktypeText.taskType_Id == task.taskTypeId}">
@@ -398,31 +436,6 @@
                 </div>
             </div>
         </div>
-
-        <script>
-            function Sendata(taskId, newTaskTypeId) {
-                // Tạo một đối tượng XMLHttpRequest
-                var xhr = new XMLHttpRequest();
-
-                // Thiết lập phương thức và URL cho servlet
-                xhr.open("POST", "ChangeStatusTaskServlet", true);
-                xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-
-                // Thiết lập hàm xử lý khi nhận được phản hồi từ server
-                xhr.onreadystatechange = function () {
-                    if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-                        // Xử lý phản hồi từ server nếu cần
-                        console.log("Dữ liệu đã được gửi thành công!");
-                    } else {
-                        console.log("Failed");
-                    }
-                };
-
-                // Gửi yêu cầu POST với dữ liệu taskId và newTaskTypeId
-                xhr.send("taskId=" + taskId + "&newTaskTypeId=" + newTaskTypeId);
-            }
-
-        </script>
 
         <!-- Bootstrap core JavaScript-->
         <script src="vendor/jquery/jquery.min.js"></script>
