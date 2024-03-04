@@ -318,20 +318,18 @@
                     <div class="container-fluid">
 
                         <!-- Page Heading -->
-                        <h1 class="h3 mb-2 text-gray-800">Task</h1>
-                        <p class="mb-4">Comment in task</p>
+                        <h1 class="h3 mb-2 text-graasy-800">Task</h1>
+                        <p class="mb-4">Comment in tk</p>
 
                         <!-- DataTales Example -->
                         <div class="card shadow mb-4 ">
                             <div class="card-header d-sm-flex align-items-center justify-content-between mb-4">
                                 <h6 class="m-0 font-weight-bold text-primary">${task.idTask}</h6>
-                                <h1>${roleProject}</h1>
-                                <c:if test="${session.getRole_project() == 'TL'}">
-                                    <a href="Add_Task.jsp" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-                                        <i class="fa-solid fa-chevron-left"></i> Back to list task
-                                    </a>
-                                </c:if>
+                                <a href="Add_Task.jsp" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                                    <i class="fa-solid fa-chevron-left"></i> Back to list task
+                                </a>
                             </div>
+                                
                             <div class="card-body">
                                 <div class="table-responsive">
                                     <form action="comment" method="POST">
@@ -357,10 +355,10 @@
                                                     </td>
                                                     <td>
                                                         <c:forEach items="${milestones}" var="milestone">
-                                                                <c:if test="${milestone.id_milestone == task.idMilestone}">
-                                                                    ${milestone.name_milestone}
-                                                                </c:if>
-                                                            </c:forEach>
+                                                            <c:if test="${milestone.id_milestone == task.idMilestone}">
+                                                                ${milestone.name_milestone}
+                                                            </c:if>
+                                                        </c:forEach>
                                                     </td>
                                                     <td>${task.taskDescription}</td>
                                                     <td>${task.startDate}</td>
@@ -368,19 +366,21 @@
 
                                                     <td>
                                                         <c:forEach items="${tasktypes}" var="tasktype">
-                                                                <c:if test="${tasktypes.taskType_Id == task.taskTypeId}">
-                                                                    ${tasktype.taskType_Name}
-                                                                </c:if>
-                                                            </c:forEach>
+                                                            <c:if test="${tasktypes.taskType_Id == task.taskTypeId}">
+                                                                ${tasktype.taskType_Name}
+                                                            </c:if>
+                                                        </c:forEach>
                                                     </td>
                                                 </tr>
                                             </tbody>
-
                                         </table>
                                     </form>
                                 </div>
                             </div>
+                                                    
                         </div>
+                                                    <h1>ABC</h1>
+
                         <div class="card shadow mb-4 ">
                             <div class="card-header d-sm-flex align-items-center justify-content-between mb-4">
                                 <h6 class="m-0 font-weight-bold text-primary">Comment</h6>
@@ -438,7 +438,6 @@
                                             <!-- End Newsfeed Content -->
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
                         </div>

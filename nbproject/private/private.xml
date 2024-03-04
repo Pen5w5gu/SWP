@@ -17,8 +17,8 @@
             <file>file:/C:/Users/acer/Desktop/SWP/SWP/src/java/Dao/TaskDAO.java</file>
             <file>file:/C:/Users/acer/Desktop/SWP/SWP/src/java/control/Account/Student/ChangeStatusTaskServlet.java</file>
             <file>file:/C:/Users/acer/Desktop/SWP/SWP/web/Task_Comment.jsp</file>
+            <file>file:/C:/Users/acer/Desktop/SWP/SWP/src/java/control/Account/Lecture/SearchStudentInClass.java</file>
             <file>file:/C:/Users/acer/Desktop/SWP/SWP/src/java/model/Class.java</file>
-            <file>file:/C:/Users/acer/Desktop/SWP/SWP/nbproject/build-impl.xml</file>
             <file>file:/C:/Users/acer/Desktop/SWP/SWP/src/java/control/Account/Student/AddMilesToneServlet.java</file>
             <file>file:/C:/Users/acer/Desktop/SWP/SWP/web/Milestone.jsp</file>
             <file>file:/C:/Users/acer/Desktop/SWP/SWP/src/java/Dao/TaskTypeDAO.java</file>
@@ -34,14 +34,10 @@
             <file>file:/C:/Users/acer/Desktop/SWP/SWP/src/java/control/Account/LoginServlet.java</file>
             <file>file:/C:/Users/acer/Desktop/SWP/SWP/web/Add_Task.jsp</file>
             <file>file:/C:/Users/acer/Desktop/SWP/SWP/src/java/control/Account/Student/ShowCommentServlet.java</file>
-            <file>file:/C:/Users/acer/Desktop/SWP/SWP/src/java/control/Account/Student/EditMilestoneServlet.java</file>
             <file>file:/C:/Users/acer/Desktop/SWP/SWP/web/login.jsp</file>
             <file>file:/C:/Users/acer/Desktop/SWP/SWP/src/java/control/Account/Student/ShowProjectStudent.java</file>
             <file>file:/C:/Users/acer/Desktop/SWP/SWP/src/java/Dao/AccountDAO.java</file>
-            <file>file:/C:/Users/acer/Desktop/SWP/SWP/src/java/control/Account/Lecture/ViewStudentInClassServlet.java</file>
-            <file>file:/C:/Users/acer/Desktop/SWP/SWP/web/css/comment.css</file>
             <file>file:/C:/Users/acer/Desktop/SWP/SWP/web/WEB-INF/web.xml</file>
-            <file>file:/C:/Users/acer/Desktop/SWP/SWP/web/Add_Milestone.jsp</file>
             <file>file:/C:/Users/acer/Desktop/SWP/SWP/web/META-INF/context.xml</file>
             <file>file:/C:/Users/acer/Desktop/SWP/SWP/src/java/util/Email.java</file>
             <file>file:/C:/Users/acer/Desktop/SWP/SWP/src/java/model/Role.java</file>
