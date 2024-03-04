@@ -204,40 +204,33 @@
                                     <!-- Counter - Alerts -->
                                     <span class="badge badge-danger badge-counter">3+</span>
                                 </a>
-
                                 <!-- Dropdown - Alerts -->
                                 <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                      aria-labelledby="alertsDropdown">
                                     <h6 class="dropdown-header">
                                         Alerts Center
                                     </h6>
-                                    <c:choose>
-                                        <c:when test="${not empty notifications}">
-                                            <c:forEach items="${notifications}" var="noti">
-                                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                                    <div class="mr-3">
-                                                        <div class="icon-circle bg-primary">
-                                                            <i class="fas fa-file-alt text-white"></i>
-                                                        </div>
-                                                    </div>
-                                                    <div>
-                                                        <div class="small text-gray-500">${noti.date}</div>
-                                                        <span class="font-weight-bold">${noti.user_name} ${noti.notification} 
-                                                            <c:forEach items="${tasks}" var="task"> 
-                                                                <c:if test="${task.idTask == noti.id_task}">
-                                                                    ${task.taskName}
-                                                                </c:if>
-                                                            </c:forEach>
-                                                        </span>
-                                                    </div>
-                                                </a>
-                                            </c:forEach> 
-                                        </c:when>
-                                        <c:otherwise>
-                                            <p>No notifications available</p>
-                                        </c:otherwise>
-                                    </c:choose>
 
+                                    <c:forEach items="${notifications}" var="noti">
+                                        <a class="dropdown-item d-flex align-items-center" href="#">
+                                            <div class="mr-3">
+                                                <div class="icon-circle bg-primary">
+                                                    <i class="fas fa-file-alt text-white"></i>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <div class="small text-gray-500">${noti.date}</div>
+                                                <span class="font-weight-bold">${noti.user_name} ${noti.notification} 
+                                                    <c:forEach items="${tasks}" var="task"> 
+                                                        <c:if test="${task.idTask == noti.id_task}">
+                                                            ${task.taskName}
+                                                        </c:if>
+                                                    </c:forEach>
+
+                                                </span>
+                                            </div>
+                                        </a>
+                                    </c:forEach> 
                                     <a class="dropdown-item text-center small text-gray-500" href="#">Show All
                                         Alerts</a>
                                 </div>
@@ -256,11 +249,11 @@
                                 <!-- Dropdown - User Information -->
                                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                      aria-labelledby="userDropdown">
-                                    <a class="dropdown-item" href="profile">
+                                    <a class="dropdown-item" href="profile_s">
                                         <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Profile
                                     </a>
-                                    <a class="dropdown-item" href="change_info">
+                                    <a class="dropdown-item" href="change_info_s">
                                         <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Settings
                                     </a>
@@ -400,7 +393,7 @@
                     <div class="modal-footer">
                         <button class="btn btn-secondary" type="button"
                                 data-dismiss="modal">Cancel</button>
-                        <a class="btn btn-primary" href="logout">Logout</a>
+                        <a class="btn btn-primary" href="login.jsp">Logout</a>
                     </div>
                 </div>
             </div>
