@@ -1,6 +1,7 @@
 <%-- Document : Showstudentinclass Created on : Feb 21, 2024, 1:54:14 AM Author : tieup --%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -39,105 +40,194 @@
         <div id="wrapper">
 
             <!-- Sidebar -->
-            <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+            <c:if test="${session.getId_role() == 1}">
+                <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
+                    id="accordionSidebar">
 
-                <!-- Sidebar - Brand -->
-                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="Homepagestudent.jsp">
-                    <div class="sidebar-brand-icon rotate-n-15">
-                        <i class="fa-solid fa-graduation-cap"></i>
-                    </div>
-                    <div class="sidebar-brand-text mx-3">Project Management</div>
-                </a>
-
-                <!-- Divider -->
-                <hr class="sidebar-divider my-0">
-
-                <!-- Nav Item - Dashboard -->
-                <li class="nav-item ">
-                    <a class="nav-link" href="Homepagestudent.jsp">
-                        <i class="fa-solid fa-church"></i>
-                        <span>Home</span></a>
-                </li>
-
-                <!-- Heading -->
-
-                <!-- Divider -->
-                <hr class="sidebar-divider">
-
-                <!-- Heading -->
-                <div class="sidebar-heading">
-                    Interface
-                </div>
-
-                <!-- Nav Item - Pages Collapse Menu -->
-                <li class="nav-item">
-                    <a class="nav-link collapsed" href="#" data-toggle="collapse"
-                       data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
-                        <i class="fas fa-fw fa-folder"></i>
-                        <span>Project</span>
+                    <!-- Sidebar - Brand -->
+                    <a class="sidebar-brand d-flex align-items-center justify-content-center"
+                       href="lectureview">
+                        <div class="sidebar-brand-icon">
+                            <i class="fa-solid fa-chalkboard-user"></i>
+                        </div>
+                        <div class="sidebar-brand-text mx-3">Project Management</div>
                     </a>
 
-                    <div id="collapsePages" class="collapse" aria-labelledby="headingPages"
-                         data-parent="#accordionSidebar">
-                        <div class="bg-white py-2 collapse-inner rounded">
-                            <h6 class="collapse-header">List Project</h6>
-                            <div class="collapse-divider"></div>
-                            <c:choose>
-                                <c:when test="${not empty projects}">
+                    <!-- Divider -->
+                    <hr class="sidebar-divider my-0">
 
-                                    <c:forEach var="project" items="${projects}">
-                                        <div class="project-container">
-                                            <form id="form_${project.project_name}" action="showprojectstudent" method="GET" onsubmit="return submitForm('${project.project_name}')">
-                                                <div class="project-item">
-                                                    <input type="hidden" name  ="ID_project" value="${project.id_Project}" />
-                                                    <a style="text-decoration: none;" href="#" onclick="document.getElementById('form_${project.project_name}').submit();">Project ${project.project_name}</a>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </c:forEach>
-                                </c:when>
-                                <c:otherwise>
-                                    <p>No PROJECTS available</p>
-                                </c:otherwise>
-                            </c:choose>
-                        </div>
+                    <!-- Nav Item - Dashboard -->
+                    <li class="nav-item active">
+                        <a class="nav-link" href="lectureview">
+                            <i class="fa-solid fa-church"></i>
+                            <span>Home</span></a>
+                    </li>
+
+                    <!-- Heading -->
+
+                    <!-- Divider -->
+                    <hr class="sidebar-divider">
+
+                    <!-- Heading -->
+                    <div class="sidebar-heading">
+                        Interface
                     </div>
-                </li>
 
-                <li class="nav-item">
-                    <a class="nav-link " href="task">
-                        <i class="fa-solid fa-list-check"></i>
-                        <span>Task</span></a>
-                </li>
+                    <!-- Nav Item - Pages Collapse Menu -->
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse"
+                           data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
+                            <i class="fas fa-fw fa-folder"></i>
+                            <span>Class</span>
+                        </a>
 
-                <li class="nav-item active">
-                    <a class="nav-link" href="milestone">
-                        <i class="fa-solid fa-chart-bar"></i>
-                        <span>Milestone</span></a>
-                </li>
+                        <div id="collapsePages" class="collapse" aria-labelledby="headingPages"
+                             data-parent="#accordionSidebar">
+                            <div class="bg-white py-2 collapse-inner rounded">
+                                <h6 class="collapse-header">List class:</h6>
+                                <div class="collapse-divider"></div>
+                                <c:choose>
+                                    <c:when test="${not empty classes}">
+                                        <c:forEach var="myclass" items="${classes}">
+                                            <form id="form_${myclass.class_name}" action="showproject"
+                                                  method="GET"
+                                                  onsubmit="return submitForm(${myclass.class_name})">
+                                                <a href="#" class="collapse-item"
+                                                   onclick="document.getElementById('form_${myclass.class_name}').submit();">Class
+                                                    ${myclass.class_name}</a><!-- comment -->
+                                                <input type="hidden" name="class_name"
+                                                       value="${myclass.class_name}">
+                                            </form>
+                                        </c:forEach>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <p>No classes available</p>
+                                    </c:otherwise>
+                                </c:choose>
+                            </div>
+                        </div>
+                    </li>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="charts.html">
-                        <i class="fas fa-fw fa-chart-area"></i>
-                        <span>Issue</span></a>
-                </li>
+                    <!-- Nav Item - Charts -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="ImportFile.jsp">
+                            <i class="fa-solid fa-file-import"></i>
+                            <span>Import file excel</span></a>
+                    </li>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="charts.html">
-                        <i class="fas fa-fw fa-chart-area"></i>
-                        <span>Report</span></a>
-                </li>
+                    <!-- Divider -->
+                    <hr class="sidebar-divider d-none d-md-block">
 
-                <!-- Divider -->
-                <hr class="sidebar-divider d-none d-md-block">
+                    <!-- Sidebar Toggler (Sidebar) -->
+                    <div class="text-center d-none d-md-inline">
+                        <button class="rounded-circle border-0" id="sidebarToggle"></button>
+                    </div>
 
-                <!-- Sidebar Toggler (Sidebar) -->
-                <div class="text-center d-none d-md-inline">
-                    <button class="rounded-circle border-0" id="sidebarToggle"></button>
-                </div>
+                </ul>
+                <!-- End of Sidebar -->
+            </c:if>
+            <c:if test="${session.getId_role() == 2}">
+                <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
-            </ul>
-            <!-- End of Sidebar -->
+                    <!-- Sidebar - Brand -->
+                    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="Homepagestudent.jsp">
+                        <div class="sidebar-brand-icon rotate-n-15">
+                            <i class="fa-solid fa-graduation-cap"></i>
+                        </div>
+                        <div class="sidebar-brand-text mx-3">Project Management</div>
+                    </a>
+
+                    <!-- Divider -->
+                    <hr class="sidebar-divider my-0">
+
+                    <!-- Nav Item - Dashboard -->
+                    <li class="nav-item ">
+                        <a class="nav-link" href="Homepagestudent.jsp">
+                            <i class="fa-solid fa-church"></i>
+                            <span>Home</span></a>
+                    </li>
+
+                    <!-- Heading -->
+
+                    <!-- Divider -->
+                    <hr class="sidebar-divider">
+
+                    <!-- Heading -->
+                    <div class="sidebar-heading">
+                        Interface
+                    </div>
+
+                    <!-- Nav Item - Pages Collapse Menu -->
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse"
+                           data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
+                            <i class="fas fa-fw fa-folder"></i>
+                            <span>Project</span>
+                        </a>
+
+                        <div id="collapsePages" class="collapse" aria-labelledby="headingPages"
+                             data-parent="#accordionSidebar">
+                            <div class="bg-white py-2 collapse-inner rounded">
+                                <h6 class="collapse-header">List Project</h6>
+                                <div class="collapse-divider"></div>
+                                <c:choose>
+                                    <c:when test="${not empty projects}">
+
+                                        <c:forEach var="project" items="${projects}">
+                                            <div class="project-container">
+                                                <form id="form_${project.project_name}" action="showprojectstudent" method="GET" onsubmit="return submitForm('${project.project_name}')">
+                                                    <div class="project-item">
+                                                        <input type="hidden" name  ="ID_project" value="${project.id_Project}" />
+                                                        <a style="text-decoration: none;" href="#" onclick="document.getElementById('form_${project.project_name}').submit();">Project ${project.project_name}</a>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </c:forEach>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <p>No PROJECTS available</p>
+                                    </c:otherwise>
+                                </c:choose>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link " href="task">
+                            <i class="fa-solid fa-list-check"></i>
+                            <span>Task</span></a>
+                    </li>
+
+                    <li class="nav-item active">
+                        <a class="nav-link" href="milestone">
+                            <i class="fa-solid fa-chart-bar"></i>
+                            <span>Milestone</span></a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="charts.html">
+                            <i class="fas fa-fw fa-chart-area"></i>
+                            <span>Issue</span></a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="charts.html">
+                            <i class="fas fa-fw fa-chart-area"></i>
+                            <span>Report</span></a>
+                    </li>
+
+                    <!-- Divider -->
+                    <hr class="sidebar-divider d-none d-md-block">
+
+                    <!-- Sidebar Toggler (Sidebar) -->
+                    <div class="text-center d-none d-md-inline">
+                        <button class="rounded-circle border-0" id="sidebarToggle"></button>
+                    </div>
+
+                </ul>
+                <!-- End of Sidebar -->
+            </c:if>
+
 
             <!-- Content Wrapper -->
             <div id="content-wrapper" class="d-flex flex-column">
@@ -254,11 +344,11 @@
                                 <!-- Dropdown - User Information -->
                                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                      aria-labelledby="userDropdown">
-                                    <a class="dropdown-item" href="profile_s">
+                                    <a class="dropdown-item" href="profile">
                                         <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Profile
                                     </a>
-                                    <a class="dropdown-item" href="change_info_s">
+                                    <a class="dropdown-item" href="change_info">
                                         <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Settings
                                     </a>

@@ -26,7 +26,7 @@
             rel="stylesheet">
 
         <!-- Custom styles for this template-->
-        <link href="css/profile.css" rel="stylesheet">
+        <link href="css/sb-admin-2.min.css" rel="stylesheet">
         <link href="css/profile_setting.css" rel="stylesheet">
 
 
@@ -39,105 +39,193 @@
         <div id="wrapper">
 
             <!-- Sidebar -->
-            <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+            <c:if test="${session.getId_role() == 1}">
+                <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
+                    id="accordionSidebar">
 
-                <!-- Sidebar - Brand -->
-                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="Homepagestudent.jsp">
-                    <div class="sidebar-brand-icon rotate-n-15">
-                        <i class="fa-solid fa-graduation-cap"></i>
-                    </div>
-                    <div class="sidebar-brand-text mx-3">Project Management</div>
-                </a>
-
-                <!-- Divider -->
-                <hr class="sidebar-divider my-0">
-
-                <!-- Nav Item - Dashboard -->
-                <li class="nav-item ">
-                    <a class="nav-link" href="Homepagestudent.jsp">
-                        <i class="fa-solid fa-church"></i>
-                        <span>Home</span></a>
-                </li>
-
-                <!-- Heading -->
-
-                <!-- Divider -->
-                <hr class="sidebar-divider">
-
-                <!-- Heading -->
-                <div class="sidebar-heading">
-                    Interface
-                </div>
-
-                <!-- Nav Item - Pages Collapse Menu -->
-                <li class="nav-item">
-                    <a class="nav-link collapsed" href="#" data-toggle="collapse"
-                       data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
-                        <i class="fas fa-fw fa-folder"></i>
-                        <span>Project</span>
+                    <!-- Sidebar - Brand -->
+                    <a class="sidebar-brand d-flex align-items-center justify-content-center"
+                       href="lectureview">
+                        <div class="sidebar-brand-icon">
+                            <i class="fa-solid fa-chalkboard-user"></i>
+                        </div>
+                        <div class="sidebar-brand-text mx-3">Project Management</div>
                     </a>
 
-                    <div id="collapsePages" class="collapse" aria-labelledby="headingPages"
-                         data-parent="#accordionSidebar">
-                        <div class="bg-white py-2 collapse-inner rounded">
-                            <h6 class="collapse-header">List Project</h6>
-                            <div class="collapse-divider"></div>
-                            <c:choose>
-                                <c:when test="${not empty projects}">
+                    <!-- Divider -->
+                    <hr class="sidebar-divider my-0">
 
-                                    <c:forEach var="project" items="${projects}">
-                                        <div class="project-container">
-                                            <form id="form_${project.project_name}" action="showprojectstudent" method="GET" onsubmit="return submitForm('${project.project_name}')">
-                                                <div class="project-item">
-                                                    <input type="hidden" name  ="ID_project" value="${project.id_Project}" />
-                                                    <a style="text-decoration: none;" href="#" onclick="document.getElementById('form_${project.project_name}').submit();">Project ${project.project_name}</a>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </c:forEach>
-                                </c:when>
-                                <c:otherwise>
-                                    <p>No PROJECTS available</p>
-                                </c:otherwise>
-                            </c:choose>
-                        </div>
+                    <!-- Nav Item - Dashboard -->
+                    <li class="nav-item active">
+                        <a class="nav-link" href="lectureview">
+                            <i class="fa-solid fa-church"></i>
+                            <span>Home</span></a>
+                    </li>
+
+                    <!-- Heading -->
+
+                    <!-- Divider -->
+                    <hr class="sidebar-divider">
+
+                    <!-- Heading -->
+                    <div class="sidebar-heading">
+                        Interface
                     </div>
-                </li>
 
-                <li class="nav-item">
-                    <a class="nav-link " href="task">
-                        <i class="fa-solid fa-list-check"></i>
-                        <span>Task</span></a>
-                </li>
+                    <!-- Nav Item - Pages Collapse Menu -->
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse"
+                           data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
+                            <i class="fas fa-fw fa-folder"></i>
+                            <span>Class</span>
+                        </a>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="milestone">
-                        <i class="fa-solid fa-chart-bar"></i>
-                        <span>Milestone</span></a>
-                </li>
+                        <div id="collapsePages" class="collapse" aria-labelledby="headingPages"
+                             data-parent="#accordionSidebar">
+                            <div class="bg-white py-2 collapse-inner rounded">
+                                <h6 class="collapse-header">List class:</h6>
+                                <div class="collapse-divider"></div>
+                                <c:choose>
+                                    <c:when test="${not empty classes}">
+                                        <c:forEach var="myclass" items="${classes}">
+                                            <form id="form_${myclass.class_name}" action="showproject"
+                                                  method="GET"
+                                                  onsubmit="return submitForm(${myclass.class_name})">
+                                                <a href="#" class="collapse-item"
+                                                   onclick="document.getElementById('form_${myclass.class_name}').submit();">Class
+                                                    ${myclass.class_name}</a><!-- comment -->
+                                                <input type="hidden" name="class_name"
+                                                       value="${myclass.class_name}">
+                                            </form>
+                                        </c:forEach>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <p>No classes available</p>
+                                    </c:otherwise>
+                                </c:choose>
+                            </div>
+                        </div>
+                    </li>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="charts.html">
-                        <i class="fas fa-fw fa-chart-area"></i>
-                        <span>Issue</span></a>
-                </li>
+                    <!-- Nav Item - Charts -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="ImportFile.jsp">
+                            <i class="fa-solid fa-file-import"></i>
+                            <span>Import file excel</span></a>
+                    </li>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="charts.html">
-                        <i class="fas fa-fw fa-chart-area"></i>
-                        <span>Report</span></a>
-                </li>
+                    <!-- Divider -->
+                    <hr class="sidebar-divider d-none d-md-block">
 
-                <!-- Divider -->
-                <hr class="sidebar-divider d-none d-md-block">
+                    <!-- Sidebar Toggler (Sidebar) -->
+                    <div class="text-center d-none d-md-inline">
+                        <button class="rounded-circle border-0" id="sidebarToggle"></button>
+                    </div>
 
-                <!-- Sidebar Toggler (Sidebar) -->
-                <div class="text-center d-none d-md-inline">
-                    <button class="rounded-circle border-0" id="sidebarToggle"></button>
-                </div>
+                </ul>
+                <!-- End of Sidebar -->
+            </c:if>
+            <c:if test="${session.getId_role() == 2}">
+                <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
-            </ul>
-            <!-- End of Sidebar -->
+                    <!-- Sidebar - Brand -->
+                    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="Homepagestudent.jsp">
+                        <div class="sidebar-brand-icon rotate-n-15">
+                            <i class="fa-solid fa-graduation-cap"></i>
+                        </div>
+                        <div class="sidebar-brand-text mx-3">Project Management</div>
+                    </a>
+
+                    <!-- Divider -->
+                    <hr class="sidebar-divider my-0">
+
+                    <!-- Nav Item - Dashboard -->
+                    <li class="nav-item ">
+                        <a class="nav-link" href="Homepagestudent.jsp">
+                            <i class="fa-solid fa-church"></i>
+                            <span>Home</span></a>
+                    </li>
+
+                    <!-- Heading -->
+
+                    <!-- Divider -->
+                    <hr class="sidebar-divider">
+
+                    <!-- Heading -->
+                    <div class="sidebar-heading">
+                        Interface
+                    </div>
+
+                    <!-- Nav Item - Pages Collapse Menu -->
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse"
+                           data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
+                            <i class="fas fa-fw fa-folder"></i>
+                            <span>Project</span>
+                        </a>
+
+                        <div id="collapsePages" class="collapse" aria-labelledby="headingPages"
+                             data-parent="#accordionSidebar">
+                            <div class="bg-white py-2 collapse-inner rounded">
+                                <h6 class="collapse-header">List Project</h6>
+                                <div class="collapse-divider"></div>
+                                <c:choose>
+                                    <c:when test="${not empty projects}">
+
+                                        <c:forEach var="project" items="${projects}">
+                                            <div class="project-container">
+                                                <form id="form_${project.project_name}" action="showprojectstudent" method="GET" onsubmit="return submitForm('${project.project_name}')">
+                                                    <div class="project-item">
+                                                        <input type="hidden" name  ="ID_project" value="${project.id_Project}" />
+                                                        <a style="text-decoration: none;" href="#" onclick="document.getElementById('form_${project.project_name}').submit();">Project ${project.project_name}</a>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </c:forEach>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <p>No PROJECTS available</p>
+                                    </c:otherwise>
+                                </c:choose>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link " href="task">
+                            <i class="fa-solid fa-list-check"></i>
+                            <span>Task</span></a>
+                    </li>
+
+                    <li class="nav-item active">
+                        <a class="nav-link" href="milestone">
+                            <i class="fa-solid fa-chart-bar"></i>
+                            <span>Milestone</span></a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="charts.html">
+                            <i class="fas fa-fw fa-chart-area"></i>
+                            <span>Issue</span></a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="charts.html">
+                            <i class="fas fa-fw fa-chart-area"></i>
+                            <span>Report</span></a>
+                    </li>
+
+                    <!-- Divider -->
+                    <hr class="sidebar-divider d-none d-md-block">
+
+                    <!-- Sidebar Toggler (Sidebar) -->
+                    <div class="text-center d-none d-md-inline">
+                        <button class="rounded-circle border-0" id="sidebarToggle"></button>
+                    </div>
+
+                </ul>
+                <!-- End of Sidebar -->
+            </c:if>
 
             <!-- Content Wrapper -->
             <div id="content-wrapper" class="d-flex flex-column">
@@ -262,11 +350,11 @@
                                 <!-- Dropdown - User Information -->
                                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                      aria-labelledby="userDropdown">
-                                    <a class="dropdown-item" href="profile_s">
+                                    <a class="dropdown-item" href="profile">
                                         <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Profile
                                     </a>
-                                    <a class="dropdown-item" href="change_info_s">
+                                    <a class="dropdown-item" href="change_info">
                                         <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Change Information
                                     </a>
@@ -301,48 +389,73 @@
                                 <div class="my-4">
                                     <form>
                                         <div class="row mt-5 align-items-center">
-                                            <div class="col-md-3 text-center mb-5">
-                                                <div class="avatar avatar-xl">
-                                                    <img src="img/undraw_profile.svg"
-                                                         alt="..." class="avatar-img rounded-circle" />
+                                            <form action="changeInfo" method="post" class="profile" id="profileForm">
+                                                <div class="col-md-3 text-center mb-5">
+                                                    <div class="avatar avatar-xl">
+                                                        <img src="img/undraw_profile.svg"
+                                                             alt="..." class="avatar-img rounded-circle" />
+                                                    </div>
+                                                </div>
+                                                <div class="col">
+
+                                                    <div class="row align-items-center">
+                                                        <div class="col-md-7">
+                                                            <h4 class="mb-1">${firstname} ${lastname}</h4>
+                                                            <p class="small mb-3"><span class="badge badge-dark">Lecture</span></p>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row mb-4">
+                                                        <div class="col-md-5">
+                                                           <div class="form-group">
+                                                                <label for="inputEmail4">Full Name</label>
+                                                                <input type="text" class="form-control"
+                                                                       id="fullName" placeholder="${user.getUsername()}">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col">
+                                                            <div class="form-group">
+                                                                <label for="inputEmail4">Email</label>
+                                                                <input type="email" class="form-control"
+                                                                       id="inputEmail4" placeholder="${user.getEmail()}" readonly />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+
+                                        <div class="row mb-4">
+
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="inputPassword4">Old Password</label>
+                                                    <input type="password" class="form-control" id="oldPassword" />
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="inputPassword5">New Password</label>
+                                                    <input type="password" class="form-control" id="newPassword" />
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="inputPassword6">Confirm Password</label>
+                                                    <input type="password" class="form-control" id="confirmPassword" />
                                                 </div>
                                             </div>
-                                            <div class="col">
-
-                                                <div class="row align-items-center">
-                                                    <div class="col-md-7" style="display: flex; flex-wrap: wrap;">
-                                                        <h4 class="mb-1">${firstname} ${lastname}</h4>
-                                                        <p class="small mb-3" style="margin-right: 10px;"><span class="badge badge-dark">${user.getRole_project()}</span></p>
-                                                        <c:choose>
-                                                            <c:when test="${user.getRole_project() == 'TL'}">
-                                                                <p class="small mb-3"><span class="badge badge-dark">Team Leader</span></p>
-                                                            </c:when>
-                                                            <c:when test="${user.getRole_project() == 'DEV'}">
-                                                                <p class="small mb-3"><span class="badge badge-dark">Developer</span></p>
-                                                            </c:when>
-                                                        </c:choose>
-                                                    </div>
-                                                </div>
-
-                                                <div class="row mb-4">
-                                                    <div class="col-md-5">
-                                                        <div class="form-group">
-                                                            <label for="inputEmail4">Full Name</label>
-                                                            <input type="text" class="form-control"
-                                                                   id="fullName" placeholder="${user.getUsername()}" readonly>
-                                                        </div>
-
-                                                    </div>
-                                                    <div class="col">
-                                                        <div class="form-group">
-                                                            <label for="inputEmail4">Email</label>
-                                                            <input type="email" class="form-control"
-                                                                   id="inputEmail4" placeholder="${user.getEmail()}" readonly />
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                            <div class="col-md-6 requirements ">
+                                                <p class="mb-2">Password requirements</p>
+                                                <p class="small text-muted mb-2">To create a new password, you have to
+                                                    meet all of the following requirements:</p>
+                                                <ul class="small text-muted pl-4 mb-0">
+                                                    <li>Minimum 8 character</li>
+                                                    <li>At least one special character</li>
+                                                    <li>At least one number</li>
+                                                    <li>Can’t be the same as a previous password</li>
+                                                </ul>
+                                                <br>
+                                                <button type="submit" class="btn btn-primary">Save Change</button>
                                             </div>
                                         </div>
+
 
                                     </form>
                                 </div>
