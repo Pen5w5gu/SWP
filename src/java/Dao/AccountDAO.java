@@ -43,6 +43,9 @@ public class AccountDAO extends DBContext { // Follow Java naming conventions fo
         }
         return null;
     }
+    
+    
+    
 
     public boolean checkExistAccount(String email) {
         try {
@@ -131,6 +134,31 @@ public class AccountDAO extends DBContext { // Follow Java naming conventions fo
         } catch (SQLException e) {
 
             e.printStackTrace();
+        }
+        return false;
+    }
+    
+    
+    public Boolean RegisterStudent(String email, String password, String username, String role_project) {
+
+        try {
+            String strSelect = "  INSERT INTO Account (User_name,  Password, email,role_project,Id_role,status)\n"
+                    + " VALUES (?,?,?,?,?,?);";
+            ps = connection.prepareStatement(strSelect);
+            ps.setString(1, username);
+            ps.setString(2, password);
+            ps.setString(3, email);
+            ps.setString(4, role_project);
+            ps.setInt(5, 2);
+            ps.setInt(6, 0);
+            ps.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            // Consider logging the exception instead of just printing it
+            e.printStackTrace();
+        } finally {
+            // Always close resources in a finally block
+            closeResources();
         }
         return false;
     }
@@ -224,6 +252,33 @@ public class AccountDAO extends DBContext { // Follow Java naming conventions fo
         }
         return users;
     }
+    
+    
+        public List<User> getallstudentinclassAllow(String classname) {
+        List<User> users = new ArrayList<>();
+
+        try {
+            String strSelect = "SELECT    Account.User_name, Account.email, Account.role_project\n"
+                    + "FROM         Account INNER JOIN\n"
+                    + "                      [In] ON Account.ID_account = [In].ID_account INNER JOIN\n"
+                    + "                      class ON [In].ID_class = class.Id_class\n"
+                    + "where  Class_name =? and Account.Id_role=2";
+            ps = connection.prepareStatement(strSelect);
+            ps.setString(1, classname);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                users.add(new User(rs.getString(1), rs.getString(2), rs.getString(3)));
+            }
+
+        } catch (SQLException e) {
+            // Consider logging the exception instead of just printing it
+            e.printStackTrace();
+        }
+        return users;
+    }
+    
+    
+    
 
     public User getAccountProfile(String email) {
         User user = null;
@@ -318,16 +373,49 @@ public class AccountDAO extends DBContext { // Follow Java naming conventions fo
         }
         return users;
     }
+    public boolean updateAllowAccess(int id_account, int id_project) {
+        try {
+            String sql = "update [Join]\n" +
+"set Allow_access=0\n" +
+"where iD_account=? and Id_Project=?";
+
+            ps = connection.prepareStatement(sql);
+            ps.setInt(1, id_account);
+            ps.setInt(2, id_project);
+            int row = ps.executeUpdate();
+            if(row>0){
+                return true;
+            }
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return false;
+    }
+    
+    public int getIDbyEmail(String email) {
+    try {
+        String sql = "SELECT ID_account FROM Account WHERE email=?";
+        ps = connection.prepareStatement(sql);
+        ps.setString(1, email);
+        rs = ps.executeQuery();
+        if (rs.next()) {
+            return rs.getInt("ID_account");
+        }
+    } catch (SQLException e) {
+        // Consider logging the exception instead of just printing it
+        e.printStackTrace();
+    } finally {
+        // Close your resources (PreparedStatement, ResultSet) here in a try-catch-finally block.
+        closeResources();
+    }
+    return -1; // Return a default value in case of failure, such as -1
+}
+
 
     public static void main(String[] args) {
         AccountDAO dao = new AccountDAO();
-          System.out.println(dao.getAccountProfile("nguyenthiminhhang141205@gmail.com"));
-//        System.out.println(dao.getUser("nguyenthiminhhang141205@gmail.com"));
-//        System.out.println(dao.checkAccount("nguyenthiminhhang141205@gmail.com", "ohvCFjsHBfTFW6oeA30pig=="));
-//        System.out.println(dao.Register("tung7123xbuavai@gmail.com", "tung123"));
-//        List<User> list = dao.getUserByProject(2);
-//        List<User> list = dao.getallstudentinclass("1750");
-//        System.out.println(list);
+        System.out.println(dao.updateAllowAccess(50, 8));
 
     }
 }

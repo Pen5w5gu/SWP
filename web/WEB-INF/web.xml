@@ -43,6 +43,11 @@
     <servlet>
         <servlet-name>ImportFileServlet</servlet-name>
         <servlet-class>control.Account.Lecture.ImportFileServlet</servlet-class>
+        <multipart-config>
+            <max-file-size>1048576</max-file-size>
+            <max-request-size>2097152</max-request-size>
+            <file-size-threshold>0</file-size-threshold>
+        </multipart-config>
     </servlet>
     <servlet>
         <servlet-name>SearchclassServlet</servlet-name>
@@ -95,6 +100,34 @@
     <servlet>
         <servlet-name>ChangeStatusTaskServlet</servlet-name>
         <servlet-class>control.Account.Student.ChangeStatusTaskServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditMilestoneServlet1</servlet-name>
+        <servlet-class>control.Account.Student.EditMilestoneServlet1</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditMilestoneServlet2</servlet-name>
+        <servlet-class>control.Account.Student.EditMilestoneServlet2</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteMilestoneServlet</servlet-name>
+        <servlet-class>control.Account.Student.DeleteMilestoneServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UploadExcelServlet</servlet-name>
+        <servlet-class>control.Account.Lecture.UploadExcelServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditcommentServlet</servlet-name>
+        <servlet-class>control.Account.Student.EditcommentServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteCommentServlet</servlet-name>
+        <servlet-class>control.Account.Student.DeleteCommentServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteStudentInClassServlet</servlet-name>
+        <servlet-class>control.Account.Lecture.DeleteStudentInClassServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
@@ -199,6 +232,34 @@
     <servlet-mapping>
         <servlet-name>ChangeStatusTaskServlet</servlet-name>
         <url-pattern>/shange_status</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditMilestoneServlet1</servlet-name>
+        <url-pattern>/edit_milestone1</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditMilestoneServlet2</servlet-name>
+        <url-pattern>/edit_milestone2</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteMilestoneServlet</servlet-name>
+        <url-pattern>/delete_milestone</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UploadExcelServlet</servlet-name>
+        <url-pattern>/UploadExcelServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditcommentServlet</servlet-name>
+        <url-pattern>/edit_comment</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteCommentServlet</servlet-name>
+        <url-pattern>/delete_comment</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteStudentInClassServlet</servlet-name>
+        <url-pattern>/deleteStudent</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

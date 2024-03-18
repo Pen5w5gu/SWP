@@ -40,17 +40,18 @@ public class ShowCommentServlet extends HttpServlet {
         HttpSession session = request.getSession();
             if ( session.getAttribute("session") != null) {
                 User user = (User) session.getAttribute("session");
-                int user_id = user.getId_account();
-                Project project = (Project) session.getAttribute("project");
-                int project_id = project.getId_Project();
-                int idTask = Integer.parseInt(request.getParameter("task_id"));
                 TaskDAO tdao = new TaskDAO();
-                Task task = tdao.getTaskByID(idTask);
                 TaskTypeDAO ttdao = new TaskTypeDAO();
                 CommentDAO cdao = new CommentDAO();
+                
+                int user_id = user.getId_account();
+                int idTask = Integer.parseInt(request.getParameter("task_id"));
+                
+                Task task = tdao.getTaskByID(idTask);
+                
                 List<TaskType> tasktypes = ttdao.getTaskType();
                 
-                List<Comment> comments = cdao.getCommentByTaskAndProject(idTask, project_id);
+                List<Comment> comments = cdao.getCommentByTask(idTask);
                 request.setAttribute("comments", comments);
                 request.setAttribute("idTask", idTask);
                 request.setAttribute("task", task);

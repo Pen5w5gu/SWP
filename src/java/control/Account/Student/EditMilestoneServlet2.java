@@ -5,7 +5,7 @@
 
 package control.Account.Student;
 
-import Dao.CommentDAO;
+import Dao.MilestoneDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -13,16 +13,15 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.util.List;
-import model.Comment;
+import java.sql.Date;
+import model.Milestone;
 import model.Project;
-import model.User;
 
 /**
  *
  * @author acer
  */
-public class AddcommentServlet extends HttpServlet {
+public class EditMilestoneServlet2 extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -33,26 +32,19 @@ public class AddcommentServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        if (session.getAttribute("session") != null) {
-            CommentDAO cdao = new CommentDAO();
-            
-            User user = (User)session.getAttribute("session");
-            
-            int user_id = user.getId_account();
-            String comment = request.getParameter("comment");
-            int task_id = Integer.parseInt(request.getParameter("task_id"));
-            //add comment
-            if (cdao.AddComment(comment, task_id,user_id)) {
-                //chuyen den trang show comment
 
-                request.setAttribute("task_id", task_id);
-                request.getRequestDispatcher("comment").forward(request, response);
-            }
-
-        } else {
-            // User is not logged in or session doesn't exist, redirect to the login page
-            response.sendRedirect("login.jsp");
+         HttpSession session = request.getSession();
+        int milestone_id = Integer.parseInt(request.getParameter("id_milestone"));
+        String milestoneName = request.getParameter("milestoneName");
+        Date startDate = Date.valueOf(request.getParameter("startDate"));
+        Date endDate = Date.valueOf(request.getParameter("endDate"));
+        int project_id = Integer.parseInt(request.getParameter("id_Project"));
+        MilestoneDAO mdao = new MilestoneDAO();
+        if(mdao.editMilestone(milestone_id, milestoneName, startDate, endDate, project_id)){
+            
+            request.getRequestDispatcher("milestone").forward(request, response);
+        }else{
+            request.getRequestDispatcher("Milestone.jsp").forward(request, response);
         }
         
         

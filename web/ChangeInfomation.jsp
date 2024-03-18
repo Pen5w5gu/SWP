@@ -401,7 +401,7 @@
                                                     <div class="row align-items-center">
                                                         <div class="col-md-7">
                                                             <h4 class="mb-1">${firstname} ${lastname}</h4>
-                                                            <p class="small mb-3"><span class="badge badge-dark">Lecture</span></p>
+                                                            <p class="small mb-3"><span class="badge badge-dark">${user.getRole_project()}</span></p>
                                                         </div>
                                                     </div>
 

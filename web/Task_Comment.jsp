@@ -375,52 +375,66 @@
                             <div class="container bootdey">
                                 <div class="col-md-12 bootstrap snippets">
                                     <div class="panel">
-                                        <div class="panel-body">
-                                            <textarea class="form-control" rows="2" placeholder="What are you thinking?"></textarea>
-                                            <div class="mar-top clearfix">
-                                                <button class="btn btn-sm btn-primary pull-right" type="submit"><i class="fa fa-pencil fa-fw"></i> Share</button>
-                                                <a class="btn btn-trans btn-icon" href="#"><i class="fa-solid fa-camera"></i></a>
-                                                <a class="btn btn-trans btn-icon" href="#"><i class="fa-solid fa-video"></i></a>
-                                                <a class="btn btn-trans btn-icon" href="#"><i class="fa-solid fa-file"></i></a>
+                                        <form action="add_comment">
+                                            <div class="panel-body">
+                                                <input type="hidden" name="task_id" value="${task.idTask}"/>
+                                                <textarea class="form-control" name="comment" rows="2" placeholder="What are you thinking?"></textarea>
+                                                <div class="mar-top clearfix">
+                                                    <button class="btn btn-sm btn-primary pull-right" type="submit"><i class="fa fa-pencil fa-fw"></i> Share</button>
+                                                    <a class="btn btn-trans btn-icon" href="#"><i class="fa-solid fa-camera"></i></a>
+                                                    <a class="btn btn-trans btn-icon" href="#"><i class="fa-solid fa-video"></i></a>
+                                                    <a class="btn btn-trans btn-icon" href="#"><i class="fa-solid fa-file"></i></a>
+                                                </div>
                                             </div>
-                                        </div>
+                                        </form>
                                     </div>
                                     <div class="panel">
                                         <div class="panel-body">
                                             <!-- Newsfeed Content -->
                                             <!--===================================================-->
-                                            <div class="media-block">
-                                                <a class="media-left" style="padding-right: 10px" href="#"><img class="img-circle img-sm" alt="Profile Picture" src="img/undraw_profile.svg"></a>
-                                                <div class="media-body ">
-                                                    <div class="mar-btm d-sm-flex align-items-center justify-content-between mb-4">
-                                                        <a href="#" class="btn-link text-semibold media-heading box-inline">Lisa D.</a>
-                                                        <!-- Nút dropdown -->
-                                                        <div id="dropdownContainer" class="dropdown pull-right">
-                                                            <button id="dropdownButton" class="btn btn-default dropdown-toggle form-control bg-light border-0 small" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                <i class="fa fa-ellipsis-h"></i>
-                                                            </button>
-                                                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                                                                <a class="dropdown-item" href="#" onclick="enableEdit()">Edit</a>
-                                                                <a class="dropdown-item" href="#">Delete</a>
-                                                            </div>
-                                                        </div>
-                                                        <!-- End nút dropdown -->
+                                            <c:forEach items="${comments}" var="comment">
+                                                <div class="media-block">
+                                                    <a class="media-left" style="padding-right: 10px" href="#"><img class="img-circle img-sm" alt="Profile Picture" src="img/undraw_profile.svg"></a>
+                                                    <div class="media-body ">
+                                                        <form action="edit_comment">
+                                                            <div class="mar-btm d-sm-flex align-items-center justify-content-between mb-4">
+                                                                <a href="#" class="btn-link text-semibold media-heading box-inline">${comment.id_Account}</a>
+                                                                <!-- Nút dropdown -->
 
-                                                    </div>
-                                                    <div style="position: relative;">
-                                                        <textarea class="form-control form-control-sm border-0" id="myInput" wrap="soft" maxlength="250" readonly style="overflow-wrap: break-word; height: auto; resize: none;"></textarea>
-                                                        <div id="charCount" style="position: absolute; bottom: 5px; right: 5px; font-size: 10px; display: none;"></div>
-                                                    </div>
-                                                    <div class="pad-ver">
-                                                        <div class="btn-group">
-                                                            <a class="btn btn-sm btn-default btn-hover-success" href="#"><i class="fa fa-thumbs-up"></i></a>
-                                                            <a class="btn btn-sm btn-default btn-hover-danger" href="#"><i class="fa fa-thumbs-down"></i></a>
+                                                                <c:if test="${session.getId_account() == comment.id_Account}">
+                                                                    <div id="dropdownContainer" class="dropdown pull-right">
+                                                                        <button id="dropdownButton" class="btn btn-default dropdown-toggle form-control bg-light border-0 small" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                            <i class="fa fa-ellipsis-h"></i>
+                                                                        </button>
+                                                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                                                                            <a class="dropdown-item" href="#" onclick="enableEdit()">Edit</a>
+                                                                            <a class="dropdown-item" href="#" onclick="deleteComment(${comment.id_comment})">Delete</a>
+                                                                        </div>
+                                                                    </div>
+                                                                </c:if>
+                                                                <!-- End nút dropdown -->
+
+                                                            </div>
+
+                                                            <div style="position: relative;">
+                                                                <input type="hidden" name="id_comment" value="${comment.id_comment}"/>
+                                                                <textarea class="form-control form-control-sm border-0" id="myInput" wrap="soft" maxlength="250" readonly style="overflow-wrap: break-word; height: auto; resize: none;">${comment.comment_description}</textarea>
+                                                                <div id="charCount" style="position: absolute; bottom: 5px; right: 5px; font-size: 10px; display: none;"></div>
+                                                            </div>
+                                                        </form>
+
+
+                                                        <div class="pad-ver">
+                                                            <div class="btn-group">
+                                                                <a class="btn btn-sm btn-default btn-hover-success" href="#"><i class="fa fa-thumbs-up"></i></a>
+                                                                <a class="btn btn-sm btn-default btn-hover-danger" href="#"><i class="fa fa-thumbs-down"></i></a>
+                                                            </div>
+                                                            <a class="btn btn-sm btn-default btn-hover-primary" href="#">Comment</a>
                                                         </div>
-                                                        <a class="btn btn-sm btn-default btn-hover-primary" href="#">Comment</a>
+                                                        <hr>
                                                     </div>
-                                                    <hr>
                                                 </div>
-                                            </div>
+                                            </c:forEach>
                                             <!--===================================================-->
                                             <!-- End Newsfeed Content -->
                                         </div>
@@ -478,64 +492,97 @@
 
         <!-- Custom scripts for all pages-->
         <script src="js/sb-admin-2.min.js"></script>
-        
-<script>
-            function Sendata(taskId, newTaskTypeId) {
-                // Tạo một đối tượng XMLHttpRequest
-                var xhr = new XMLHttpRequest();
 
-                // Thiết lập phương thức và URL cho servlet
-                xhr.open("POST", "ChangeStatusTaskServlet", true);
-                xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        <script>
+                                                                                function Sendata(taskId, newTaskTypeId) {
+                                                                                    // Tạo một đối tượng XMLHttpRequest
+                                                                                    var xhr = new XMLHttpRequest();
 
-                // Thiết lập hàm xử lý khi nhận được phản hồi từ server
-                xhr.onreadystatechange = function () {
-                    if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-                        // Xử lý phản hồi từ server nếu cần
-                        console.log("Dữ liệu đã được gửi thành công!");
-                    } else {
-                        console.log("Failed");
-                    }
-                };
+                                                                                    // Thiết lập phương thức và URL cho servlet
+                                                                                    xhr.open("POST", "change_status", true);
+                                                                                    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
-                // Gửi yêu cầu POST với dữ liệu taskId và newTaskTypeId
-                xhr.send("taskId=" + taskId + "&newTaskTypeId=" + newTaskTypeId);
-            }
+                                                                                    // Thiết lập hàm xử lý khi nhận được phản hồi từ server
+                                                                                    xhr.onreadystatechange = function () {
+                                                                                        if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                                                                                            // Xử lý phản hồi từ server nếu cần
+                                                                                            console.log("Dữ liệu đã được gửi thành công!");
+                                                                                        } else {
+                                                                                            console.log("Failed");
+                                                                                        }
+                                                                                    };
+
+                                                                                    // Gửi yêu cầu POST với dữ liệu taskId và newTaskTypeId
+                                                                                    xhr.send("taskId=" + taskId + "&newTaskTypeId=" + newTaskTypeId);
+                                                                                }
 
         </script>
         <script>
-                                                                    // Hàm để cập nhật số ký tự còn lại
-                                                                    function updateCharCount() {
-                                                                        var maxLength = 250; // Độ dài tối đa của textarea
-                                                                        var currentLength = document.getElementById("myInput").value.length; // Độ dài hiện tại của nội dung textarea
-                                                                        var remaining = maxLength - currentLength; // Số ký tự còn lại
+            function deleteComment(commentId) {
+    var confirmation = confirm("Are you sure you want to delete this comment?");
+    if (confirmation) {
+        // Gửi yêu cầu AJAX đến servlet delete_comment
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "delete_comment", true);
+        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                // Xử lý phản hồi từ servlet (nếu cần)
+                console.log(xhr.responseText); // In phản hồi từ servlet ra console log
+                // Ví dụ: Reload trang sau khi xóa bình luận
+                window.location.reload();
+            }
+        };
+        // Gửi dữ liệu bình luận ID như là một tham số POST
+        xhr.send("comment_id=" + commentId);
+    }
+}
+            
+            
+            // Hàm để cập nhật số ký tự còn lại
+            function updateCharCount() {
+                var maxLength = 250; // Độ dài tối đa của textarea
+                var currentLength = document.getElementById("myInput").value.length; // Độ dài hiện tại của nội dung textarea
+                var remaining = maxLength - currentLength; // Số ký tự còn lại
 
-                                                                        document.getElementById("charCount").innerText = remaining + "/250";
-                                                                    }
+                document.getElementById("charCount").innerText = remaining + "/250";
+            }
 
-                                                                    // Gọi hàm cập nhật lần đầu
-                                                                    updateCharCount();
+            // Gọi hàm cập nhật lần đầu
+            updateCharCount();
 
-                                                                    // Thêm sự kiện onchange vào textarea để cập nhật số ký tự khi nội dung thay đổi
-                                                                    document.getElementById("myInput").addEventListener("input", updateCharCount);
+            // Thêm sự kiện onchange vào textarea để cập nhật số ký tự khi nội dung thay đổi
+            document.getElementById("myInput").addEventListener("input", updateCharCount);
 
-                                                                    function enableEdit() {
-                                                                        document.getElementById("myInput").readOnly = false;
-                                                                        document.getElementById("dropdownButton").innerHTML = "Save"; // Thay đổi nội dung của nút thành "Save"
-                                                                        document.getElementById("dropdownButton").setAttribute("onclick", "saveChanges()"); // Thêm sự kiện onclick mới cho nút
-                                                                        document.getElementById("charCount").style.display = "block"; // Hiển thị charCount
-                                                                        document.getElementById("myInput").classList.remove("border-0"); // Xóa lớp CSS "border-0"
-                                                                    }
+            function enableEdit() {
+                document.getElementById("myInput").readOnly = false;
+                document.getElementById("dropdownButton").innerHTML = "Save"; // Thay đổi nội dung của nút thành "Save"
+                document.getElementById("dropdownButton").setAttribute("onclick", "saveChanges()"); // Thêm sự kiện onclick mới cho nút
+                document.getElementById("charCount").style.display = "block"; // Hiển thị charCount
+                document.getElementById("myInput").classList.remove("border-0"); // Xóa lớp CSS "border-0"
+            }
 
-                                                                    function saveChanges() {
-                                                                        // Thực hiện các hành động khi người dùng nhấp vào "Save" ở đây
-                                                                        alert("Đã lưu thay đổi!");
-                                                                        document.getElementById("myInput").readOnly = true;
-                                                                        document.getElementById("dropdownButton").innerHTML = '<i class="fa fa-ellipsis-h"></i>'; // Thay đổi lại nội dung của nút thành icon "..." ban đầu
-                                                                        document.getElementById("dropdownButton").setAttribute("onclick", ""); // Xóa sự kiện onclick của nút
-                                                                        document.getElementById("charCount").style.display = "none"; // Ẩn charCount
-                                                                        document.getElementById("myInput").classList.add("border-0"); // Thêm lớp CSS "border-0"
-                                                                    }
+            function saveChanges() {
+                var id_comment_element = document.getElementsByName("id_comment")[0]; // Lấy phần tử input hidden cho id_comment
+                var task_id_element = document.getElementsByName("task_id")[0]; // Lấy phần tử input hidden cho task_id
+                if (id_comment_element && task_id_element) {
+                    var id_comment = id_comment_element.value;
+                    var task_id = task_id_element.value;
+                    var editedComment = document.getElementById("myInput").value;
+                    // Thực hiện các hành động khi người dùng nhấp vào "Save" ở đây
+                    document.getElementById("myInput").readOnly = true;
+                    document.getElementById("dropdownButton").innerHTML = '<i class="fa fa-ellipsis-h"></i>'; // Thay đổi lại nội dung của nút thành icon "..." ban đầu
+                    document.getElementById("dropdownButton").setAttribute("onclick", ""); // Xóa sự kiện onclick của nút
+                    document.getElementById("charCount").style.display = "none"; // Ẩn charCount
+                    document.getElementById("myInput").classList.add("border-0"); // Thêm lớp CSS "border-0"
+                    // Chuyển hướng tới URL edit_comment với tham số id_comment, task_id, và giá trị đã chỉnh sửa
+                    window.location.href = "edit_comment?idcomment=" + id_comment + "&task_id=" + task_id + "&comment=" + editedComment;
+                } else {
+                    console.error("Element with name 'id_comment' or 'task_id' not found or has no value.");
+                }
+            }
+
+
         </script>
 
 

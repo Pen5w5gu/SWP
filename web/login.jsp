@@ -18,7 +18,7 @@
     <div class="login-box">
 
         <h2>Login</h2>
-        <form action="login" method ="post" >
+        <form action="login" method ="POST" >
             <div class="social-container">
                 <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
                 <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>

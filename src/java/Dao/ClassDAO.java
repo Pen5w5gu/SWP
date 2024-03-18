@@ -41,7 +41,21 @@ public class ClassDAO extends DBContext {
         }
         return classes;
     }
+    public boolean addClass(String classname) {
+        String sql = "INSERT INTO class (Class_name) VALUES (?)";
+        try {
+            ps = connection.prepareStatement(sql);
+            ps.setString(1,classname);
 
+            int row = ps.executeUpdate();
+            if (row>0) {
+                return true;              
+            }
+            return false;
+        } catch (Exception e) {
+        }
+        return false;
+    }
     public List<Class> searchclass(String classname, int ID_account) {
         List<Class> classes = new ArrayList<>();
         String sql = "SELECT    class.*\n"
@@ -64,15 +78,29 @@ public class ClassDAO extends DBContext {
         }
         return classes;
     }
+    
+    
+    public int getIdByName(String classname){
+        String sql = "select class.Id_class from class where class.Class_name=?";
+        try {
+
+            ps = connection.prepareStatement(sql);
+            ps.setString(1, classname);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                return rs.getInt(1);
+
+            }
+        } catch (Exception e) {
+
+        }
+        return 0;
+    }
+    
+    
 
     public static void main(String[] args) {
         ClassDAO dao = new ClassDAO();
-        AccountDAO adao = new AccountDAO();
-        User a = adao.getUser("nguyenthiminhhang141205@gmail.com");
-//        List<Class> classes = dao.getClassByUser(a.getId_account());
-        List<Class> classes = dao.searchclass("175",1);
-        for (Class o : classes) {
-            System.out.println(o);
-        }
+        System.out.println(dao.getIdByName("abc"));
     }
 }

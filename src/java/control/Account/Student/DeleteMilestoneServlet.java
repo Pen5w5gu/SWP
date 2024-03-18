@@ -5,24 +5,19 @@
 
 package control.Account.Student;
 
-import Dao.CommentDAO;
+import Dao.MilestoneDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import java.util.List;
-import model.Comment;
-import model.Project;
-import model.User;
 
 /**
  *
  * @author acer
  */
-public class AddcommentServlet extends HttpServlet {
+public class DeleteMilestoneServlet extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -33,29 +28,10 @@ public class AddcommentServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        if (session.getAttribute("session") != null) {
-            CommentDAO cdao = new CommentDAO();
-            
-            User user = (User)session.getAttribute("session");
-            
-            int user_id = user.getId_account();
-            String comment = request.getParameter("comment");
-            int task_id = Integer.parseInt(request.getParameter("task_id"));
-            //add comment
-            if (cdao.AddComment(comment, task_id,user_id)) {
-                //chuyen den trang show comment
-
-                request.setAttribute("task_id", task_id);
-                request.getRequestDispatcher("comment").forward(request, response);
-            }
-
-        } else {
-            // User is not logged in or session doesn't exist, redirect to the login page
-            response.sendRedirect("login.jsp");
-        }
-        
-        
+        int milestone_id = Integer.parseInt(request.getParameter("milestone_id"));
+        MilestoneDAO mdao = new MilestoneDAO();
+        mdao.deleteMilestone(milestone_id);
+        request.getRequestDispatcher("milestone").forward(request, response);
     } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -376,7 +376,7 @@
                         <!-- Page Heading -->
                         <h1 class="h3 mb-2 text-gray-800">Milestone</h1>
                         <c:if test="${session.getRole_project() == 'TL'}">
-                            <a href="Add_Milestone.jsp" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                            <a href="Add_Milestone.jsp" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm">
                                 <i class="fa-solid fa-plus"></i> New task
                             </a>
                         </c:if>
@@ -386,16 +386,23 @@
                         <c:if test="${empty milestones}">
                             <p>Không có milestone nào.</p>
                         </c:if>
+                            
                         <c:forEach items="${milestones}" var="milestone">
                             <div class="card shadow mb-4">
                                 <div class="card-header d-sm-flex align-items-center justify-content-between mb-4">
-                                    <h6 class="m-0 font-weight-bold text-primary">${milestone.name_milestone}</h6>
-                                    <c:if test="${session.getRole_project() == 'TL'}">
-                                    <a href="Add_Milestone.jsp" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-                                        <i class="fa-solid fa-pen-to-square"></i> Edit
-                                    </a>
-                                    </c:if>
-                                </div>
+                                <h6 class="m-0 font-weight-bold text-primary">${milestone.name_milestone}</h6>
+                                <c:if test="${session.getRole_project() == 'TL'}">
+                                    <div class="edit-buttons">
+
+                                        <a href="edit_milestone1?milestone_id=${milestone.id_milestone}"  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                                            <i class="fa-solid fa-pen-to-square"></i> Edit
+                                        </a>
+                                        <a href="delete_milestone?milestone_id=${milestone.id_milestone}"  class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm">
+                                            <i class="fa-solid fa-pen-to-square"></i> Delete
+                                        </a>
+                                    </div>
+                                </c:if>
+                            </div>
                                 <div class="card-body">
                                     <c:forEach items="${tasktypes}" var="tasktype">
                                         <%-- Accessing percentage using EL --%>

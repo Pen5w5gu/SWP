@@ -13,16 +13,12 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.util.List;
-import model.Comment;
-import model.Project;
-import model.User;
 
 /**
  *
  * @author acer
  */
-public class AddcommentServlet extends HttpServlet {
+public class EditcommentServlet extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -36,14 +32,12 @@ public class AddcommentServlet extends HttpServlet {
         HttpSession session = request.getSession();
         if (session.getAttribute("session") != null) {
             CommentDAO cdao = new CommentDAO();
-            
-            User user = (User)session.getAttribute("session");
-            
-            int user_id = user.getId_account();
+
             String comment = request.getParameter("comment");
             int task_id = Integer.parseInt(request.getParameter("task_id"));
+            int idcomment = Integer.parseInt(request.getParameter("idcomment"));
             //add comment
-            if (cdao.AddComment(comment, task_id,user_id)) {
+            if (cdao.EditComment(comment, idcomment)) {
                 //chuyen den trang show comment
 
                 request.setAttribute("task_id", task_id);
@@ -54,8 +48,6 @@ public class AddcommentServlet extends HttpServlet {
             // User is not logged in or session doesn't exist, redirect to the login page
             response.sendRedirect("login.jsp");
         }
-        
-        
     } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -82,7 +74,7 @@ public class AddcommentServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        
     }
 
     /** 

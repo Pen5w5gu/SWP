@@ -300,7 +300,7 @@
                         <div class="card shadow mb-4">
                             <div class="card-header d-sm-flex align-items-center justify-content-between mb-4">
                                 <h6 class="m-0  font-weight-bold text-primary">Milestone</h6>
-                                <a href="ShowMilestoneServlet" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fa-solid fa-chevron-left"></i> Back to list milestone</a>
+                                <a href="milestone" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fa-solid fa-chevron-left"></i> Back to list milestone</a>
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">

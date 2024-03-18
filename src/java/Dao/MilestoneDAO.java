@@ -45,6 +45,28 @@ public class MilestoneDAO extends DBContext {
         }
         return milestones;
     }
+    //created by Tung
+    public Milestone getMilestoneByProjectIdAndMilestoneId(int project_id, int milestone_id) {
+
+
+        try {
+            String strSelect = "SELECT    milestone.*\n" +
+"                    FROM         milestone\n" +
+"                    where milestone.Id_Project = ? and milestone.Id_milestone=?";
+            ps = connection.prepareStatement(strSelect);
+            ps.setInt(1, project_id);
+            ps.setInt(2, milestone_id);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                return new Milestone(rs.getInt(1), rs.getString(2), rs.getDate(3), rs.getDate(4), rs.getInt(5));
+            }
+            return null;
+        } catch (SQLException e) {
+            // Consider logging the exception instead of just printing it
+            e.printStackTrace();
+        }
+        return null;
+    }
 
     //created by Tung
     public boolean addMilestone(Milestone milestone) {
@@ -74,8 +96,22 @@ public class MilestoneDAO extends DBContext {
             preparedStatement.setDate(2, startDate);
             preparedStatement.setDate(3, endDate);
             preparedStatement.setInt(4, milestone_id);
-            preparedStatement.setInt(4, project_id);
+            preparedStatement.setInt(5, project_id);
 
+            int rowsAffected = preparedStatement.executeUpdate();
+
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    //created by Tung
+    public boolean deleteMilestone(int milestone_id) {
+        try {
+            String query = "UPDATE milestone SET Id_Project = 4 WHERE id_milestone = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, milestone_id);
             int rowsAffected = preparedStatement.executeUpdate();
 
             return rowsAffected > 0;
@@ -90,6 +126,7 @@ public class MilestoneDAO extends DBContext {
         Date endDate = new Date(System.currentTimeMillis()); // Example initialization
 
         MilestoneDAO dao = new MilestoneDAO();
+         System.out.println(dao.deleteMilestone(5));
         
     }
 }

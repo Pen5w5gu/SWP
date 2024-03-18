@@ -302,6 +302,7 @@
                                                     <td>${x.username}</td>
                                                     <td>${x.email}</td>
                                                     <td>${x.role_project}</td>
+                                                    <td><a href="deleteStudent" ><ion-icon name="trash-outline"></ion-icon></a></td>
                                                 </tr>
                                             </c:forEach>
                                         </tbody>
