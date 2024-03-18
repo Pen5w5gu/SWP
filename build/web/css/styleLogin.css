@@ -1,0 +1,156 @@
+html {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  background-image: url('../img/pexels-pixabay-33109.jpg');
+  background-size: cover;
+}
+
+.login-box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 700px;
+  padding: 40px;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, .5);
+  box-sizing: border-box;
+  box-shadow: 0 15px 25px rgba(0, 0, 0, .6);
+  border-radius: 10px;
+}
+
+.login-box h2 {
+  margin: 0 0 30px;
+  padding: 0;
+  color: white;
+  text-align: center;
+}
+
+.social-container {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.social {
+  display: inline-block;
+  margin: 0 10px;
+  font-size: 30px;
+  color: #fff; /* Màu icon khi không hover */
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.social:hover {
+  color: #c47429; /* Màu icon khi hover */
+}
+.login-box span {
+  display: block;
+  text-align: center;
+  color: #fff; /* Màu cho span */
+  margin: 10px 0; /* Khoảng cách top và bottom */
+  font-size: 16px;
+}
+
+.login-box .user-box {
+  position: relative;
+}
+
+.login-box .user-box input {
+  width: 100%;
+  padding: 10px 0;
+  font-size: 16px;
+  color: #fff;
+  margin-bottom: 30px;
+  border: none;
+  border-bottom: 1px solid #fff;
+  outline: none;
+  background: transparent;
+}
+
+.login-box .user-box label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 10px 0;
+  font-size: 16px;
+  color: #fff;
+  pointer-events: none;
+  transition: .5s;
+}
+
+.login-box .user-box input:focus ~ label,
+.login-box .user-box input:valid ~ label {
+  top: -20px;
+  left: 0;
+  color: #03e9f4;
+  font-size: 12px;
+}
+
+.button-cookie {
+  margin-top: 10px;
+  color: white;
+  font-size: 18px;
+}
+
+.button-cookie label,
+.button-cookie input[type="checkbox"] {
+  font-size: 18px;
+}
+
+.button-submit {
+  text-align: center;
+}
+
+.button-submit button {
+  display: inline-block;
+  padding: 20px 40px; /* Điều chỉnh kích cỡ nút Submit */
+  color: #03e9f4;
+  font-size: 20px;
+  text-decoration: none;
+  text-transform: uppercase;
+  overflow: hidden;
+  transition: background-color 0.5s, padding 0.5s; /* Thêm transition cho padding */
+  border-radius: 5px;
+}
+
+.button-submit button:hover {
+  background-color: #03e9f4;
+  color: #fff;
+  padding: 25px 45px; /* Kích cỡ lớn hơn khi hover vào */
+}
+
+.button-forgot {
+  text-align: right; /* Căn phải */
+  margin-top: 10px;
+}
+
+.button-forgot a {
+  color: #03e9f4;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.button-forgot a:hover {
+  color: #fff;
+}
+
+.form-switch {
+  text-align: center;
+  margin-top: 30px;
+  color: #fff;
+  font-size: 20px;
+}
+
+.form-switch a {
+  color: #03e9f4;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.form-switch a:hover {
+  color: #fff;
+}
