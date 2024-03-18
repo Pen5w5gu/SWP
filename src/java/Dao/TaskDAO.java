@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import model.Task;
 
@@ -117,6 +118,14 @@ public class TaskDAO extends DBContext {
         try {
             // SQL statement to update the taskType of a task
             String query = "UPDATE Task SET taskType_Id = ? WHERE Id_task = ?";
+            if (newTaskTypeId == 1 || newTaskTypeId == 4) {
+                query = "UPDATE [dbo].[Task]\n"
+                        + "   SET \n"
+                        + "      [assign_to] = 0,\n"
+                        + "	  [taskType_Id]=?\n"
+                        + "\n"
+                        + " WHERE Task.Id_task = ?";
+            }
 
             // Create PreparedStatement
             ps = connection.prepareStatement(query);
@@ -165,9 +174,54 @@ public class TaskDAO extends DBContext {
         return null;
     }
 
+    public boolean AssignTask(List<Integer> tasks, int accoint_id) {
+        try {
+
+            for (int i = 0; i < tasks.size(); i++) {
+
+                String strInsert = "UPDATE [dbo].[Task]\n"
+                        + "   SET \n"
+                        + "      [assign_to] = ?,\n"
+                        + "	  [taskType_Id]=2\n"
+                        + "\n"
+                        + " WHERE Task.Id_task = ?";
+                PreparedStatement ps = connection.prepareStatement(strInsert);
+                ps.setInt(1, accoint_id);
+                ps.setInt(2, tasks.get(i));
+
+                // Execute the update
+                int rowsAffected = ps.executeUpdate();
+
+                // Check if any rows were affected
+                if (rowsAffected > 0) {
+
+                } else {
+                    return false; // No rows affected, task not added
+
+                }
+
+            }
+        } catch (SQLException e) {
+            // Handle any SQL exceptions
+            e.printStackTrace();
+            return false;
+        } finally {
+            // Close PreparedStatement if necessary (preferably in a separate finally block)
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return true;
+    }
+
     public static void main(String[] args) {
         TaskDAO taskDAO = new TaskDAO();
-        System.out.println(taskDAO.changeTaskType(4, 3));
+        List<Integer> list = Arrays.asList(3, 4, 5, 6, 7);
+        System.out.println(taskDAO.AssignTask(list, 3));
 
 //        System.out.println(taskDAO.getTaskByID(1));
     }
