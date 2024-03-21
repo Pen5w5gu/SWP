@@ -202,6 +202,24 @@ public class TaskDAO extends DBContext {
         return null;
     }
 
+    public List<Task> getTasksByAccountId(int accountId) {
+        List<Task> tasks = new ArrayList<>();
+        try {
+            String strSelect = "select * from Task where assign_to = ?";
+            ps = connection.prepareStatement(strSelect);
+            ps.setInt(1, accountId);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                tasks.add(new Task(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getDate(4), rs.getDate(5), rs.getInt(6), rs.getInt(7), rs.getInt(8)));
+            }
+            return tasks;
+        } catch (SQLException e) {
+            // Consider logging the exception instead of just printing it
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public boolean AssignTask(List<Integer> tasks, int accoint_id) {
         try {
 
@@ -249,7 +267,7 @@ public class TaskDAO extends DBContext {
     public static void main(String[] args) {
         TaskDAO taskDAO = new TaskDAO();
 
-        System.out.println(taskDAO.getTaskByLecture(4,"1750"));
+        System.out.println(taskDAO.getTaskByLecture(4, "1750"));
 
 //        System.out.println(taskDAO.getTaskByID(1));
     }

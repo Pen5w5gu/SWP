@@ -13,7 +13,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>Task</title>
+        <title>Report</title>
 
         <!-- Custom fonts for this template -->
         <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -37,8 +37,8 @@
     <body id="page-top">
         <script>
             document.addEventListener("DOMContentLoaded", function () {
-                // Danh sách để lưu trữ các ID của task đã được chọn
-                var selectedTasks = [];
+                // Danh sách để lưu trữ các ID của report đã được chọn
+                var selectedReports = [];
 
                 // Lấy thẻ div cha chứa các button
                 var actionButtonsDiv = document.getElementById('actionButtons');
@@ -51,40 +51,40 @@
                     checkbox.addEventListener('click', function () {
                         // Kiểm tra xem checkbox có được chọn hay không
                         if (this.checked) {
-                            // Nếu được chọn, thêm ID của task vào danh sách
-                            selectedTasks.push(this.id);
+                            // Nếu được chọn, thêm ID của report vào danh sách
+                            selectedReports.push(this.id);
                         } else {
-                            // Nếu không được chọn, loại bỏ ID của task khỏi danh sách
-                            var index = selectedTasks.indexOf(this.id);
+                            // Nếu không được chọn, loại bỏ ID của report khỏi danh sách
+                            var index = selectedReports.indexOf(this.id);
                             if (index !== -1) {
-                                selectedTasks.splice(index, 1);
+                                selectedReports.splice(index, 1);
                             }
                         }
 
-                        // Hiển thị các button nếu có ít nhất một task được chọn
-                        displayActionTasks();
+                        // Hiển thị các button nếu có ít nhất một report được chọn
+                        displayActionReports();
                     });
                 });
 
-                // Hàm để hiển thị số lượng task đã được chọn và các button tương ứng
-                function displayActionTasks() {
-                    var taskCountContainer = document.getElementById('taskCount');
+                // Hàm để hiển thị số lượng report đã được chọn và các button tương ứng
+                function displayActionReports() {
+                    var reportCountContainer = document.getElementById('reportCount');
                     var uncheckAllButton = document.getElementById('uncheckAllButton');
                     var sendButton = document.getElementById('sendButton');
 
-                    // Hiển thị số lượng task đã được chọn
-                    taskCountContainer.textContent = 'Số lượng task đã chọn: ' + selectedTasks.length;
+                    // Hiển thị số lượng report đã được chọn
+                    reportCountContainer.textContent = 'Số lượng report đã chọn: ' + selectedReports.length;
 
-                    // Kiểm tra nếu có ít nhất 1 task được chọn thì hiển thị nút gửi và nút bỏ tích tất cả, ngược lại ẩn nút gửi và nút bỏ tích tất cả
-                    if (selectedTasks.length > 0) {
+                    // Kiểm tra nếu có ít nhất 1 report được chọn thì hiển thị nút gửi và nút bỏ tích tất cả, ngược lại ẩn nút gửi và nút bỏ tích tất cả
+                    if (selectedReports.length > 0) {
                         actionButtonsDiv.style.display = 'block';
                     } else {
                         actionButtonsDiv.style.display = 'none';
                     }
                 }
 
-                // Hàm để bỏ tích tất cả các task đã chọn
-                function uncheckAllTasks() {
+                // Hàm để bỏ tích tất cả các report đã chọn
+                function uncheckAllReports() {
                     // Lấy danh sách tất cả các ô checkbox trong bảng
                     var checkboxes = document.querySelectorAll('#dataTable input[type="checkbox"]');
 
@@ -93,16 +93,16 @@
                         checkbox.checked = false;
                     });
 
-                    // Xóa danh sách các task đã chọn và cập nhật hiển thị
-                    selectedTasks = [];
-                    displayActionTasks();
+                    // Xóa danh sách các report đã chọn và cập nhật hiển thị
+                    selectedReports = [];
+                    displayActionReports();
                 }
 
                 // Lấy thẻ button bằng id
                 var uncheckAllButton = document.getElementById('uncheckAllButton');
 
                 // Thêm sự kiện "click" cho button
-                uncheckAllButton.addEventListener('click', uncheckAllTasks);
+                uncheckAllButton.addEventListener('click', uncheckAllReports);
 
                 // Hàm để gửi danh sách ID đã chọn đến servlet
 
@@ -122,7 +122,7 @@
 
                 // Duyệt qua từng checkbox đã chọn và lưu giá trị vào mảng
                 checkboxes.forEach(function (checkbox) {
-                    selectedValues = selectedValues +","+checkbox.value;
+                    selectedValues = selectedValues + "," + checkbox.value;
                 });
 
                 // Trả về chuỗi được cách nhau bằng dấu phẩy
@@ -131,7 +131,7 @@
 
 
 
-            function Sendata(taskId, newTaskTypeId) {
+            function Sendata(reportId, newReportTypeId) {
                 // Tạo một đối tượng XMLHttpRequest
                 var xhr = new XMLHttpRequest();
 
@@ -149,20 +149,20 @@
                     }
                 };
 
-                // Gửi yêu cầu POST với dữ liệu taskId và newTaskTypeId
-                xhr.send("taskId=" + taskId + "&newTaskTypeId=" + newTaskTypeId);
+                // Gửi yêu cầu POST với dữ liệu reportId và newReportTypeId
+                xhr.send("reportId=" + reportId + "&newReportTypeId=" + newReportTypeId);
             }
 
 
-            function sendSelectedTasks() {
+            function sendSelectedReports() {
                 // Lấy chuỗi giá trị đã chọn
                 var selectedValues = getSelectedCheckboxValues();
 
                 // Đường dẫn tới servlet
-                var servletURL = 'select_AssignTask';
+                var servletURL = 'select_AssignReport';
 
-                // Tạo URL với tham số selectedTasks
-                var urlWithParams = servletURL + '?selectedTasks=' + encodeURIComponent(selectedValues);
+                // Tạo URL với tham số selectedReports
+                var urlWithParams = servletURL + '?selectedReports=' + encodeURIComponent(selectedValues);
 
                 // Mở liên kết mới
                 window.open(urlWithParams, '_blank');
@@ -248,7 +248,7 @@
                     </div>
                 </li>
 
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link " href="task">
                         <i class="fa-solid fa-list-check"></i>
                         <span>Task</span></a>
@@ -266,7 +266,7 @@
                         <span>Issue</span></a>
                 </li>
 
-                <li class="nav-item">
+                <li class="nav-item active">
                     <a class="nav-link" href="report">
                         <i class="fas fa-fw fa-chart-area"></i>
                         <span>Report</span></a>
@@ -365,9 +365,9 @@
                                                     <div>
                                                         <div class="small text-gray-500">${noti.date}</div>
                                                         <span class="font-weight-bold">${noti.user_name} ${noti.notification} 
-                                                            <c:forEach items="${tasks}" var="task"> 
-                                                                <c:if test="${task.idTask == noti.id_task}">
-                                                                    ${task.taskName}
+                                                            <c:forEach items="${reports}" var="report"> 
+                                                                <c:if test="${report.idReport == noti.id_report}">
+                                                                    ${report.reportName}
                                                                 </c:if>
                                                             </c:forEach>
                                                         </span>
@@ -428,24 +428,24 @@
                     <div class="container-fluid">
 
                         <!-- Page Heading -->
-                        <h1 class="h3 mb-2 text-gray-800">Task</h1>
-                        <p class="mb-4">List of task</p>
+                        <h1 class="h3 mb-2 text-gray-800">Report</h1>
+                        <p class="mb-4">List of report</p>
 
                         <!-- DataTales Example -->
                         <div class="card shadow mb-4 ">
                             <div class="card-header d-sm-flex align-items-center justify-content-between mb-4">
-                                <h6 class="m-0  font-weight-bold text-primary">Task</h6>
+                                <h6 class="m-0  font-weight-bold text-primary">Report</h6>
                                 <h1>${roleProject}</h1>
                                 <c:if test="${session.getRole_project() == 'TL'}">
-                                    <a href="Add_Task.jsp" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-                                        <i class="fa-solid fa-plus"></i> New task
+                                    <a href="add_report" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                                        <i class="fa-solid fa-plus"></i> New report
                                     </a>
                                 </c:if>
                             </div>
                             <div id="actionButtons" style="display:none; margin-left: 20px;">
-                                <p id="taskCount">Số lượng task đã chọn: 0</p>
+                                <p id="reportCount">Số lượng report đã chọn: 0</p>
                                 <button id="uncheckAllButton" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm ">Bỏ tích tất cả</button>
-                                <button id="sendButton" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm " onclick="sendSelectedTasks()">Gửi danh sách ID đã chọn</button>
+                                <button id="sendButton" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm " onclick="sendSelectedReports()">Gửi danh sách ID đã chọn</button>
 
                             </div>
                             <div class="card-body">
@@ -454,61 +454,32 @@
                                         <table class="table table-bordered" id="dataTable" width="100%"
                                                cellspacing="0">
                                             <thead>
-                                                <tr><c:if test="${session.getRole_project() == 'TL'}">
-                                                    <th> Select</th></c:if>
-                                                    <th >ID ${session.getRole_project()}</th>
-                                                    <th>Task name</th>
-                                                    <th>Milestone</th>
-                                                    <th>Task description</th>
-                                                    <th>Start_date</th>
-                                                    <th>End_Date</th>
-                                                    <th>Status</th>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Date</th>
+                                                    <th>Work Done</th>
+                                                    <th>Planning Tomorrow</th>
+                                                    <th>Issue</th>
+                                                    <th>Notes</th>
+                                                    <th>Task</th>
+                                                    <th>Action</th>
                                                 </tr>
                                             </thead>
-                                            <ul id="taskList">
+                                            <ul id="reportList">
                                                 <tbody>
 
-                                                    <c:forEach items="${tasks}" var="task" varStatus="loop">
+                                                    <c:forEach items="${reports}" var="report" varStatus="loop">
                                                         <tr>
-                                                            <c:if test="${session.getRole_project() == 'TL'}">
-                                                            <td> <input type="checkbox" id="${task.idTask}" value="${task.idTask}" ></td>
-                                                            </c:if>
                                                             <td>${loop.index + 1}</td>
+                                                            <td>${report.date}</td>
+                                                            <td>${report.workDone}</td>
+                                                            <td>${report.planningTomorrow}</td>
+                                                            <td>${report.issue}</td>
+                                                            <td>${report.notes}</td>
+                                                            <td>${report.task.taskName}</td>
                                                             <td>
-                                                                <input type="hidden" name="task_id" value="${task.idTask}">
-                                                                <button type="submit" class="nav-link text-primary" style=" border: none; background-color: transparent; padding: 0; cursor: pointer;" >${task.taskName}</button>
-                                                            </td>
-                                                            <td>
-                                                                <%-- Iterate through milestones to find the corresponding milestone name --%>
-                                                                <c:forEach items="${milestones}" var="milestone">
-                                                                    <c:if test="${milestone.id_milestone == task.idMilestone}">
-                                                                        ${milestone.name_milestone}
-                                                                    </c:if>
-                                                                </c:forEach>
-                                                            </td>
-                                                            <td>${task.taskDescription}</td>
-                                                            <td>${task.startDate}</td>
-                                                            <td>${task.endDate}</td>
-
-                                                            <td>
-                                                                <%-- Display task type --%>
-                                                                <c:choose>
-                                                                    <c:when test="${session.getRole_project() == 'TL'}">
-                                                                        <select class="form-control bg-light border-0 small" name="taskType" id="taskType_${loop.index}" onchange="Sendata(${task.idTask}, this.value)">
-                                                                            <c:forEach items="${tasktypes}" var="tasktypeText">
-                                                                                <option value="${tasktypeText.taskType_Id}" <c:if test="${tasktypeText.taskType_Id == task.taskTypeId}">selected</c:if>>${tasktypeText.taskType_Name}</option>
-                                                                            </c:forEach>
-                                                                        </select>
-                                                                    </c:when>
-
-                                                                    <c:otherwise>
-                                                                        <c:forEach items="${tasktypes}" var="tasktypeText">
-                                                                            <c:if test="${tasktypeText.taskType_Id == task.taskTypeId}">
-                                                                                ${tasktypeText.taskType_Name}
-                                                                            </c:if>
-                                                                        </c:forEach>
-                                                                    </c:otherwise>
-                                                                </c:choose>
+                                                                <a class="btn btn-primary" href="${pageContext.request.contextPath}/edit_report?id=${report.id}">Edit</a>
+                                                                <a class="btn btn-danger" href="${pageContext.request.contextPath}/delete_report?id=${report.id}">Delete</a>
                                                             </td>
                                                         </tr>
                                                     </c:forEach>

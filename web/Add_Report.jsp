@@ -1,7 +1,6 @@
 <%-- Document : Showstudentinclass Created on : Feb 21, 2024, 1:54:14 AM Author : tieup --%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
-<%@ page import="model.User" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,7 +12,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>Task</title>
+        <title>Report</title>
 
         <!-- Custom fonts for this template -->
         <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -27,7 +26,8 @@
             rel="stylesheet">
 
         <!-- Custom styles for this template -->
-        <link href="css/task.css" rel="stylesheet">
+        <link href="css/profile.css" rel="stylesheet">
+        <link href="css/profile_setting.css" rel="stylesheet">
 
         <!-- Custom styles for this page -->
         <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
@@ -35,149 +35,6 @@
     </head>
 
     <body id="page-top">
-        <script>
-            document.addEventListener("DOMContentLoaded", function () {
-                // Danh sách để lưu trữ các ID của task đã được chọn
-                var selectedTasks = [];
-
-                // Lấy thẻ div cha chứa các button
-                var actionButtonsDiv = document.getElementById('actionButtons');
-
-                // Lấy tất cả các checkbox
-                var checkboxes = document.querySelectorAll('input[type="checkbox"]');
-
-                // Thêm sự kiện "click" cho mỗi checkbox
-                checkboxes.forEach(function (checkbox) {
-                    checkbox.addEventListener('click', function () {
-                        // Kiểm tra xem checkbox có được chọn hay không
-                        if (this.checked) {
-                            // Nếu được chọn, thêm ID của task vào danh sách
-                            selectedTasks.push(this.id);
-                        } else {
-                            // Nếu không được chọn, loại bỏ ID của task khỏi danh sách
-                            var index = selectedTasks.indexOf(this.id);
-                            if (index !== -1) {
-                                selectedTasks.splice(index, 1);
-                            }
-                        }
-
-                        // Hiển thị các button nếu có ít nhất một task được chọn
-                        displayActionTasks();
-                    });
-                });
-
-                // Hàm để hiển thị số lượng task đã được chọn và các button tương ứng
-                function displayActionTasks() {
-                    var taskCountContainer = document.getElementById('taskCount');
-                    var uncheckAllButton = document.getElementById('uncheckAllButton');
-                    var sendButton = document.getElementById('sendButton');
-
-                    // Hiển thị số lượng task đã được chọn
-                    taskCountContainer.textContent = 'Số lượng task đã chọn: ' + selectedTasks.length;
-
-                    // Kiểm tra nếu có ít nhất 1 task được chọn thì hiển thị nút gửi và nút bỏ tích tất cả, ngược lại ẩn nút gửi và nút bỏ tích tất cả
-                    if (selectedTasks.length > 0) {
-                        actionButtonsDiv.style.display = 'block';
-                    } else {
-                        actionButtonsDiv.style.display = 'none';
-                    }
-                }
-
-                // Hàm để bỏ tích tất cả các task đã chọn
-                function uncheckAllTasks() {
-                    // Lấy danh sách tất cả các ô checkbox trong bảng
-                    var checkboxes = document.querySelectorAll('#dataTable input[type="checkbox"]');
-
-                    // Duyệt qua từng checkbox và bỏ tích
-                    checkboxes.forEach(function (checkbox) {
-                        checkbox.checked = false;
-                    });
-
-                    // Xóa danh sách các task đã chọn và cập nhật hiển thị
-                    selectedTasks = [];
-                    displayActionTasks();
-                }
-
-                // Lấy thẻ button bằng id
-                var uncheckAllButton = document.getElementById('uncheckAllButton');
-
-                // Thêm sự kiện "click" cho button
-                uncheckAllButton.addEventListener('click', uncheckAllTasks);
-
-                // Hàm để gửi danh sách ID đã chọn đến servlet
-
-
-
-
-
-            });
-        </script>
-        <script>
-            function getSelectedCheckboxValues() {
-                // Khởi tạo mảng để lưu trữ các giá trị đã chọn
-                var selectedValues = "";
-
-                // Lấy tất cả các checkbox
-                var checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
-
-                // Duyệt qua từng checkbox đã chọn và lưu giá trị vào mảng
-                checkboxes.forEach(function (checkbox) {
-                    selectedValues = selectedValues +","+checkbox.value;
-                });
-
-                // Trả về chuỗi được cách nhau bằng dấu phẩy
-                return selectedValues;
-            }
-
-
-
-            function Sendata(taskId, newTaskTypeId) {
-                // Tạo một đối tượng XMLHttpRequest
-                var xhr = new XMLHttpRequest();
-
-                // Thiết lập phương thức và URL cho servlet
-                xhr.open("POST", "shange_status", true);
-                xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-
-                // Thiết lập hàm xử lý khi nhận được phản hồi từ server
-                xhr.onreadystatechange = function () {
-                    if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-                        // Xử lý phản hồi từ server nếu cần
-                        console.log("Dữ liệu đã được gửi thành công!");
-                    } else {
-                        console.log("Failed");
-                    }
-                };
-
-                // Gửi yêu cầu POST với dữ liệu taskId và newTaskTypeId
-                xhr.send("taskId=" + taskId + "&newTaskTypeId=" + newTaskTypeId);
-            }
-
-
-            function sendSelectedTasks() {
-                // Lấy chuỗi giá trị đã chọn
-                var selectedValues = getSelectedCheckboxValues();
-
-                // Đường dẫn tới servlet
-                var servletURL = 'select_AssignTask';
-
-                // Tạo URL với tham số selectedTasks
-                var urlWithParams = servletURL + '?selectedTasks=' + encodeURIComponent(selectedValues);
-
-                // Mở liên kết mới
-                window.open(urlWithParams, '_blank');
-            }
-
-
-            function openNewPage() {
-                // Đường dẫn tới trang mới
-                var newPageURL = 'login.jsp'; // Thay đổi thành URL của trang bạn muốn mở
-
-                // Mở trang mới
-                window.location.href = newPageURL;
-            }
-
-        </script>
 
         <!-- Page Wrapper -->
         <div id="wrapper">
@@ -248,7 +105,7 @@
                     </div>
                 </li>
 
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link " href="task">
                         <i class="fa-solid fa-list-check"></i>
                         <span>Task</span></a>
@@ -266,7 +123,7 @@
                         <span>Issue</span></a>
                 </li>
 
-                <li class="nav-item">
+                <li class="nav-item active">
                     <a class="nav-link" href="report">
                         <i class="fas fa-fw fa-chart-area"></i>
                         <span>Report</span></a>
@@ -353,33 +210,41 @@
                                     <h6 class="dropdown-header">
                                         Alerts Center
                                     </h6>
-                                    <c:choose>
-                                        <c:when test="${not empty notifications}">
-                                            <c:forEach items="${notifications}" var="noti">
-                                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                                    <div class="mr-3">
-                                                        <div class="icon-circle bg-primary">
-                                                            <i class="fas fa-file-alt text-white"></i>
-                                                        </div>
-                                                    </div>
-                                                    <div>
-                                                        <div class="small text-gray-500">${noti.date}</div>
-                                                        <span class="font-weight-bold">${noti.user_name} ${noti.notification} 
-                                                            <c:forEach items="${tasks}" var="task"> 
-                                                                <c:if test="${task.idTask == noti.id_task}">
-                                                                    ${task.taskName}
-                                                                </c:if>
-                                                            </c:forEach>
-                                                        </span>
-                                                    </div>
-                                                </a>
-                                            </c:forEach> 
-                                        </c:when>
-                                        <c:otherwise>
-                                            <p class="text-center" style="padding-top: 10px">No notifications available</p>
-                                        </c:otherwise>
-                                    </c:choose>
-
+                                    <a class="dropdown-item d-flex align-items-center" href="#">
+                                        <div class="mr-3">
+                                            <div class="icon-circle bg-primary">
+                                                <i class="fas fa-file-alt text-white"></i>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="small text-gray-500">December 12, 2019</div>
+                                            <span class="font-weight-bold">A new monthly report is ready to
+                                                download!</span>
+                                        </div>
+                                    </a>
+                                    <a class="dropdown-item d-flex align-items-center" href="#">
+                                        <div class="mr-3">
+                                            <div class="icon-circle bg-success">
+                                                <i class="fas fa-donate text-white"></i>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="small text-gray-500">December 7, 2019</div>
+                                            $290.29 has been deposited into your account!
+                                        </div>
+                                    </a>
+                                    <a class="dropdown-item d-flex align-items-center" href="#">
+                                        <div class="mr-3">
+                                            <div class="icon-circle bg-warning">
+                                                <i class="fas fa-exclamation-triangle text-white"></i>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="small text-gray-500">December 2, 2019</div>
+                                            Spending Alert: We've noticed unusually high spending for your
+                                            account.
+                                        </div>
+                                    </a>
                                     <a class="dropdown-item text-center small text-gray-500" href="#">Show All
                                         Alerts</a>
                                 </div>
@@ -398,11 +263,11 @@
                                 <!-- Dropdown - User Information -->
                                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                      aria-labelledby="userDropdown">
-                                    <a class="dropdown-item" href="#">
+                                    <a class="dropdown-item" href="profile">
                                         <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Profile
                                     </a>
-                                    <a class="dropdown-item" href="#">
+                                    <a class="dropdown-item" href="change_info">
                                         <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Settings
                                     </a>
@@ -428,94 +293,65 @@
                     <div class="container-fluid">
 
                         <!-- Page Heading -->
-                        <h1 class="h3 mb-2 text-gray-800">Task</h1>
-                        <p class="mb-4">List of task</p>
+                        <h1 class="h3 mb-2 text-gray-800">Report</h1>
+                        <p class="mb-4">Add report</p>
 
                         <!-- DataTales Example -->
                         <div class="card shadow mb-4 ">
                             <div class="card-header d-sm-flex align-items-center justify-content-between mb-4">
-                                <h6 class="m-0  font-weight-bold text-primary">Task</h6>
-                                <h1>${roleProject}</h1>
-                                <c:if test="${session.getRole_project() == 'TL'}">
-                                    <a href="Add_Task.jsp" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-                                        <i class="fa-solid fa-plus"></i> New task
-                                    </a>
-                                </c:if>
-                            </div>
-                            <div id="actionButtons" style="display:none; margin-left: 20px;">
-                                <p id="taskCount">Số lượng task đã chọn: 0</p>
-                                <button id="uncheckAllButton" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm ">Bỏ tích tất cả</button>
-                                <button id="sendButton" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm " onclick="sendSelectedTasks()">Gửi danh sách ID đã chọn</button>
-
+                                <h6 class="m-0  font-weight-bold text-primary">Report</h6>
+                                <a href="report"
+                                   class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fa-solid fa-chevron-left"></i> Back to report</a>
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <form action="comment" method="POST">
-                                        <table class="table table-bordered" id="dataTable" width="100%"
-                                               cellspacing="0">
-                                            <thead>
-                                                <tr><c:if test="${session.getRole_project() == 'TL'}">
-                                                    <th> Select</th></c:if>
-                                                    <th >ID ${session.getRole_project()}</th>
-                                                    <th>Task name</th>
-                                                    <th>Milestone</th>
-                                                    <th>Task description</th>
-                                                    <th>Start_date</th>
-                                                    <th>End_Date</th>
-                                                    <th>Status</th>
-                                                </tr>
-                                            </thead>
-                                            <ul id="taskList">
-                                                <tbody>
+                                    <p class="text-danger">${error}</p>
+                                    <p class="text-success">${success}</p>
+                                    <table class="table table-bordered" id="dataTable" width="100%"
+                                           cellspacing="0">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Date</th>
+                                                <th>Work Done</th>
+                                                <th>Planning Tomorrow</th>
+                                                <th>Issue</th>
+                                                <th>Notes</th>
+                                                <th>Report</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
 
-                                                    <c:forEach items="${tasks}" var="task" varStatus="loop">
-                                                        <tr>
-                                                            <c:if test="${session.getRole_project() == 'TL'}">
-                                                            <td> <input type="checkbox" id="${task.idTask}" value="${task.idTask}" ></td>
-                                                            </c:if>
-                                                            <td>${loop.index + 1}</td>
-                                                            <td>
-                                                                <input type="hidden" name="task_id" value="${task.idTask}">
-                                                                <button type="submit" class="nav-link text-primary" style=" border: none; background-color: transparent; padding: 0; cursor: pointer;" >${task.taskName}</button>
-                                                            </td>
-                                                            <td>
-                                                                <%-- Iterate through milestones to find the corresponding milestone name --%>
-                                                                <c:forEach items="${milestones}" var="milestone">
-                                                                    <c:if test="${milestone.id_milestone == task.idMilestone}">
-                                                                        ${milestone.name_milestone}
-                                                                    </c:if>
-                                                                </c:forEach>
-                                                            </td>
-                                                            <td>${task.taskDescription}</td>
-                                                            <td>${task.startDate}</td>
-                                                            <td>${task.endDate}</td>
-
-                                                            <td>
-                                                                <%-- Display task type --%>
-                                                                <c:choose>
-                                                                    <c:when test="${session.getRole_project() == 'TL'}">
-                                                                        <select class="form-control bg-light border-0 small" name="taskType" id="taskType_${loop.index}" onchange="Sendata(${task.idTask}, this.value)">
-                                                                            <c:forEach items="${tasktypes}" var="tasktypeText">
-                                                                                <option value="${tasktypeText.taskType_Id}" <c:if test="${tasktypeText.taskType_Id == task.taskTypeId}">selected</c:if>>${tasktypeText.taskType_Name}</option>
-                                                                            </c:forEach>
-                                                                        </select>
-                                                                    </c:when>
-
-                                                                    <c:otherwise>
-                                                                        <c:forEach items="${tasktypes}" var="tasktypeText">
-                                                                            <c:if test="${tasktypeText.taskType_Id == task.taskTypeId}">
-                                                                                ${tasktypeText.taskType_Name}
-                                                                            </c:if>
-                                                                        </c:forEach>
-                                                                    </c:otherwise>
-                                                                </c:choose>
-                                                            </td>
-                                                        </tr>
+                                        <tbody>
+                                            <tr>
+                                        <form action="add_report" method="post">
+                                            <th><input type="text" name="id" class="form-control" value="" disabled ></th>
+                                            <th><input type="date" name="date" class="form-control" required=""></th>
+                                            <th><input type="text" name="workDone" class="form-control" required=""></th>
+                                            <th><input type="text" name="planningTomorrow" class="form-control"></th>
+                                            <th><input type="text" name="issue" class="form-control" required=""></th>
+                                            <th><input type="text" name="notes" class="form-control" required=""></th>
+                                            <th>
+                                                <select class="form-control bg-light border-0 small" name="taskId">
+                                                    <c:forEach var="task" items="${tasks}">
+                                                        <option value="${task.idTask}">${task.taskName}</option>
                                                     </c:forEach>
-                                                </tbody>
-                                            </ul>
-                                        </table>
-                                    </form>
+                                                </select>
+                                            </th>
+                                            <th><button type="submit" class="btn btn-primary">Save</button></th>
+                                        </form>
+                                        </tr>
+                                        <c:forEach items="${projects}" var="x" varStatus="loop">
+                                            <tr>
+                                                <td>${loop.index + 1}</td>
+                                                <td>${x.project_name}</td>
+                                                <td>${x.start_date}</td>
+                                                <td>${x.end_date}</td>
+
+                                            </tr>
+                                        </c:forEach>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -553,13 +389,11 @@
                     <div class="modal-footer">
                         <button class="btn btn-secondary" type="button"
                                 data-dismiss="modal">Cancel</button>
-                        <a class="btn btn-primary" href="login.jsp">Logout</a>
+                        <a class="btn btn-primary" href="logout">Logout</a>
                     </div>
                 </div>
             </div>
         </div>
-
-
 
         <!-- Bootstrap core JavaScript-->
         <script src="vendor/jquery/jquery.min.js"></script>
