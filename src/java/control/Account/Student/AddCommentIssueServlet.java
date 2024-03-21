@@ -2,12 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-
 package control.Account.Student;
 
 import Dao.CommentDAO;
+import Dao.CommentIssueDAO;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -18,45 +19,48 @@ import model.User;
  *
  * @author acer
  */
-public class AddcommentServlet extends HttpServlet {
-   
-    /** 
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
+@WebServlet(name = "AddCommentIssueServlet", urlPatterns = {"/add_comment_issue"})
+public class AddCommentIssueServlet extends HttpServlet {
+
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         HttpSession session = request.getSession();
         if (session.getAttribute("session") != null) {
-            CommentDAO cdao = new CommentDAO();
-            
-            User user = (User)session.getAttribute("session");
-            
-            int user_id = user.getId_account();
+            CommentIssueDAO cdao = new CommentIssueDAO();
+
+            User user = (User) session.getAttribute("session");
+
+            int accountId = user.getId_account();
             String comment = request.getParameter("comment");
-            int task_id = Integer.parseInt(request.getParameter("task_id"));
+            int issueId = Integer.parseInt(request.getParameter("issueId"));
             //add comment
-            if (cdao.AddComment(comment, task_id,user_id)) {
+            if (cdao.AddComment(comment, issueId, accountId)) {
                 //chuyen den trang show comment
 
-                request.setAttribute("task_id", task_id);
-                request.getRequestDispatcher("comment").forward(request, response);
+                request.setAttribute("issueId", issueId);
+                response.sendRedirect(request.getContextPath() + "/comment_issue?id=" + issueId);
             }
 
         } else {
             // User is not logged in or session doesn't exist, redirect to the login page
             response.sendRedirect("login.jsp");
         }
-        
-        
-    } 
+
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /** 
+    /**
      * Handles the HTTP <code>GET</code> method.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -64,12 +68,13 @@ public class AddcommentServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         processRequest(request, response);
-    } 
+    }
 
-    /** 
+    /**
      * Handles the HTTP <code>POST</code> method.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -77,12 +82,13 @@ public class AddcommentServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         processRequest(request, response);
     }
 
-    /** 
+    /**
      * Returns a short description of the servlet.
+     *
      * @return a String containing servlet description
      */
     @Override
