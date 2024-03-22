@@ -18,7 +18,7 @@ import model.Project;
  *
  * @author ns
  */
-@WebServlet(name = "ShowReportStudentServlet", urlPatterns = {"/issue"})
+@WebServlet(name = "ShowIssueStudentServlet", urlPatterns = {"/issue"})
 public class ShowIssueStudentServlet extends HttpServlet {
 
     private static final String VIEW_PATH = "/Issue.jsp";
