@@ -19,10 +19,6 @@ import model.Task;
 import model.User;
 import model.Report;
 
-/**
- *
- * @author ns
- */
 @WebServlet(name = "EditReportStudentServlet", urlPatterns = {"/edit_report"})
 public class EditReportStudentServlet extends HttpServlet {
 

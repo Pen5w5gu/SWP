@@ -59,7 +59,9 @@ public class IssueDAO extends DBContext {
     }
 
     public List<Issue> getIssuesByProjectId(int projectId) {
-        String sql = "SELECT Id, project_id, account_id, name, content, status, created_at FROM Issue WHERE project_id = ?";
+        String sql = "SELECT Id, project_id, account_id, name, content, status, created_at \n"
+                + "FROM Issue \n"
+                + "WHERE project_id = ?";
         List<Issue> issues = new ArrayList<>();
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
@@ -83,7 +85,8 @@ public class IssueDAO extends DBContext {
     }
 
     public Issue addIssue(Issue issue) {
-        String sql = "INSERT INTO Issue(project_id, account_id, name, content, status, created_at) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO \n"
+                + "Issue(project_id, account_id, [name], content, [status], created_at) VALUES (?, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, issue.getProjectId());

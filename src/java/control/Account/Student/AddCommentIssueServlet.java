@@ -15,10 +15,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import model.User;
 
-/**
- *
- * @author acer
- */
 @WebServlet(name = "AddCommentIssueServlet", urlPatterns = {"/add_comment_issue"})
 public class AddCommentIssueServlet extends HttpServlet {
 

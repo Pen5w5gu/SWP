@@ -260,16 +260,16 @@
                         <span>Milestone</span></a>
                 </li>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="charts.html">
-                        <i class="fas fa-fw fa-chart-area"></i>
-                        <span>Issue</span></a>
-                </li>
-
                 <li class="nav-item active">
                     <a class="nav-link" href="issue">
                         <i class="fas fa-fw fa-chart-area"></i>
                         <span>Issue</span></a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="report">
+                        <i class="fas fa-fw fa-chart-area"></i>
+                        <span>Report</span></a>
                 </li>
 
                 <!-- Divider -->

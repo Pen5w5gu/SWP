@@ -10,10 +10,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.Issue;
 
-/**
- *
- * @author ns
- */
 @WebServlet(name = "ChangeStatusIssueServlet", urlPatterns = {"/change_status_issue"})
 public class ChangeStatusIssueServlet extends HttpServlet {
 

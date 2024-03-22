@@ -10,10 +10,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import model.Issue;
 
-/**
- *
- * @author ns
- */
 @WebServlet(name = "EditIssueStudentServlet", urlPatterns = {"/edit_issue"})
 public class EditIssueStudentServlet extends HttpServlet {
     

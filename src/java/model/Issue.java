@@ -6,10 +6,6 @@ package model;
 
 import java.sql.Timestamp;
 
-/**
- *
- * @author ns
- */
 public class Issue {
 
     private Integer id;

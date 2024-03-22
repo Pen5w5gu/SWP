@@ -13,10 +13,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Report;
 
-/**
- *
- * @author ns
- */
 public class ReportDAO extends DBContext {
 
     public List<Report> getAllReports() {
@@ -98,8 +94,9 @@ public class ReportDAO extends DBContext {
     }
 
     public Report addRepost(Report report) {
-        String sql = "insert into Daily_report(Date, Work_Done, Planning_Tomorrow, issue, Notes, Id_task, account_id) \n"
-                + "values (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO\n"
+                + "Daily_report(Date, Work_Done, Planning_Tomorrow, issue, Notes, Id_task, account_id) \n"
+                + "\"values (?, ?, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setDate(1, report.getDate());
@@ -120,7 +117,9 @@ public class ReportDAO extends DBContext {
     }
 
     public Report updateReport(Report report) {
-        String sql = "update Daily_report set Date = ?, Work_Done = ?, Planning_Tomorrow = ?, issue = ?, Notes = ?, Id_task = ?\n"
+        String sql = "UPDATE\n"
+                + "Daily_report set Date = ?, Work_Done = ?, Planning_Tomorrow = ?,\n"
+                + "issue = ?, Notes = ?, Id_task = ?\n"
                 + "where Id_Report = ?";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
@@ -141,7 +140,7 @@ public class ReportDAO extends DBContext {
         return null;
     }
 
-    public void delete(Integer id) {
+    public void deleteReport(Integer id) {
         String sql = "DELETE FROM Daily_report WHERE Id_Report = ?";
         try {
             PreparedStatement statement = connection.prepareStatement(sql);

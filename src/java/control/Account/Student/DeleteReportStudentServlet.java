@@ -9,10 +9,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-/**
- *
- * @author ns
- */
 @WebServlet(name = "DeleteReportStudentServlet", urlPatterns = {"/delete_report"})
 public class DeleteReportStudentServlet extends HttpServlet {
 
@@ -29,7 +25,7 @@ public class DeleteReportStudentServlet extends HttpServlet {
 
         int id = Integer.parseInt(request.getParameter("id"));
 
-        reportDAO.delete(id);
+        reportDAO.deleteReport(id);
 
         response.sendRedirect(request.getContextPath() + "/report");
     }

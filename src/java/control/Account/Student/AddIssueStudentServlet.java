@@ -14,10 +14,6 @@ import model.Project;
 import model.User;
 import model.Issue;
 
-/**
- *
- * @author ns
- */
 @WebServlet(name = "AddIssueStudentServlet", urlPatterns = {"/add_issue"})
 public class AddIssueStudentServlet extends HttpServlet {
 

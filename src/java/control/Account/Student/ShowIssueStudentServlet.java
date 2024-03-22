@@ -14,10 +14,6 @@ import java.util.List;
 import model.Issue;
 import model.Project;
 
-/**
- *
- * @author ns
- */
 @WebServlet(name = "ShowIssueStudentServlet", urlPatterns = {"/issue"})
 public class ShowIssueStudentServlet extends HttpServlet {
 

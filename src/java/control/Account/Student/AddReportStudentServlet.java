@@ -19,10 +19,6 @@ import model.Task;
 import model.User;
 import model.Report;
 
-/**
- *
- * @author ns
- */
 @WebServlet(name = "AddReportStudentServlet", urlPatterns = {"/add_report"})
 public class AddReportStudentServlet extends HttpServlet {
 
@@ -40,10 +36,6 @@ public class AddReportStudentServlet extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/login.jsp");
             return;
         }
-        
-//        User user = (User) session.getAttribute("session");
-//        int accountId = user.getId_account();
-//        List<Task> tasks = taskDAO.getTasksByAccountId(accountId);
 
         Project project = (Project) session.getAttribute("project");
         int project_id = project.getId_Project();
