@@ -1,0 +1,23 @@
+.button-flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0px 10px;
+}
+
+tr.disabled {
+    opacity: 0.5; /* Đặt độ mờ của hàng */
+}
+
+.title{
+    width: 100%
+}
+
+.textarea-500 {
+    height: 500px;
+}
+
+.flex-justify-end {
+    display: flex;
+    justify-content: flex-end;
+}
