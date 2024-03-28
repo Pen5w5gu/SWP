@@ -101,8 +101,9 @@
                                 <c:if test="${not empty id_account}">
                                     <h1 style="cursor: pointer;" onclick="Grade(${id_account})">${user_name}</h1>
                                 </c:if>
-                                <div class="table-responsive">
-                                    <form action="comment" method="POST">
+                                <form action="comment" method="POST">
+                                    <div class="table-responsive">
+
                                         <table class="table table-bordered" id="dataTable" width="100%"
                                                cellspacing="0">
                                             <thead>
@@ -168,8 +169,8 @@
                                                 </tbody>
                                             </ul>
                                         </table>
-                                    </form>
-                                </div>
+                                    </div>
+                                </form> 
                             </div>
                         </div>
 

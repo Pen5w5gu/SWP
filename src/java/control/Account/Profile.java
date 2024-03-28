@@ -5,6 +5,7 @@
 package control.Account;
 
 import Dao.AccountDAO;
+import Dao.ClassDAO;
 import Dao.NotificationDAO;
 import Dao.TaskDAO;
 import java.io.IOException;
@@ -90,17 +91,26 @@ public class Profile extends HttpServlet {
                 Role userRole = dao.getUserRole(user.getEmail());
 
                 if (user.getId_role() == 1) {
-
+                    //Classes for sidebar
+                    User account = dao.getUser(user.getEmail());
+                    ClassDAO cdao = new ClassDAO();
+                    List<model.Class> classes = cdao.getClassByUser(account.getId_account());
+                    request.setAttribute("classes", classes);
                 } else {
+                    
+                    //Notification
                     TaskDAO tdao = new TaskDAO();
                     Project project = (Project) session.getAttribute("project");
                     int project_id = project.getId_Project();
+
                     NotificationDAO notidao = new NotificationDAO();
                     List<Task> tasks = tdao.getTaskByProject(project_id);
                     List<Notification> notifications = notidao.getAllNotiInProject(project_id);
+
                     request.setAttribute("tasks", tasks);
                     request.setAttribute("notifications", notifications);
                 }
+
                 // Set thông tin vai trò vào tài khoản
                 accountProfile.setRole(userRole);
                 request.setAttribute("user", accountProfile);

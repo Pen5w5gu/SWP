@@ -98,8 +98,8 @@
 
                             </div>
                             <div class="card-body">
-                                <div class="table-responsive">
-                                    <form action="comment" method="POST">
+                                <form action="comment" method="POST">
+                                    <div class="table-responsive">
                                         <table class="table table-bordered" id="dataTable" width="100%"
                                                cellspacing="0">
                                             <thead>
@@ -156,8 +156,8 @@
                                                 </tbody>
                                             </ul>
                                         </table>
-                                    </form>
-                                </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
 

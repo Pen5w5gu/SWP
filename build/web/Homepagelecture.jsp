@@ -82,9 +82,16 @@
                                                                 </div>
                                                             </div>
                                                             <div class="col-auto">
-                                                                <i
-                                                                    class="fa-solid fa-user-astronaut fa-2x text-gray-300"></i>
+                                                                <!--Chart Grade-->
+                                                                <form action="showproject" method="GET" >
+                                                                    <a href='ChartGrade.jsp'>
+                                                                        <i class="fa-solid fa-chart-pie fa-2x text-gray-300"></i>
+                                                                    </a>
+                                                                    <input type="hidden" name="class_name" value="${myclass.class_name}">
+                                                                </form>
+                                                                
                                                             </div>
+                                                                
                                                             <div class="col-12 text-right d-flex justify-content-end align-items-center">
                                                                 <form id="form_${myclass.class_name}" action="showproject" method="GET"
                                                                       class="mr-2">

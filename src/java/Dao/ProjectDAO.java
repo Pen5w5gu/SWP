@@ -71,28 +71,6 @@ public class ProjectDAO extends DBContext {
         return projects;
     }
 
-    public List<Project> getProjectbyIdAccount(int ID_Account) {
-        List<Project> projects = new ArrayList<>();
-
-        try {
-            String strSelect = "SELECT TOP 1 Project.*\n"
-                    + "FROM         Account INNER JOIN\n"
-                    + "                      [Join] ON Account.ID_account = [Join].ID_account INNER JOIN\n"
-                    + "                      Project ON [Join].Id_Project = Project.Id_Project\n"
-                    + "where Account.ID_account = ? and [Join].Allow_access=1";
-            ps = connection.prepareStatement(strSelect);
-            ps.setInt(1, ID_Account);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                projects.add(new Project(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getDate(4), rs.getDate(5)));
-            }
-            return projects;
-        } catch (SQLException e) {
-            // Consider logging the exception instead of just printing it
-            e.printStackTrace();
-        }
-        return projects;
-    }
 
     public boolean addProjectByName(String projectName, String description, Date startDate, Date endDate) {
         // Default values for description, start date, and end date if not provided

@@ -5,6 +5,7 @@
 package control.Account;
 
 import Dao.AccountDAO;
+import Dao.ClassDAO;
 import Dao.NotificationDAO;
 import Dao.TaskDAO;
 import java.io.IOException;
@@ -90,7 +91,11 @@ public class Change_InfoServlet extends HttpServlet {
                 Role userRole = dao.getUserRole(user.getEmail());
 
                 if (user.getId_role() == 1) {
-
+                    //Classes for sidebar
+                    User account = dao.getUser(user.getEmail());
+                    ClassDAO cdao = new ClassDAO();
+                    List<model.Class> classes = cdao.getClassByUser(account.getId_account());
+                    request.setAttribute("classes", classes);
                 } else {
                     Project project = (Project) session.getAttribute("project");
                     int project_id = project.getId_Project();

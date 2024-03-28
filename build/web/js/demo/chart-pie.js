@@ -5,15 +5,15 @@ Chart.defaults.global.defaultFontColor = '#858796';
 // Pie Chart Example
 var ctx = document.getElementById("myPieChart");
 var myPieChart = new Chart(ctx, {
-  type: 'doughnut',
+  type: 'pie', // Thay đổi type từ 'doughnut' thành 'pie'
   data: {
-    labels: ["Direct", "Referral", "Social"],
+    labels: ["Fail","Normal", "Good", "Excellent"],
     datasets: [{
-      data: [55, 30, 15],
-      backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc'],
-      hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf'],
-      hoverBorderColor: "rgba(234, 236, 244, 1)",
-    }],
+      data: [55, 10, 15, 20],
+      backgroundColor: ['#E74A3B', '#F6C23E','#36B9CC', '#1CC88A'],
+      hoverBackgroundColor: ['#66211b', '#735b1e', '#154a52', '#0d5e41'],
+      hoverBorderColor: "rgba(234, 236, 244, 1)"
+    }]
   },
   options: {
     maintainAspectRatio: false,
@@ -30,6 +30,6 @@ var myPieChart = new Chart(ctx, {
     legend: {
       display: false
     },
-    cutoutPercentage: 80,
+    cutoutPercentage: 0, // Bỏ cắt bớt để tạo thành biểu đồ pie chart tròn đầy đủ
   },
 });

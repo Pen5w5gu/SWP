@@ -98,13 +98,13 @@
                                     <h6 class="m-0  font-weight-bold text-primary">Task</h6>
                                 </div>
                                 <div class="card-body">
-                                    <div class="table-responsive">
-                                        <form action="comment" method="POST">
+                                    <form action="comment" method="POST">
+                                        <div class="table-responsive">
                                             <table class="table table-bordered" id="dataTable" width="100%"
                                                    cellspacing="0">
                                                 <thead>
                                                     <tr>
-                                                        <th >ID ${session.getRole_project()}</th>
+                                                        <th >Task ID</th>
                                                         <th>Task name</th>
                                                         <th>Milestone</th>
                                                         <th>Task description</th>
@@ -115,12 +115,10 @@
                                                 </thead>
                                                 <ul id="taskList">
                                                     <tbody>
-
-
                                                         <c:forEach items="${tasks}" var="task" varStatus="loop">
                                                             <tr>
 
-                                                                <td>${loop.index + 1}</td>
+                                                                <td>${task.idTask}</td>
                                                                 <td>
                                                                     <input type="hidden" name="task_id" value="${task.idTask}">
                                                                     <button type="submit" class="nav-link text-primary" style=" border: none; background-color: transparent; padding: 0; cursor: pointer;" >${task.taskName}</button>
@@ -137,56 +135,14 @@
                                                                 <td>${task.startDate}</td>
                                                                 <td>${task.endDate}</td>
                                                                 <td> <i class="fa-solid fa-trash-can" onclick="Delete(${task.idTask})"></i></td>
-                                                                <td>${taskIDs}</td>
+
                                                             </tr>
                                                         </c:forEach>
-
-
-
-
-
-                                                    <script>
-                                                        function Delete(idTask) {
-                                                            var taskIDs = "${taskIDs}";
-
-                                                            // Loại bỏ dấu phẩy ở đầu chuỗi (nếu có)
-                                                            if (taskIDs.charAt(0) === ',') {
-                                                                taskIDs = taskIDs.substring(1);
-                                                            }
-
-                                                            // Chuyển đổi chuỗi thành mảng các chuỗi
-                                                            var taskIDsArray = taskIDs.split(',');
-
-                                                            // Tạo một mảng mới không chứa phần tử có giá trị là idTask
-                                                            var newTaskIDsArray = [];
-                                                            for (var i = 0; i < taskIDsArray.length; i++) {
-                                                                if (taskIDsArray[i] !== idTask.toString()) {
-                                                                    newTaskIDsArray.push(taskIDsArray[i]);
-                                                                }
-                                                            }
-
-                                                            // Chuyển đổi mảng mới thành chuỗi
-                                                            var newTaskIDs = newTaskIDsArray.join(',');
-
-                                                            // Đường dẫn tới servlet
-                                                            var servletURL = 'select_AssignTask';
-
-                                                            // Tạo URL với tham số selectedTasks
-                                                            var urlWithParams = servletURL + '?selectedTasks=' + encodeURIComponent(newTaskIDs);
-
-                                                            // Mở liên kết mới
-                                                            window.location.href = urlWithParams;
-                                                        }
-
-                                                    </script>
-
-
-
                                                     </tbody>
                                                 </ul>
                                             </table>
-                                        </form>
-                                    </div>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
 
@@ -195,8 +151,9 @@
                                     <h6 class="m-0  font-weight-bold text-primary">Student</h6>
                                 </div>
                                 <div class="card-body">
-                                    <div class="table-responsive">
-                                        <form action="comment" method="POST">
+                                    <form action="comment" method="POST">
+                                        <div class="table-responsive">
+
                                             <table class="table table-bordered" id="dataTable1" width="100%"
                                                    cellspacing="0">
                                                 <thead>
@@ -221,14 +178,11 @@
 
                                                             </tr>
                                                         </c:forEach>
-
-
-
                                                     </tbody>
                                                 </ul>
                                             </table>
-                                        </form>
-                                    </div>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -273,15 +227,50 @@
 
                         </script>
                         <!-- End Card -->
+                        <script>
+                            function Delete(idTask) {
+                                var taskIDs = "${taskIDs}";
+
+                                // Loại bỏ dấu phẩy ở đầu chuỗi (nếu có)
+                                if (taskIDs.charAt(0) === ',') {
+                                    taskIDs = taskIDs.substring(1);
+                                }
+
+                                // Chuyển đổi chuỗi thành mảng các chuỗi
+                                var taskIDsArray = taskIDs.split(',');
+
+                                // Tạo một mảng mới không chứa phần tử có giá trị là idTask
+                                var newTaskIDsArray = [];
+                                for (var i = 0; i < taskIDsArray.length; i++) {
+                                    if (taskIDsArray[i] !== idTask.toString()) {
+                                        newTaskIDsArray.push(taskIDsArray[i]);
+                                    }
+                                }
+
+                                // Chuyển đổi mảng mới thành chuỗi
+                                var newTaskIDs = newTaskIDsArray.join(',');
+
+                                // Đường dẫn tới servlet
+                                var servletURL = 'select_AssignTask';
+
+                                // Tạo URL với tham số selectedTasks
+                                var urlWithParams = servletURL + '?selectedTasks=' + encodeURIComponent(newTaskIDs);
+
+                                // Mở liên kết mới
+                                window.location.href = urlWithParams;
+                            }
+
+                        </script>
 
                     </div>
                     <!-- /.container-fluid -->
 
                 </div>
                 <!-- End of Main Content -->
+                <%@ include file="Footer.jsp" %>
             </div>
             <!-- End of Content Wrapper -->
-            <%@ include file="Footer.jsp" %>
+
         </div>
         <!-- End of Page Wrapper -->
 

@@ -88,14 +88,14 @@
 
                         <!-- Page Heading -->
                         <p class="mb-4"> back to task</p>
-                        <h1 class="h3 mb-2 text-gray-800">Assign Task</h1>
+                        <h1 class="h3 mb-2 text-gray-800">Project in (name_class)</h1>
 
 
                         <!-- Card -->
                         <div style="display: flex;">
                             <div class="card shadow mb-4 " style="margin-right: 5Rem;">
                                 <div class="card-header d-sm-flex align-items-center justify-content-between mb-4">
-                                    <h6 class="m-0  font-weight-bold text-primary">Task</h6>
+                                    <h6 class="m-0  font-weight-bold text-primary">List Project</h6>
                                 </div>
                                 <div class="card-body">
                                     <form action="comment" method="POST">
@@ -104,7 +104,7 @@
                                                    cellspacing="0">
                                                 <thead>
                                                     <tr>
-                                                        <th >Task ID</th>
+                                                        <th >ID ${session.getRole_project()}</th>
                                                         <th>Task name</th>
                                                         <th>Milestone</th>
                                                         <th>Task description</th>
@@ -118,7 +118,7 @@
                                                         <c:forEach items="${tasks}" var="task" varStatus="loop">
                                                             <tr>
 
-                                                                <td>${task.idTask}</td>
+                                                                <td>${loop.index + 1}</td>
                                                                 <td>
                                                                     <input type="hidden" name="task_id" value="${task.idTask}">
                                                                     <button type="submit" class="nav-link text-primary" style=" border: none; background-color: transparent; padding: 0; cursor: pointer;" >${task.taskName}</button>
@@ -135,7 +135,7 @@
                                                                 <td>${task.startDate}</td>
                                                                 <td>${task.endDate}</td>
                                                                 <td> <i class="fa-solid fa-trash-can" onclick="Delete(${task.idTask})"></i></td>
-
+                                                                <td>${taskIDs}</td>
                                                             </tr>
                                                         </c:forEach>
                                                     </tbody>
@@ -146,43 +146,21 @@
                                 </div>
                             </div>
 
-                            <div class="card shadow mb-4 ">
-                                <div class="card-header d-sm-flex align-items-center justify-content-between mb-4">
-                                    <h6 class="m-0  font-weight-bold text-primary">Student</h6>
-                                </div>
-                                <div class="card-body">
-                                    <form action="comment" method="POST">
-                                        <div class="table-responsive">
-
-                                            <table class="table table-bordered" id="dataTable1" width="100%"
-                                                   cellspacing="0">
-                                                <thead>
-                                                    <tr>
-                                                        <th> Select</th>
-                                                        <th >Student ID</th>
-                                                        <th>Student Name</th>
-                                                        <th>Email</th>
-                                                        <th>Role</th>
-                                                    </tr>
-                                                </thead>
-                                                <ul id="taskList">
-                                                    <tbody>
-                                                        <c:forEach items="${students}" var="student" varStatus="loop">
-                                                            <tr>
-                                                                <td> <input type="checkbox" id="${student.id_account}" value="${student.id_account}"></td>
-                                                                <td>${loop.index + 1}</td>
-
-                                                                <td>${student.username}</td>
-                                                                <td>${student.email}</td>
-                                                                <td>${student.role_project}</td>
-
-                                                            </tr>
-                                                        </c:forEach>
-                                                    </tbody>
-                                                </ul>
-                                            </table>
+                            <div class="col-xl-4 col-lg-5">
+                                <div class="card shadow mb-4">
+                                    <!-- Card Header - Dropdown -->
+                                    <div class="card-header py-3">
+                                        <h6 class="m-0 font-weight-bold text-primary">Donut Chart</h6>
+                                    </div>
+                                    <!-- Card Body -->
+                                    <div class="card-body">
+                                        <div class="chart-pie pt-4">
+                                            <canvas id="myPieChart"></canvas>
                                         </div>
-                                    </form>
+                                        <hr>
+                                        Sửa ở 
+                                        <code>/js/demo/chart-pie.js</code> nhá cu.
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -316,6 +294,14 @@
 
         <!-- Page level plugins -->
         <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+        <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+        <!-- Page level plugins -->
+        <script src="vendor/chart.js/Chart.min.js"></script>
+        <!-- Page level custom scripts -->
+
+        <script src="js/demo/datatables-demo.js"></script>
+        <script src="js/demo/chart-pie.js"></script>
 
         <script>
                             $(document).ready(function () {
@@ -345,13 +331,6 @@
             });
 
         </script>
-
-
-        <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
-
-        <!-- Page level custom scripts -->
-        <script src="js/demo/datatables-demo.js"></script>
-
     </body>
 
 </html>

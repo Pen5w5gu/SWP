@@ -117,8 +117,7 @@ public class LoginServlet extends HttpServlet {
                         session.setAttribute("session", user);
                         List<Class> classes = cdao.getClassByUser(user.getId_account());
                         request.setAttribute("classes", classes);
-                        
-                        Project project = pdao.getProjectsByUser(user.getId_account());
+
 //                        session.setAttribute("project", project);
 //                        request.setAttribute("project", project.getId_Project());
                         request.getRequestDispatcher("Homepagelecture.jsp").forward(request, response);
@@ -126,18 +125,14 @@ public class LoginServlet extends HttpServlet {
                         // Tạo các đối tượng java.sql.Date trực tiếp từ ngày
                         // Tạo đối tượng Project
                         Project project = pdao.getProjectsByUser(user.getId_account());
-                        if(project == null){
+                        if (project == null) {
                             request.setAttribute("error", "You not allow login,<br>please contact to lecture!");
                             request.getRequestDispatcher("login.jsp").forward(request, response);
+                        } else {
+                            session.setAttribute("project", project);
+                            session.setAttribute("session", user);
+                            request.getRequestDispatcher("Homepagestudent.jsp").forward(request, response);
                         }
-                        session.setAttribute("project", project);
-                        request.setAttribute("project", project.getId_Project());
-                        
-                        int ID_user = user.getId_account();
-                        List<Project> p = pdao.getProjectbyIdAccount(ID_user);
-                        request.setAttribute("projects", p);
-                        session.setAttribute("session", user);
-                        request.getRequestDispatcher("Homepagestudent.jsp").forward(request, response);
                     }
                 } else {
                     request.setAttribute("email", email);

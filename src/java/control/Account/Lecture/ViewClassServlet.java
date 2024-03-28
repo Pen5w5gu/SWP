@@ -38,7 +38,9 @@ public class ViewClassServlet extends HttpServlet {
         HttpSession session = request.getSession();
         if (session != null && session.getAttribute("session") != null) {
         User user =  (User) session.getAttribute("session");
+        
         AccountDAO dao = new AccountDAO();
+        
         User account = dao.getUser(user.getEmail());
         ClassDAO cdao = new ClassDAO();
         List<Class> classes = cdao.getClassByUser(account.getId_account());

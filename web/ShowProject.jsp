@@ -70,8 +70,8 @@
                                 <h6 class="m-0 font-weight-bold text-primary">Student</h6>
                             </div>
                             <div class="card-body">
-                                <div class="table-responsive">
-                                    <form action="Grade" method="POST">
+                                <form action="Grade" method="POST">
+                                    <div class="table-responsive">
                                         <table class="table table-bordered" id="dataTable" width="100%"
                                                cellspacing="0">
                                             <thead>
@@ -98,8 +98,8 @@
                                                 </c:forEach>
                                             </tbody>
                                         </table>
-                                    </form>
-                                </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
 
