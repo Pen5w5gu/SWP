@@ -291,6 +291,44 @@ public class AccountDAO extends DBContext { // Follow Java naming conventions fo
         return users;
     }
 
+    public boolean ChangeStatus(int id_account, int Status) {
+        try {
+
+            String strInsert = "update [Join]\n"
+                    + "set\n"
+                    + "Allow_access = ?\n"
+                    + "where ID_account = ?";
+            PreparedStatement ps = connection.prepareStatement(strInsert);
+            ps.setInt(1, Status);
+            ps.setInt(2, id_account);
+
+            // Execute the update
+            int rowsAffected = ps.executeUpdate();
+
+            // Check if any rows were affected
+            if (rowsAffected > 0) {
+                return true;
+            } else {
+                return false; // No rows affected, task not added
+
+            }
+
+        } catch (SQLException e) {
+            // Handle any SQL exceptions
+            e.printStackTrace();
+            return false;
+        } finally {
+            // Close PreparedStatement if necessary (preferably in a separate finally block)
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     public List<User> getAllowStudentinclass(String classname) {
         List<User> users = new ArrayList<>();
 
@@ -474,7 +512,7 @@ public class AccountDAO extends DBContext { // Follow Java naming conventions fo
 
     public static void main(String[] args) {
         AccountDAO dao = new AccountDAO();
-        System.out.println(dao.getAllAccount());
+        System.out.println(dao.ChangeStatus(6, 0));
 
     }
 }

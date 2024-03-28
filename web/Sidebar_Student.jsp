@@ -6,7 +6,7 @@
 
         <!-- Sidebar - Brand -->
         <a class="sidebar-brand d-flex align-items-center justify-content-center"
-           href="Homepagestudent.jsp">
+           href="mytask">
             <div class="sidebar-brand-icon rotate-n-15">
                 <i class="fa-solid fa-graduation-cap"></i>
             </div>
@@ -17,8 +17,8 @@
         <hr class="sidebar-divider my-0">
 
         <!-- Nav Item - Dashboard -->
-        <li class="nav-item active">
-            <a class="nav-link" href="Homepagestudent.jsp">
+        <li class="nav-item">
+            <a class="nav-link" href="mytask">
                 <i class="fa-solid fa-list-ul"></i>
                 <span>My Task</span></a>
         </li>

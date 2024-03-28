@@ -1,3 +1,30 @@
+.notification {
+    position: relative;
+}
+
+.notification-content {
+    display: none;
+    position: absolute;
+    bottom: 100%; /* Hiển thị phía trên nút */
+    right: 0;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+}
+
+.notification:hover .notification-content {
+    display: block;
+}
+
+
+.notification-content:hover {
+    display: none;
+}
+
+
 .button-flex {
     display: flex;
     justify-content: center;
@@ -21,3 +48,7 @@ tr.disabled {
     display: flex;
     justify-content: flex-end;
 }
+
+
+
+

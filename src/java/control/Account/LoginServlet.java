@@ -131,7 +131,7 @@ public class LoginServlet extends HttpServlet {
                         } else {
                             session.setAttribute("project", project);
                             session.setAttribute("session", user);
-                            request.getRequestDispatcher("Homepagestudent.jsp").forward(request, response);
+                            request.getRequestDispatcher("mytask").forward(request, response);
                         }
                     }
                 } else {

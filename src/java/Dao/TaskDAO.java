@@ -44,6 +44,29 @@ public class TaskDAO extends DBContext {
         }
         return tasks;
     }
+    
+    public List<Task> getTaskByIdAccount(int Id_account) {
+        List<Task> tasks = new ArrayList<>();
+
+        try {
+            String strSelect = "SELECT    Task.*\n"
+                    + "FROM         milestone INNER JOIN\n"
+                    + "                      Project ON milestone.Id_Project = Project.Id_Project INNER JOIN\n"
+                    + "                      Task ON milestone.Id_milestone = Task.Id_milestone\n"
+                    + "					  where assign_to=?";
+            ps = connection.prepareStatement(strSelect);
+            ps.setInt(1, Id_account);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                tasks.add(new Task(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getDate(4), rs.getDate(5), rs.getInt(6), rs.getInt(7), rs.getInt(8)));
+            }
+            return tasks;
+        } catch (SQLException e) {
+            // Consider logging the exception instead of just printing it
+            e.printStackTrace();
+        }
+        return tasks;
+    }
 
     //created by Tung
     public List<Task> getTaskByProjectAndMileStone(int project_id, int milestone_id) {
@@ -249,7 +272,7 @@ public class TaskDAO extends DBContext {
     public static void main(String[] args) {
         TaskDAO taskDAO = new TaskDAO();
 
-        System.out.println(taskDAO.getTaskByLecture(4,"1750"));
+        System.out.println(taskDAO.getTaskByIdAccount(2));
 
 //        System.out.println(taskDAO.getTaskByID(1));
     }

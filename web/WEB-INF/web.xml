@@ -157,6 +157,22 @@
         <servlet-name>AllowAccount</servlet-name>
         <servlet-class>control.Account.Lecture.AllowAccount</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ShowClosedIssueServlet</servlet-name>
+        <servlet-class>control.Account.Student.ShowClosedIssueServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ChangeStatusIssuesServlet</servlet-name>
+        <servlet-class>control.Account.Student.ChangeStatusIssuesServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MyTaskServlet</servlet-name>
+        <servlet-class>control.Account.Student.MyTaskServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>BanAccountServlet</servlet-name>
+        <servlet-class>control.Account.Lecture.BanAccountServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -320,6 +336,22 @@
     <servlet-mapping>
         <servlet-name>AllowAccount</servlet-name>
         <url-pattern>/allowaccount</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ShowClosedIssueServlet</servlet-name>
+        <url-pattern>/closedissues</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ChangeStatusIssuesServlet</servlet-name>
+        <url-pattern>/changestatusissues</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MyTaskServlet</servlet-name>
+        <url-pattern>/mytask</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BanAccountServlet</servlet-name>
+        <url-pattern>/banaccount</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -65,12 +65,7 @@
         <div id="wrapper">
 
             <!-- Sidebar -->
-            <c:if test="${session.getId_role() == 1}">
-                <%@ include file="Sidebar_Lecture.jsp" %>
-            </c:if>
-            <c:if test="${session.getId_role() == 2}">
-                <%@ include file="Sidebar_Student.jsp" %>
-            </c:if>
+            <%@ include file="Sidebar_Student.jsp" %>
             <!-- End of Sidebar -->
 
             <!-- Content Wrapper -->

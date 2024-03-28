@@ -5,24 +5,26 @@
 package control.Account.Student;
 
 import Dao.AccountDAO;
-import Dao.NotificationDAO;
-import Dao.TaskDAO;
+import Dao.IssueDAO;
+import Dao.MilestoneDAO;
 import java.io.IOException;
+import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.List;
+import model.Issue;
+import model.Milestone;
 import model.Project;
-
+import model.User;
 
 /**
  *
  * @author acer
  */
-public class AssignTaskServlet extends HttpServlet {
+public class ShowClosedIssueServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,39 +37,22 @@ public class AssignTaskServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        IssueDAO idao = new IssueDAO();
         HttpSession session = request.getSession();
         Project project = (Project) session.getAttribute("project");
         int project_id = project.getId_Project();
-        String taskIDs = request.getParameter("taskIDs");
-        if (taskIDs == null || taskIDs.isEmpty()) {
-            // Handle case where selectedTasks is null or empty
-            return;
-        }
+        IssueDAO dao = new IssueDAO();
+        List<Issue> issues = dao.getClosedIssueByProject(project_id);
+        MilestoneDAO mdao = new MilestoneDAO();
+        List<Milestone> milestones = mdao.getMilestoneByProjectId(project_id);
         AccountDAO adao = new AccountDAO();
-        
-        int AccountID = Integer.parseInt(request.getParameter("checkedIDs"));
-        String name = adao.getUsernameById(AccountID);
-        NotificationDAO ndao = new NotificationDAO();
+        List<User> users = adao.getAllAccount();
+        request.setAttribute("users",users);
+        request.setAttribute("milestones", milestones);
+        request.setAttribute("issues", issues);
+        request.setAttribute("project_id",project_id);
+        request.getRequestDispatcher("Issue.jsp").forward(request, response);
 
-
-        // Phân tách chuỗi JSON thành mảng các chuỗi
-        String[] taskIDsArray = taskIDs.split(",");
-        List<Integer> taskIDsList = new ArrayList<>();
-        for(int i=0; i<taskIDsArray.length; i++){
-            if(!taskIDsArray[i].isEmpty()){
-                taskIDsList.add(Integer.parseInt(taskIDsArray[i]));
-                ndao.AddNoti(AccountID, name, project_id, Integer.parseInt(taskIDsArray[i]), "you asigned new Task");
-            }
-        }
-
-        TaskDAO tdao = new TaskDAO();
-        if(tdao.AssignTask(taskIDsList, AccountID)){
-           request.getRequestDispatcher("task").forward(request, response);
-        }else{
-            request.getRequestDispatcher("login.jsp").forward(request, response);
-        }
-
-        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

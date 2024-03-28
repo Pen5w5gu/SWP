@@ -27,7 +27,7 @@
             rel="stylesheet">
 
         <!-- Custom styles for this template -->
-        <link href="css/task.css" rel="stylesheet">
+        <link href="css/sb-admin-2.min.css" rel="stylesheet">
 
         <!-- Custom styles for this page -->
         <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
@@ -70,42 +70,55 @@
                         <div class="card shadow mb-4 ">
                             <div class="card-header d-sm-flex align-items-center justify-content-between mb-4">
                                 <div style="align-content: center; display: flex">
-                                    <h6 style="padding-right: 15px" class="m-0  font-weight-bold text-primary"><i class="fa-regular fa-circle-dot"></i> 0 Open </h6>
-
-                                    <h6  class="m-0  font-weight-bold text-gray-500"><i class="fa-solid fa-check"></i> 0 Closed  </h6>
+                                    <a href="issues" class="m-0 " style="padding-right: 15px"><i class="fa-regular fa-circle-dot"></i> 0 Open </a>
+                                    <a href="closedissues" class="m-0 "><i class="fa-solid fa-check"></i> 0 Closed  </a>
                                 </div>
 
-
-                                <a href="Add_Issue.jsp" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                                <a href="Add_Issue.jsp" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" >
                                     <i class="fa-solid fa-plus"></i> New issue
                                 </a>
                             </div>
-                            <div id="actionButtons" style="display:none; margin-left: 20px;">
-                                <p id="taskCount">Số lượng issue đã chọn:</p>
-                                <div style="display: flex">
-                                    <button id="uncheckAllButton" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm ">Deselect all</button>
-                                    <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            Mark as
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right animated--fade-in" aria-labelledby="navbarDropdown">
 
-                                            <button id="sendButton" class="dropdown-item" onclick="sendSelectedTasks()">Open</button>
-                                            <button id="sendButton" class="dropdown-item" onclick="sendSelectedTasks()">Closed</button>
+                            <div style="display: block; padding:0px 20px; "  >
+                                <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                                    <div style="display: flex; align-items: center;">
+                                        <input type="checkbox" id="selectAllCheckbox" style="margin-right: 5px;" class="d-none d-sm-inline-block btn-check" />
+                                        <p class="m-0 " id="taskCount" style="">Select all</p>
+                                    </div>
+
+                                    <div style="display: none; height: 20px" id="actionButtons">
+                                        <div class="py-3 d-flex flex-row align-items-center justify-content-between">
+                                            <h6 class="m-0 font-weight-bold text-primary">Mark as</h6>
+                                            <div class="dropdown no-arrow"> 
+                                                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                                </a>
+                                                <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                                     aria-labelledby="dropdownMenuLink">
+                                                    <div class="dropdown-header">Dropdown Header:</div>
+                                                    <a class="dropdown-item" onclick="OpenIssue()">Open</a>
+                                                    <a class="dropdown-item" onclick="CloseIssue()">Closed</a>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </li>
-                                </div>
+                                    </div>
 
+                                </div>
                             </div>
+
+
                             <div class="card-body">
+
+
                                 <form action="comment" method="POST">
                                     <div class="table-responsive">
                                         <table class="table table-bordered" id="dataTable" width="100%"
                                                cellspacing="0">
                                             <thead>
                                                 <tr>
-                                                    <th> Select</th>
-                                                    <th >ID</th>
+                                                    <th style="width: 50px">Select</th>
+                                                    <th>ID</th>
                                                     <th>Tittle</th>
                                                     <th>Milestone</th>
                                                     <th>Date</th>
@@ -119,7 +132,7 @@
                                                     <c:forEach items="${issues}" var="issue" varStatus="loop">
                                                         <tr>
                                                             <td> <input type="checkbox" id="${issue.id_issue}" value="${issue.id_issue}" ></td>
-                                                            <td>${loop.index + 1}</td>
+                                                            <td>${issue.id_issue}</td>
                                                             <td>
                                                                 <input type="hidden" name="task_id" value="${issue.id_issue}">
                                                                 <button type="submit" class="nav-link text-primary" style=" border: none; background-color: transparent; padding: 0; cursor: pointer;" >${issue.title}</button>
@@ -131,7 +144,6 @@
                                                                         ${milestone.name_milestone}
                                                                     </c:if>
                                                                 </c:forEach>
-
 
                                                             </td>
                                                             <td>${issue.date}</td> 
@@ -146,11 +158,6 @@
                                                             <c:if test="${issue.isStatus() == 0}">
                                                                 <td>Closed</td>
                                                             </c:if>
-
-
-
-
-
                                                         </tr>
                                                     </c:forEach>
                                                 </tbody>
@@ -220,147 +227,169 @@
 
         <!-- Page level custom scripts -->
         <script src="js/demo/datatables-demo.js"></script>
+
         <script>
-                                                document.addEventListener("DOMContentLoaded", function () {
-                                                    // Danh sách để lưu trữ các ID của task đã được chọn
-                                                    var selectedTasks = [];
+                                                        // Lấy href từ URL hiện tại
+                                                        var currentHref = window.location.href;
 
-                                                    // Lấy thẻ div cha chứa các button
-                                                    var actionButtonsDiv = document.getElementById('actionButtons');
+                                                        // Lấy danh sách các thẻ <a> trong <div> có inline style "align-content: center; display: flex"
+                                                        var flexDiv = document.querySelector('div[style="align-content: center; display: flex"]');
+                                                        var navLinks = flexDiv.querySelectorAll('a');
 
-                                                    // Lấy tất cả các checkbox
-                                                    var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+                                                        // Lặp qua từng thẻ <a> trong danh sách
+                                                        navLinks.forEach(function (navLink) {
+                                                            // Lấy href của từng thẻ <a>
+                                                            var href = navLink.getAttribute('href');
 
-                                                    // Thêm sự kiện "click" cho mỗi checkbox
-                                                    checkboxes.forEach(function (checkbox) {
-                                                        checkbox.addEventListener('click', function () {
-                                                            // Kiểm tra xem checkbox có được chọn hay không
-                                                            if (this.checked) {
-                                                                // Nếu được chọn, thêm ID của task vào danh sách
-                                                                selectedTasks.push(this.id);
-                                                            } else {
-                                                                // Nếu không được chọn, loại bỏ ID của task khỏi danh sách
-                                                                var index = selectedTasks.indexOf(this.id);
-                                                                if (index !== -1) {
-                                                                    selectedTasks.splice(index, 1);
-                                                                }
+                                                            // Kiểm tra xem href của thẻ <a> có kết thúc bằng href từ URL không
+                                                            if (currentHref.endsWith(href)) {
+                                                                // Thêm class "font-weight-bold" vào thẻ <a> chỉ khi href trùng khớp
+                                                                navLink.classList.add('font-weight-bold');
                                                             }
-
-                                                            // Hiển thị các button nếu có ít nhất một task được chọn
-                                                            displayActionTasks();
                                                         });
-                                                    });
-
-                                                    // Hàm để hiển thị số lượng task đã được chọn và các button tương ứng
-                                                    function displayActionTasks() {
-                                                        var taskCountContainer = document.getElementById('taskCount');
-                                                        var uncheckAllButton = document.getElementById('uncheckAllButton');
-                                                        var sendButton = document.getElementById('sendButton');
-
-                                                        // Hiển thị số lượng task đã được chọn
-                                                        taskCountContainer.textContent = 'Số lượng issue đã chọn: ' + selectedTasks.length;
-
-                                                        // Kiểm tra nếu có ít nhất 1 task được chọn thì hiển thị nút gửi và nút bỏ tích tất cả, ngược lại ẩn nút gửi và nút bỏ tích tất cả
-                                                        if (selectedTasks.length > 0) {
-                                                            actionButtonsDiv.style.display = 'block';
-                                                        } else {
-                                                            actionButtonsDiv.style.display = 'none';
-                                                        }
-                                                    }
-
-                                                    // Hàm để bỏ tích tất cả các task đã chọn
-                                                    function uncheckAllTasks() {
-                                                        // Lấy danh sách tất cả các ô checkbox trong bảng
-                                                        var checkboxes = document.querySelectorAll('#dataTable input[type="checkbox"]');
-
-                                                        // Duyệt qua từng checkbox và bỏ tích
-                                                        checkboxes.forEach(function (checkbox) {
-                                                            checkbox.checked = false;
-                                                        });
-
-                                                        // Xóa danh sách các task đã chọn và cập nhật hiển thị
-                                                        selectedTasks = [];
-                                                        displayActionTasks();
-                                                    }
-
-                                                    // Lấy thẻ button bằng id
-                                                    var uncheckAllButton = document.getElementById('uncheckAllButton');
-
-                                                    // Thêm sự kiện "click" cho button
-                                                    uncheckAllButton.addEventListener('click', uncheckAllTasks);
-
-                                                    // Hàm để gửi danh sách ID đã chọn đến servlet
-
-
-
-
-
-                                                });
         </script>
+
+
         <script>
-            function getSelectedCheckboxValues() {
-                // Khởi tạo mảng để lưu trữ các giá trị đã chọn
-                var selectedValues = "";
+            document.addEventListener("DOMContentLoaded", function () {
+                // Danh sách để lưu trữ các ID của task đã được chọn
+                var selectedTasks = [];
+
+                // Lấy thẻ div cha chứa các button
+                var actionButtonsDiv = document.getElementById('actionButtons');
 
                 // Lấy tất cả các checkbox
-                var checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+                var checkboxes = document.querySelectorAll('div.card-body input[type="checkbox"]');
+
+                // Thêm sự kiện "click" cho mỗi checkbox
+                checkboxes.forEach(function (checkbox) {
+                    checkbox.addEventListener('click', function () {
+                        // Kiểm tra xem checkbox có được chọn hay không
+                        if (this.checked) {
+                            // Nếu được chọn, thêm ID của task vào danh sách
+                            selectedTasks.push(this.id);
+                        } else {
+                            // Nếu không được chọn, loại bỏ ID của task khỏi danh sách
+                            var index = selectedTasks.indexOf(this.id);
+                            if (index !== -1) {
+                                selectedTasks.splice(index, 1);
+                            }
+                        }
+
+                        // Hiển thị số lượng task đã được chọn và các button tương ứng
+                        displayActionTasks();
+                    });
+                });
+
+                // Hàm để hiển thị số lượng task đã được chọn và các button tương ứng
+                function displayActionTasks() {
+                    var taskCountContainer = document.getElementById('taskCount');
+                    var uncheckAllButton = document.getElementById('uncheckAllButton');
+                    var sendButton = document.getElementById('sendButton');
+                    var selectAllCheckbox = document.getElementById('selectAllCheckbox');
+
+                    // Kiểm tra nếu có ít nhất 1 task được chọn thì hiển thị nút gửi và nút bỏ tích tất cả, ngược lại ẩn nút gửi và nút bỏ tích tất cả
+                    if (selectedTasks.length > 0) {
+                        taskCountContainer.textContent = selectedTasks.length + ' selected';
+                        actionButtonsDiv.style.display = 'block';
+                        selectAllCheckbox.checked = true; // Tự động tích checkbox
+                    } else {
+                        taskCountContainer.textContent = 'Select all';
+                        actionButtonsDiv.style.display = 'none';
+                        selectAllCheckbox.checked = false; // Bỏ tích checkbox nếu không có task nào được chọn
+                    }
+                }
+
+                // Hàm để chọn tất cả các task
+                function checkAllTasks() {
+                    // Lấy danh sách tất cả các ô checkbox trong bảng
+                    var checkboxes = document.querySelectorAll('div.card-body input[type="checkbox"]');
+
+                    // Duyệt qua từng checkbox và tích
+                    checkboxes.forEach(function (checkbox) {
+                        checkbox.checked = true;
+                    });
+
+                    // Cập nhật danh sách các task đã chọn và hiển thị
+                    selectedTasks = Array.from(checkboxes).map(function (checkbox) {
+                        return checkbox.id;
+                    });
+                    displayActionTasks();
+                }
+
+                // Hàm để bỏ tích tất cả các task đã chọn
+                function uncheckAllTasks() {
+                    // Lấy danh sách tất cả các ô checkbox trong bảng
+                    var checkboxes = document.querySelectorAll('div.card-body input[type="checkbox"]');
+
+                    // Duyệt qua từng checkbox và bỏ tích
+                    checkboxes.forEach(function (checkbox) {
+                        checkbox.checked = false;
+                    });
+
+                    // Xóa danh sách các task đã chọn và cập nhật hiển thị
+                    selectedTasks = [];
+                    displayActionTasks();
+                }
+
+                // Lắng nghe sự kiện khi checkbox "selectAllCheckbox" thay đổi trạng thái
+                var selectAllCheckbox = document.getElementById('selectAllCheckbox');
+                selectAllCheckbox.addEventListener('change', function () {
+                    if (this.checked) {
+                        checkAllTasks(); // Nếu checkbox được chọn, chọn tất cả các checkbox khác
+                    } else {
+                        uncheckAllTasks(); // Nếu checkbox không được chọn, bỏ tích tất cả các checkbox khác
+                    }
+                });
+            });
+
+            function getSelectedCheckboxValues() {
+                // Khởi tạo mảng để lưu trữ các giá trị đã chọn
+                var selectedValues = [];
+
+                // Lấy tất cả các checkbox đã được chọn
+                var checkboxes = document.querySelectorAll('div.card-body input[type="checkbox"]:checked');
 
                 // Duyệt qua từng checkbox đã chọn và lưu giá trị vào mảng
                 checkboxes.forEach(function (checkbox) {
-                    selectedValues = selectedValues + "," + checkbox.value;
+                    selectedValues.push(checkbox.value);
                 });
 
-                // Trả về chuỗi được cách nhau bằng dấu phẩy
+                // Trả về mảng các giá trị đã chọn
                 return selectedValues;
             }
 
 
-
-            function Sendata(taskId, newTaskTypeId) {
-                // Tạo một đối tượng XMLHttpRequest
-                var xhr = new XMLHttpRequest();
-
-                // Thiết lập phương thức và URL cho servlet
-                xhr.open("POST", "shange_status", true);
-                xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-
-                // Thiết lập hàm xử lý khi nhận được phản hồi từ server
-                xhr.onreadystatechange = function () {
-                    if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-                        // Xử lý phản hồi từ server nếu cần
-                        console.log("Dữ liệu đã được gửi thành công!");
-                    } else {
-                        console.log("Failed");
-                    }
-                };
-
-                // Gửi yêu cầu POST với dữ liệu taskId và newTaskTypeId
-                xhr.send("taskId=" + taskId + "&newTaskTypeId=" + newTaskTypeId);
-            }
-
-
-            function sendSelectedTasks() {
+            function OpenIssue() {
                 // Lấy chuỗi giá trị đã chọn
                 var selectedValues = getSelectedCheckboxValues();
 
                 // Đường dẫn tới servlet
-                var servletURL = 'select_AssignTask';
+                var servletURL = 'changestatusissues';
 
                 // Tạo URL với tham số selectedTasks
-                var urlWithParams = servletURL + '?selectedTasks=' + encodeURIComponent(selectedValues);
+                var urlWithParams = servletURL + '?issueIDs=' + selectedValues + '&status=' + 1;
 
                 // Mở liên kết mới
-                window.open(urlWithParams, '_blank');
+                window.open(urlWithParams);
             }
 
+            function CloseIssue() {
+                // Lấy chuỗi giá trị đã chọn
+                var selectedValues = getSelectedCheckboxValues();
 
-            function openNewPage() {
-                // Đường dẫn tới trang mới
-                var newPageURL = 'login.jsp'; // Thay đổi thành URL của trang bạn muốn mở
+                // Đường dẫn tới servlet
+                var servletURL = 'changestatusissues';
 
-                // Mở trang mới
-                window.location.href = newPageURL;
+                // Tạo URL với tham số selectedTasks
+                var urlWithParams = servletURL + '?issueIDs=' + selectedValues + '&status=' + 0;
+
+
+                // Mở liên kết mới
+                window.open(urlWithParams);
             }
+            z
+
 
         </script>
     </body>

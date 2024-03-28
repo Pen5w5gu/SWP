@@ -27,6 +27,7 @@
 
         <!-- Custom styles for this template -->
         <link href="css/sb-admin-2.min.css" rel="stylesheet">
+        <link href="css/mytask.css" rel="stylesheet">
 
         <!-- Custom styles for this page -->
         <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
@@ -222,23 +223,35 @@
                                                 <th>Name</th>
                                                 <th>Email</th>
                                                 <th>Role</th>
-                                                <th>Action</th>
+                                                <th style="width: 150px">Action</th>
                                             </tr>
                                         </thead>
 
                                         <tbody>
                                             <c:forEach items="${student}" var="x" varStatus="loop">
                                                 <tr>
-                                                    <td>${loop.index+1}</td>
+                                                    <td>${x.id_account}</td>
                                                     <td>
                                                         <input type="hidden" name="task_id" value="${x.id_account}">
                                                         <button type="button" class="nav-link text-primary" style="border: none; background-color: transparent; padding: 0; cursor: pointer;" onclick="OpenTask('${x.id_account}', '${Classname}')">${x.username}</button>
                                                     </td>
                                                     <td>${x.email}</td>
                                                     <td>${x.role_project}</td>
-                                                    <td><i class="fa-regular fa-rectangle-list"></i></td>
+                                                    
+                                                    <td>
+                                                        <div class="notification">
+                                                            <a href='banaccount?classname=${Classname}&id_account=${x.id_account}&status=0'" aria-haspopup="true" aria-expanded="false">
+                                                                <i class="fa-solid fa-user-slash"></i>
+                                                            </a>
+                                                            <div class="notification-content" id="notificationContent">
+                                                                Thu hồi tài khoản
+                                                            </div>
+                                                        </div>
+                                                    </td>
                                                 </tr>
                                             </c:forEach>
+
+
                                         </tbody>
 
                                         <script>
@@ -250,8 +263,6 @@
                                                 window.open(urlWithParams, '_blank');
                                             }
                                         </script>
-
-
 
                                         </tbody>
                                     </table>
@@ -317,6 +328,8 @@
 
         <!-- Page level custom scripts -->
         <script src="js/demo/datatables-demo.js"></script>
+        
+
 
     </body>
 
