@@ -48,6 +48,7 @@ Task assignment interface for each team member:
 
 - - 📫 How to reach me **quannt552003@gmail.com**
 
+<p>
 /////////////////////////////////////////////////////////
 //                                                     //
 //                       _oo0oo_                       //
@@ -77,3 +78,4 @@ Task assignment interface for each team member:
 //                    A DI ĐÀ PHẬT!                    //
 //                                                     //
 /////////////////////////////////////////////////////////
+</p>
