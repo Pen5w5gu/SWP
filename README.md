@@ -72,7 +72,7 @@ Task assignment interface for each team member:
 //                                                     //
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~     //
 //                                                     //
-//  KHÔNG BUG!        KHÔNG CRASH!           QUA MÔN   //
+//  KHÔNG BUG!        KHÔNG CRASH!        TỐT NGHIỆP!  //
 //                                                     //
 //                    A DI ĐÀ PHẬT!                    //
 //                                                     //
